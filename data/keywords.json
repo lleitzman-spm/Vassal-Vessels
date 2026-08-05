@@ -1,0 +1,194 @@
+{
+  "$schema": "vassal-vessels/keywords/1",
+  "explains": "Keywords are short words printed on a unit's sheet that mean one specific rule. There are deliberately few, and none of them is 'plus twenty percent against X'. Every keyword either unlocks an order, changes a physical property, or connects the unit to the court. (Quirks — the named behaviours the court hands the battle, for units and captains alike — live in data/quirks.json; the captain model itself is in data/captains.json. These are unit traits, which is a different thing: a trait is what a unit IS, a quirk is what its politics did to it.)",
+  "keywords": [
+    {
+      "id": "CanBrace",
+      "name": "Can Brace",
+      "rule": "May be given the BRACE order. While braced: speed 0, full refusal, +140 shock resistance, front arc only.",
+      "explains": "This unit's weapons are long enough to make a horse stop. It is the most important keyword in the game — but note it only says CAN. A spear line that has not been given the order gets nothing.",
+      "readOnField": "Butts in the earth, points level, absolutely still."
+    },
+    {
+      "id": "DeepBlock",
+      "name": "Deep Block",
+      "rule": "Default ranks 8 instead of 4. May form the ring.",
+      "explains": "Stands eight deep: enormous staying power, a narrow front, and it turns like a barn."
+    },
+    {
+      "id": "ShieldWall",
+      "name": "Shield Wall",
+      "rule": "May use the shieldwall formation: tighter files, front shield +25 percent, +60 shock resistance, six-tenths speed.",
+      "explains": "Trained to overlap shields so each man is partly covered by his neighbour. It only works while the line holds — below 300,000 cohesion the shield bonus halves, because the wall has stopped being a wall."
+    },
+    {
+      "id": "Mounted",
+      "name": "Mounted",
+      "rule": "Horse speeds and horse mass. +90 per mille to be hit in melee (a horse is a large target). Feels refusal at full strength. Melee armour = (rider x 2 + horse) / 3. Pursues at 3.5x kill rate and double capture rate.",
+      "explains": "On a horse. Faster than anything, heavier than anything, easier to hit than anything — and the one creature on the field that will not run onto a set spear point.",
+      "readOnField": "Obvious."
+    },
+    {
+      "id": "Shock",
+      "name": "Shock",
+      "rule": "Delivers shock on impact above 60 mm/tick closing speed. Loses 200,000 cohesion on impact and needs its ready time standing still to redress.",
+      "explains": "Exists to hit things very hard, once. The important half is the second sentence: charging home wrecks your OWN order, so shock troops are a piston — charge, strike, wheel out, reform, charge — and every stroke costs a rider out and a rider back."
+    },
+    {
+      "id": "Feigner",
+      "name": "Feigner",
+      "rule": "May be given the FEIGN order (difficulty 70).",
+      "explains": "Drilled well enough to run away on purpose and come back. Almost nobody has this. It is the hardest order in the game, and a failed attempt spreads REAL panic to your own line, because your neighbours cannot tell a false rout from a true one either."
+    },
+    {
+      "id": "Evade",
+      "name": "Evade",
+      "rule": "On the SCREEN job, automatically withdraws when an enemy comes within 45,000 mm. No order, no courier, no heed check.",
+      "explains": "Never accepts a fight it did not choose. This is what makes skirmishers work with no attention from you at all."
+    },
+    {
+      "id": "ShootOnMove",
+      "name": "Shoot on the Move",
+      "rule": "May shoot while moving at a 400 per mille penalty, instead of not at all.",
+      "explains": "Trained to throw or shoot from the saddle. A unit that shoots while moving never has to stand still, so it can never really be caught — the answer to it is not on the field, it is at court: catch it with your own horse, or make its paymaster poor."
+    },
+    {
+      "id": "Stakes",
+      "name": "Stakes",
+      "rule": "May be given PLANT_STAKES: 1800 ticks immobile, then refusal 800 over 9,000 mm in the front arc, kept while stationary, left behind forever if the unit moves.",
+      "explains": "Carries sharpened poles and a mallet. Ninety seconds of standing still buys a hedge nearly as good as pikes — and unlike pikemen, these men keep shooting the whole time."
+    },
+    {
+      "id": "Pavise",
+      "name": "Pavise",
+      "rule": "+30 armour against missiles in the front arc, while stationary only.",
+      "explains": "A standing shield propped in the ground. Thirty points against arrows, four against a sword, and none of it works if you move a step."
+    },
+    {
+      "id": "MaulFinisher",
+      "name": "Maul",
+      "rule": "Sidearm-class hammer with penetration 60, +12 in the press.",
+      "explains": "The stake-hammer doubles as the tool that opens tired men in plate. Not a bonus — just what a five-pound lead head does."
+    },
+    {
+      "id": "ArmourPiercer",
+      "name": "Armour Piercer",
+      "rule": "Missile penetration 62 or higher.",
+      "explains": "Goes through plate where a bow only rattles it. Fewer shots, but the shots count."
+    },
+    {
+      "id": "Standard",
+      "name": "Standard",
+      "rule": "Radiates steadiness to all friends within its steady radius. If destroyed, every friendly unit loses 250,000 morale at once.",
+      "explains": "Carries something worth standing near — and worth taking."
+    },
+    {
+      "id": "SignalSource",
+      "name": "Signal Source",
+      "rule": "Units with line of sight to this unit, within signal range, receive orders in 20 ticks and cost no courier.",
+      "explains": "Your voice. Where this stands is where you can be heard — which is why moving it is a strategic act and losing it is a catastrophe."
+    },
+    {
+      "id": "Bodyguard",
+      "name": "Bodyguard",
+      "rule": "Will not leave the command post; ignores movement orders beyond 30,000 mm from it.",
+      "explains": "These men have one job and they know it."
+    },
+    {
+      "id": "Irreplaceable",
+      "name": "Irreplaceable",
+      "rule": "Cannot be replaced between battles. If destroyed or captured, the court must resolve it.",
+      "explains": "There is only one Crown Banner and only one saint's arm. Losing them is a story that continues after the battle."
+    },
+    {
+      "id": "Holy",
+      "name": "Holy",
+      "rule": "May ABSOLVE once per battle: +200,000 morale to one contingent, no courier, requires line of sight. If captured: army-wide -250,000 morale and a Church penalty at court.",
+      "explains": "God is watching, and so is the bishop, and the bishop keeps accounts."
+    },
+    {
+      "id": "NonCombatant",
+      "name": "Non-Combatant",
+      "rule": "Deals no melee damage. Routs below 400,000 morale instead of 150,000.",
+      "explains": "Cannot fight and will not try."
+    },
+    {
+      "id": "Proud",
+      "name": "Proud",
+      "rule": "Descriptive marker: this unit's captain takes over-the-head orders especially badly. The insult rule itself lives in the heed table.",
+      "explains": "These men belong to a lord, and the lord notices when you go around him in front of his own retinue."
+    },
+    {
+      "id": "Ransomable",
+      "name": "Ransomable",
+      "rule": "If this unit's captain is captured, he is worth a ransom priced by his standing at court.",
+      "explains": "Noble prisoners are money. This is why pursuit is tempting and why pursuit is dangerous."
+    },
+    {
+      "id": "Mercenary",
+      "name": "Mercenary",
+      "rule": "Morale floor is 0 instead of 200,000 while the contingent's arrears are above zero.",
+      "explains": "Hired men fight exactly as well as they are paid, and they know precisely what they are owed."
+    },
+    {
+      "id": "UnpaidLeave",
+      "name": "Will Simply Leave",
+      "rule": "If arrears > 0: on every captains'-hand check (every 40 ticks), 25 per mille chance the unit withdraws from the field entirely.",
+      "explains": "Not a morale penalty. They go home. The strongest wire between the treasury and the battlefield in the game, and deliberately brutal."
+    },
+    {
+      "id": "Fragile",
+      "name": "Fragile",
+      "rule": "Morale ceiling capped at 600,000.",
+      "explains": "Can never be more than two-thirds brave, however well the day is going."
+    },
+    {
+      "id": "Nimble",
+      "name": "Nimble",
+      "rule": "Turn multiplier 1400 per mille or better.",
+      "explains": "Turns fast, which wins the race to a flank — and flanking is a race, because the other fellow is trying to wheel and face you."
+    },
+    {
+      "id": "FastFoot",
+      "name": "Fleet",
+      "rule": "Speed multiplier 1150 per mille; fatigue multiplier 900.",
+      "explains": "Faster and less tiring than other footmen. The whole counter to heavy infantry lives in these two numbers."
+    },
+    {
+      "id": "PressFighter",
+      "name": "Press Fighter",
+      "rule": "Takes no crowd penalty in the press and gains the reach inversion rather than suffering it.",
+      "explains": "Fights at arm's length by choice. Loses the first six seconds badly and wins everything afterwards."
+    },
+    {
+      "id": "ArmourWall",
+      "name": "Armour Wall",
+      "rule": "Body armour 88 or higher.",
+      "explains": "Effectively immune to cuts and nearly immune to arrows. Vulnerable to hammers, hooks, mud, and its own exhaustion."
+    },
+    {
+      "id": "Terrify",
+      "name": "Terrify",
+      "rule": "Missile fear multiplier 4000 instead of 1400.",
+      "explains": "Kills almost nobody and frightens everybody — which, since morale is the real health bar, is often better."
+    },
+    {
+      "id": "Misfires",
+      "name": "Misfires",
+      "rule": "60 per mille chance per shot of destroying the crew.",
+      "explains": "Gunpowder. Sometimes the tube wins."
+    },
+    {
+      "id": "Immobile",
+      "name": "Immobile",
+      "rule": "Speed multiplier 150 per mille.",
+      "explains": "Wherever you put it at the start is where it is."
+    },
+    {
+      "id": "Pursuer",
+      "name": "Pursuer",
+      "rule": "Pursuit kill rate 3500 per mille; capture chance +200 per mille.",
+      "explains": "Rides down running men — which is where the ransoms come from, and where battles are actually decided in blood."
+    }
+  ]
+}

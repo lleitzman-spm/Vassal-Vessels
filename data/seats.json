@@ -1,0 +1,121 @@
+{
+  "$schema": "vassal-vessels/seats/1",
+  "explains": "The seven offices of the court. Every one of them does three things at once: it gives you a second pair of hands on the calendar, it pulls a lever on the muster, and it makes somebody angry — either the men you passed over, or the men still waiting while the chair sits empty. There is no free option, and 'I will decide later' is itself one of the options, with its own price.",
+  "howASeatWorks": {
+    "effect": "base x (competence / 100) x (0.5 + loyalty / 200)",
+    "k": "court.seats",
+    "explains": "A seat's real strength is the office's own power, multiplied by how good the man is, multiplied by how much he likes you. Loyalty never takes it below half, so a bad appointment is WASTED, never worse than an empty chair. What is worse than an empty chair is the grudge you earn from everybody who wanted it.",
+    "aSeatIsTime": "Each filled seat is a second track on the calendar. Against a forty-one-day deadline, a granted seat is literally more time — and time is the scarcest thing in this game. Two seats filled means forty-one crown-days and eighty-two officer-days, and eleven things worth doing.",
+    "tenure": "Held eight years, an office becomes customary and taking it back is a serious insult. Held sixteen, everyone treats it as that house's property and taking it back reads as tyranny to every other house at once. You rented time and paid in sovereignty.",
+    "vacant": "A vacant seat still does its job at half effect, because the crown does it — badly, and with the crown's own days."
+  },
+  "fields": {
+    "base": "The office's own power on each lever it pulls, before competence and loyalty are applied.",
+    "vacantCosts": "What it costs you to leave the chair empty. Every one of these is paid quietly, every season, forever.",
+    "claimants": "Who wants it, and how badly they take being passed over."
+  },
+
+  "seats": [
+    {
+      "id": "marshal",
+      "name": "The Marshal",
+      "forTheMuster": "Commands the host, and sets how many contingents you can give an order to at once.",
+      "base": { "orderCapacity": 4, "authority": 40, "obedienceToAll": 10 },
+      "numbers": {
+        "orderCapacity": "4, plus 1 for every 25 points of competence above 50, to a maximum of 6",
+        "authority": "40 + 40 x effect + standing / 5, and +10 if he is the crown's own blood",
+        "vacant": "order capacity 2, and every contingent's obedience 10 lower"
+      },
+      "vacantCosts": "You must name a commander for every single campaign instead — and naming one captain over another is a fresh insult, every war, forever.",
+      "explains": "The Marshal is the man who actually leads the army, because you never do: you are the crown, not a body on a horse. His real job in the game is YOUR HANDS. Order capacity becomes the battle's couriers and its standing-plan slots — with no Marshal you have two riders and four plans, with a great one six riders and eight. That is the difference between a plan and a hope, and it is the most direct thing the court does to the battle.",
+      "claimants": "Warriors with big reputations. They want this one badly, and passing them over is the sharpest grudge in the game."
+    },
+    {
+      "id": "chancellor",
+      "name": "The Chancellor",
+      "forTheMuster": "The letters. Summonses ride faster and land harder.",
+      "base": { "courierSpeed": 25, "willingness": 8, "negotiationDays": 30 },
+      "numbers": {
+        "summonsSpeed": "courier days multiplied by (1 - 0.25 x effect)",
+        "willingness": "+8 on every summons, to every house",
+        "negotiationDays": "30 per cent off betrothals, ransoms and charters",
+        "vacant": "two extra days on every letter you send"
+      },
+      "vacantCosts": "Every deadline is two days tighter than it looks, on every letter, all year.",
+      "explains": "The Chancellor writes and seals your letters. That sounds like the dullest office in the realm until you notice that the whole game is a race against a date. He turns court power into SPEED, and speed is the only thing in this game that cannot be bought with money.",
+      "claimants": "Clever men, churchmen, second sons with good handwriting. They take being passed over far less personally than warriors do, which makes this the cheapest seat to leave empty and the easiest to grant."
+    },
+    {
+      "id": "steward",
+      "name": "The Steward",
+      "forTheMuster": "The coffer and the granary — money for companies, food for the march.",
+      "base": { "revenue": 25, "provisioning": 30, "scutageCrownsPerManOwed": 3 },
+      "numbers": {
+        "revenue": "+25 per cent",
+        "provisioning": "30 per cent off the cost of grain",
+        "scutage": "may lawfully demand 3 crowns per man owed instead of 2",
+        "vacant": "a fifth of your revenue simply is not collected, provisioning costs a third more, and scutage stays at the founding rate"
+      },
+      "vacantCosts": "A fifth of your income never arrives, and your host runs out of bread sooner than the arithmetic said it would.",
+      "explains": "The Steward counts the money and fills the barns. He does not sound like a war office until your army is standing in a field with two days of food, unable to wait for the men who are still coming and unable to refuse a battle.",
+      "claimants": "Rich houses. Being passed over for this one is expensive as well as insulting, so they take it hard."
+    },
+    {
+      "id": "constable",
+      "name": "The Constable",
+      "forTheMuster": "The roads and the castle garrisons. Turns walls back into soldiers.",
+      "base": { "garrisonRelief": 25, "fatigueRelief": 30 },
+      "numbers": {
+        "garrisonRequirement": "25 per cent lower at every castle and fort",
+        "fatigueOnArrival": "multiplied by (1 - 0.3 x effect)",
+        "vacant": "every castle and fort holds back its full garrison"
+      },
+      "vacantCosts": "Frontier lords can spare almost nothing, because their men are nailed to their own walls.",
+      "explains": "Every castle needs men standing on it, and those men cannot march. The Constable is how you get them down: a good one takes a quarter of every garrison off the wall and puts it in your line. On the frontier that is the difference between a lord bringing you forty riders and bringing you ten — which is why appointing a Constable feels like conjuring soldiers out of nothing, and why it is the least glamorous seat that most changes the muster.",
+      "claimants": "March lords and old soldiers: the best claim in the realm and the least money to press it with."
+    },
+    {
+      "id": "justiciar",
+      "name": "The Justiciar",
+      "forTheMuster": "Settles grudges without giving away land.",
+      "base": { "settlement": 10 },
+      "numbers": {
+        "settlement": "6 + 10 x effect grievance points per judgement",
+        "cost": "twenty of the Justiciar's days and forty crowns",
+        "vacant": "grudges may only be bought off with land, or with coin at half rate"
+      },
+      "vacantCosts": "Every grudge must be paid for in land or in silver, and you will run out of both.",
+      "explains": "The Justiciar hears complaints and gives judgements, which is the only way in the game to make a great many people less angry without handing out land you can never get back. If the court is spiralling into resentment, this is the seat that stops the spiral — which is exactly why leaving it empty is so dangerous, and why the danger is invisible until it is enormous.",
+      "claimants": "Respected elders. Passing them over is a quiet grudge that gets loud later."
+    },
+    {
+      "id": "spymaster",
+      "name": "The Spymaster",
+      "forTheMuster": "Turns hidden things visible — before you send the letter, not after.",
+      "base": { "reveals": 100 },
+      "numbers": {
+        "reveals": "exact willingness terms, exact grievance weights, factions, and the treachery number",
+        "vacant": "you see bands — 'Cool', 'Sullen' — and never numbers, and treachery is hidden entirely"
+      },
+      "vacantCosts": "You find out about the traitor from the battle report.",
+      "explains": "Everything else in this game is arithmetic you can check for yourself. The Spymaster decides how much of that arithmetic you are ALLOWED TO SEE. Without him you know a lord is sullen; with him you know he stands at willingness 21, that he has made common cause with his neighbour, and that his treachery is 63 — which means that if you summon him anyway, whatever happens next is your own fault. That is the whole design of this game in one seat.",
+      "claimants": "Nobody claims this one in public, so granting it makes no enemies at all. That is its hidden bargain, and it is a good one."
+    },
+    {
+      "id": "chaplain",
+      "name": "The Chaplain",
+      "forTheMuster": "Blesses the cause. The only key to the Sworn Order.",
+      "base": { "legitimacy": 10 },
+      "numbers": {
+        "legitimacy": "+10 x effect, and the cause may be blessed at all",
+        "swornOrder": "an unblessed war means the Order does not come",
+        "vacant": "5 legitimacy off every cause, and no Order, ever"
+      },
+      "vacantCosts": "Your wars read as one lord's adventure rather than the realm's business, and every house's willingness pays for it.",
+      "explains": "The Chaplain decides whether your war is a holy duty or a land grab. That is worth up to twenty points of willingness with every house at once, which makes it the WIDEST lever in the court — and he is the only person who can call in the Sworn Brothers, who are the best foot soldiers in the game and cost nothing at all.",
+      "claimants": "The abbeys. A pious house passed over for this one becomes a very self-righteous enemy."
+    }
+  ],
+
+  "theHardTruth": "There are seven seats and there are always more claimants than seats, so granting one always makes enemies and leaving one empty always makes enemies more slowly. You are not choosing between a good outcome and a bad one. You are choosing which of your lords is angry with you, and how soon."
+}

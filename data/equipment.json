@@ -1,0 +1,293 @@
+{
+  "$schema": "vassal-vessels/equipment/1",
+  "explains": "Weapons, armour and shields. A weapon is four numbers and a habit: REACH decides who lands the first blow; PEN decides whether it matters through armour (compared on a cube, so armour is a wall, not a slope); RATE is how often a man makes a real killing attempt; RANKS is how many rows can fight past their friends; and PRESS is what happens when the lines are shoved together and there is no room to swing — some weapons come into their own and some become a stick you are carrying for no reason. Armour is one number; shields are counted separately because a shield only covers the way you point it, and that single fact is why getting round somebody's side wins battles.",
+  "fields": {
+    "reachMm": "How far the point or edge reaches from the man's body.",
+    "pen": "Penetration 0-100, cubed against armour cubed.",
+    "ratePer1000Ticks": "Killing attempts per man per 50 seconds.",
+    "fightingRanks": "Ranks that can use it at once in the clash.",
+    "pressPenaltyPermille": "Crowd penalty once the press starts. 0 means the weapon is happy in a shoving match.",
+    "shockOnly": "True if it only works at the moment of impact.",
+    "twoHanded": "True means no shield."
+  },
+  "weapons": [
+    {
+      "id": "long-knife",
+      "name": "Long Knife",
+      "reachMm": 350,
+      "pen": 22,
+      "ratePer1000Ticks": 10,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 0,
+      "shockOnly": false,
+      "twoHanded": false,
+      "explains": "A poor man's sidearm. Useless at reach; exactly the right length in the crush where nobody can lift an arm. This is what saves a spearman when his spear becomes a nuisance — and what fails to save a pikeman, because a knife is a knife.",
+      "readOnField": "Men drop the shaft and go to the belt."
+    },
+    {
+      "id": "sword",
+      "name": "Arming Sword",
+      "reachMm": 900,
+      "pen": 30,
+      "ratePer1000Ticks": 8,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 0,
+      "shockOnly": false,
+      "twoHanded": false,
+      "explains": "The best weapon in the world for the second minute of a fight and one of the worst for the first six seconds. It cannot reach past a spear; but when the lines are jammed together and the spears are stuck, the sword is home. Note what it does to plate: 38 in 1000. You cannot cut a knight.",
+      "readOnField": "Short, close, fast work. This is what winning the press looks like."
+    },
+    {
+      "id": "spear",
+      "name": "Spear",
+      "reachMm": 2200,
+      "pen": 45,
+      "ratePer1000Ticks": 6,
+      "fightingRanks": 2,
+      "pressPenaltyPermille": 350,
+      "shockOnly": false,
+      "twoHanded": false,
+      "explains": "The commonest weapon there has ever been, for good reason: two ranks fight at once and it out-reaches a sword by more than a metre. For six seconds a spear wall beats swordsmen better than two to one; after six seconds, pressed together with no room to draw back the shaft, the same wall LOSES more than two to one. The whole art of spears: hit, hurt, and get out before the press.",
+      "readOnField": "A hedge of points, two ranks working — then a sudden loss of purpose when the enemy gets inside."
+    },
+    {
+      "id": "pike",
+      "name": "Pike",
+      "reachMm": 4600,
+      "pen": 48,
+      "ratePer1000Ticks": 5,
+      "fightingRanks": 3,
+      "pressPenaltyPermille": 500,
+      "shockOnly": false,
+      "twoHanded": true,
+      "explains": "Four and a half metres of ash with a point. Three ranks reach the enemy; against horses it is the end of the world; against a swordsman who has got past the points it is a fence post, and the men carrying it have nothing but knives. A pike block is lethal for six seconds and a slaughterhouse afterwards — everything about commanding pikes follows from that one fact.",
+      "readOnField": "A wall of shafts at head height. When it fails, the shafts go up and the men go backwards."
+    },
+    {
+      "id": "poleaxe",
+      "name": "Poleaxe",
+      "reachMm": 1800,
+      "pen": 70,
+      "ratePer1000Ticks": 7,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 150,
+      "shockOnly": false,
+      "twoHanded": true,
+      "explains": "An axe, a hammer and a spike on a two-metre haft — designed by men in plate to kill other men in plate. It does not try to cut the steel; it dents it, hooks it, and puts a spike through the eye-slit.",
+      "readOnField": "Slow, deliberate, and knights going down who ought not to be going down."
+    },
+    {
+      "id": "maul",
+      "name": "Lead Maul",
+      "reachMm": 1100,
+      "pen": 60,
+      "ratePer1000Ticks": 8,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 100,
+      "shockOnly": false,
+      "twoHanded": true,
+      "explains": "The mallet an archer carries for driving stakes — and, by happy accident, the thing that flattens an armoured man who has got himself tired and bogged down. When bowmen finish knights, this is what they do it with, and the numbers say so out loud.",
+      "readOnField": "Archers coming down off the line with hammers, which should always be alarming."
+    },
+    {
+      "id": "mace",
+      "name": "Mace",
+      "reachMm": 800,
+      "pen": 66,
+      "ratePer1000Ticks": 8,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 0,
+      "shockOnly": false,
+      "twoHanded": false,
+      "explains": "Short, heavy, no edge. It does not need to cut you; it breaks what is under the steel. A mace and a shield is the best kit in the world for the crush, and why heavily armoured men do not fear swords.",
+      "readOnField": "Close, hammering, one-handed work behind a shield."
+    },
+    {
+      "id": "lance",
+      "name": "Couched Lance",
+      "reachMm": 2400,
+      "pen": 55,
+      "ratePer1000Ticks": 0,
+      "fightingRanks": 1,
+      "pressPenaltyPermille": 1000,
+      "shockOnly": true,
+      "twoHanded": false,
+      "explains": "A lance is not really a weapon; it is a way of delivering a horse. All its damage happens at the instant of impact, counted by the shock rules. Once the charge has stopped, it is a four-metre pole in a crowd, and the rider throws it away and draws his sword.",
+      "readOnField": "Lances level at forty paces out; lances discarded within seconds of impact."
+    }
+  ],
+  "missileWeapons": [
+    {
+      "id": "hunting-bow",
+      "name": "Hunting Bow",
+      "rangeMm": 150000,
+      "pen": 30,
+      "shotsPer1000Ticks": 60,
+      "ammo": 30,
+      "flightSpeedMmPerTick": 2400,
+      "spreadPermilleOfRange": 100,
+      "moraleMultiplierPermille": 1400,
+      "canShootMoving": false,
+      "explains": "What a forester carries. Fast to shoot, easy to learn, deadly to men in cloth, and it will not get through mail at any distance worth mentioning."
+    },
+    {
+      "id": "war-bow",
+      "name": "War Bow",
+      "rangeMm": 230000,
+      "pen": 42,
+      "shotsPer1000Ticks": 45,
+      "ammo": 32,
+      "flightSpeedMmPerTick": 2600,
+      "spreadPermilleOfRange": 90,
+      "moraleMultiplierPermille": 1400,
+      "canShootMoving": false,
+      "explains": "A man-high bow that takes a lifetime to learn to draw. Thirty-two arrows is all he has, so shooting at long range at a target that might move is a real waste of a real resource. Deadly against mail; against full plate, ninety-eight in a thousand hits do anything — which is why plate exists.",
+      "readOnField": "Visible arcing volleys, three seconds in the air, landing all at once."
+    },
+    {
+      "id": "crossbow",
+      "name": "Crossbow",
+      "rangeMm": 200000,
+      "pen": 62,
+      "shotsPer1000Ticks": 18,
+      "ammo": 24,
+      "flightSpeedMmPerTick": 3000,
+      "spreadPermilleOfRange": 55,
+      "moraleMultiplierPermille": 1400,
+      "canShootMoving": false,
+      "explains": "Takes a season to make and an afternoon to learn. It shoots a third as often as a war bow and punches straight through plate the war bow only rattles. The trade is exactly that: fewer, better shots, from a man you did not have to train from childhood.",
+      "readOnField": "Flat, fast, few. Men winding cranks between shots."
+    },
+    {
+      "id": "javelin",
+      "name": "Javelin",
+      "rangeMm": 45000,
+      "pen": 34,
+      "shotsPer1000Ticks": 70,
+      "ammo": 12,
+      "flightSpeedMmPerTick": 1100,
+      "spreadPermilleOfRange": 140,
+      "moraleMultiplierPermille": 1400,
+      "canShootMoving": true,
+      "explains": "A throwing spear, a dozen to a man, thrown from close by men who then leave. Javelin riders do not beat anybody; they sting, they disorder, and they make heavy troops chase them until those heavy troops cannot lift their arms."
+    },
+    {
+      "id": "bombard-stone",
+      "name": "Bombard Stone",
+      "rangeMm": 340000,
+      "pen": 95,
+      "shotsPer1000Ticks": 2,
+      "ammo": 8,
+      "flightSpeedMmPerTick": 4000,
+      "spreadPermilleOfRange": 220,
+      "moraleMultiplierPermille": 4000,
+      "canShootMoving": false,
+      "misfirePermille": 60,
+      "explains": "A stone the size of a man's chest, twice a minute, at an alarmingly vague part of the field. It kills few and terrifies everybody — near three times the fear of an arrow. One shot in sixteen bursts the tube.",
+      "readOnField": "One enormous noise and the entire enemy line flinching at once."
+    }
+  ],
+  "armour": [
+    {
+      "id": "none",
+      "name": "Homespun",
+      "armour": 8,
+      "fatigueMulPermille": 1000,
+      "explains": "A shirt. Anything that touches you, hurts you."
+    },
+    {
+      "id": "padded",
+      "name": "Padded Jack",
+      "armour": 25,
+      "fatigueMulPermille": 1080,
+      "explains": "Twenty layers of linen quilted together. Astonishingly good against cuts, poor against points, and nearly free — which is why every levy in the realm wears one."
+    },
+    {
+      "id": "leather-and-helm",
+      "name": "Leather and Kettle Hat",
+      "armour": 34,
+      "fatigueMulPermille": 1120,
+      "explains": "A jack, a leather coat and an iron hat with a brim. The hat is the important part: arrows come down out of the sky."
+    },
+    {
+      "id": "mail",
+      "name": "Hauberk of Mail",
+      "armour": 55,
+      "fatigueMulPermille": 1260,
+      "explains": "Thirty thousand riveted rings, worth a farm. Nothing cuts it. Points and heavy blows still get through, and it tires a man out in an hour."
+    },
+    {
+      "id": "mail-and-plates",
+      "name": "Mail and Coat of Plates",
+      "armour": 70,
+      "fatigueMulPermille": 1400,
+      "explains": "Mail with iron plates riveted inside a leather coat over the chest. The stopgap between mail and full harness, and a very good stopgap."
+    },
+    {
+      "id": "harness",
+      "name": "Full Harness",
+      "armour": 88,
+      "fatigueMulPermille": 1560,
+      "explains": "Head to foot in shaped steel, worth a village. You cannot be cut. You can barely be shot. You can be hooked, thrown down and killed with a hammer through the visor — and you will be exhausted in ninety seconds of running, which is how it is actually done."
+    },
+    {
+      "id": "barded",
+      "name": "Harness and Barding",
+      "armour": 88,
+      "horseArmour": 62,
+      "fatigueMulPermille": 1620,
+      "explains": "The man in plate and the horse in mail and plate too. The horse is the weak point of every knight who has ever lived; covering it doubles what a charge can survive — and costs as much again."
+    }
+  ],
+  "shields": [
+    {
+      "id": "none",
+      "name": "No Shield",
+      "shield": 0,
+      "missileBonus": 0,
+      "explains": "Two-handed weapons and bows mean no shield. A real and often fatal trade."
+    },
+    {
+      "id": "buckler",
+      "name": "Buckler",
+      "shield": 6,
+      "missileBonus": 2,
+      "explains": "A fist-sized iron plate for catching blades. Wonderful in a duel, nearly pointless in a battle line."
+    },
+    {
+      "id": "round",
+      "name": "Round Shield",
+      "shield": 14,
+      "missileBonus": 8,
+      "explains": "A metre of limewood with an iron boss. Light, cheap, and it overlaps with the man beside you, which is worth more than the wood."
+    },
+    {
+      "id": "heater",
+      "name": "Heater Shield",
+      "shield": 17,
+      "missileBonus": 9,
+      "explains": "The small triangular shield of a man who is mostly relying on his plate. Strapped high, covers chest and shoulder."
+    },
+    {
+      "id": "kite",
+      "name": "Kite Shield",
+      "shield": 20,
+      "missileBonus": 12,
+      "explains": "Long and tapered so a mounted man's leg is covered too. The best all-round shield there is."
+    },
+    {
+      "id": "pavise",
+      "name": "Pavise",
+      "shield": 4,
+      "missileBonus": 30,
+      "requiresStationary": true,
+      "explains": "A standing shield propped on the ground that a crossbowman shelters behind while he winds. Thirty points against arrows, four against a man with a sword — and none of it works if he moves a step."
+    }
+  ],
+  "notes": {
+    "arcRule": "Front: armour + shield. Flank: 82 percent of armour + a quarter of the shield. Rear: 70 percent of armour, no shield at all — your mail still covers your back; your shield does not. Worked example, mail and kite shield against a war bow: 149 in 1000 from the front, 372 from the flank, 564 from behind.",
+    "horseArmour": "A mounted unit's effective armour in melee is (rider x 2 + horse) / 3, because a third of what you are aiming at is horse. Barding is therefore worth much more than it looks.",
+    "shieldLoss": "A unit below 300,000 cohesion has lost its shield overlap: shield value is halved. The wall has stopped being a wall.",
+    "readOnField": "Armour is legible without a number: you can see who is in steel and who is in cloth, and you can see a shield wall stop being a wall."
+  }
+}

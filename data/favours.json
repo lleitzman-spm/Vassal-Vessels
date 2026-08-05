@@ -1,0 +1,128 @@
+{
+  "$schema": "vassal-vessels/favours/1",
+  "explains": "Every way you can make a house like you, and — the important part — how fast it wears off. Kindness LEAKS. A grudge sits there forever until you settle it, but a favour has a half-life: worth half as much after so many years, and half of that again after so many more. You cannot buy a vassal once. You rent him.",
+  "howFavourWorks": {
+    "halfLife": "A favour worth 20 with a half-life of four years is worth 20 today, 10 in four years, 5 in eight, and a rounding error by the time his son inherits.",
+    "standingPart": "Some favours have a part that does NOT fade while the thing is still true. Land is worth 8 for as long as he holds it, on top of a fading 17 — so a grant is worth 25 the year you make it and 8 forever after.",
+    "isRead": "Never stored. Folded fresh out of the record list every time anybody asks, exactly like a grudge.",
+    "theLesson": "Generosity is a subscription, not a purchase. This is why a court needs constant attention, and why 'I made him a lord ten years ago' is not an argument anybody at court will accept."
+  },
+  "fields": {
+    "standing": "The part that never fades while the thing it rests on is still true.",
+    "fading": "The part that halves every half-life.",
+    "halfLifeYears": "How long the fading part takes to become half of itself."
+  },
+
+  "favours": [
+    {
+      "id": "enfeoffment",
+      "name": "A grant of land",
+      "standing": 8,
+      "fading": 17,
+      "halfLifeYears": 4,
+      "causedBy": "an Enfeoff record",
+      "explains": "The biggest thing you can give anybody: worth 25 the year you give it, settling to 8 that never fades while he holds the land. It is also the only gift that increases the men he owes you, because the grant IS the contract and you write the number into it yourself. Everything else on this list buys you a season. This buys you an army, forever, and you can never really take it back."
+    },
+    {
+      "id": "seat",
+      "name": "A seat at court",
+      "standing": 15,
+      "fading": 10,
+      "halfLifeYears": 3,
+      "causedBy": "an Invest record",
+      "explains": "Power, income and standing all at once — worth 25 the year you grant it. The catch is on the other side of the ledger: everybody else who wanted it is now angry, and after eight years he starts thinking of the office as his."
+    },
+    {
+      "id": "wardship-given",
+      "name": "A wardship given away",
+      "standing": 20,
+      "fading": 0,
+      "halfLifeYears": 0,
+      "causedBy": "granting the wardship of a child's lands to him",
+      "explains": "You let him draw the income and the soldiers of a child's estate until the child grows up. It costs you money you were collecting and men you were calling, and it buys twenty points of loyalty that never fade while it lasts. One of the best-value gifts in the game and one of the least used."
+    },
+    {
+      "id": "marriage-royal",
+      "name": "Marriage into the crown's house",
+      "standing": 20,
+      "fading": 0,
+      "halfLifeYears": 0,
+      "causedBy": "a Wed record joining his house to yours",
+      "explains": "Blood is the only bond in this game that does not wear off. It also creates inheritance claims, which is how one loyal family quietly becomes the most powerful thing in your realm twenty years later — see the overmighty vassal in the constitution's list of loops."
+    },
+    {
+      "id": "ransom-paid",
+      "name": "Ransom paid for his kin",
+      "standing": 0,
+      "fading": 18,
+      "halfLifeYears": 5,
+      "causedBy": "a RansomPaid record for a captive of his house",
+      "explains": "You bought his brother back out of an enemy tower. Expensive, slow to fade, and it stops the 'kin in captivity' grudge dead as well — so it is worth roughly double what the number says."
+    },
+    {
+      "id": "justice-for",
+      "name": "Judgement given in his favour",
+      "standing": 0,
+      "fading": 10,
+      "halfLifeYears": 4,
+      "causedBy": "an Amends record with the judgement method",
+      "explains": "You heard his complaint and ruled for him. Cheap in money, expensive in days, and it makes whoever lost the case angry instead — which is the whole difficulty of being a judge, and the reason the Justiciar's seat is worth more than it looks."
+    },
+    {
+      "id": "gift",
+      "name": "A gift of coin",
+      "standing": 0,
+      "fading": "1 per 50 crowns, capped at 12",
+      "halfLifeYears": 2,
+      "causedBy": "a Pay record",
+      "explains": "Money. It works, it is instant, it is capped at twelve points however much you send, and it evaporates in a couple of years. Use it to fix one specific problem before one specific muster, never to buy a friendship."
+    },
+    {
+      "id": "spoils-shared",
+      "name": "A share of the plunder",
+      "standing": 0,
+      "fading": "2 per 100 crowns of his share, capped at 15",
+      "halfLifeYears": 2,
+      "causedBy": "distributing plunder after a battle",
+      "explains": "Giving the men who fought a fair cut of what was taken. Cheap, obvious, and forgotten astonishingly often — and the houses that fought hardest notice hardest."
+    },
+    {
+      "id": "victory-shared",
+      "name": "A victory won together",
+      "standing": 0,
+      "fading": 6,
+      "halfLifeYears": 2,
+      "causedBy": "an Aftermath with a victory where his contingent was present",
+      "explains": "Nothing makes people like you like winning. This is the free favour, and it is why a realm that fights well is easier to govern than one that fights carefully."
+    },
+    {
+      "id": "van-given",
+      "name": "Given the place of honour",
+      "standing": 0,
+      "fading": 8,
+      "halfLifeYears": 3,
+      "causedBy": "an Aftermath confirming a promised van was given",
+      "explains": "The front of the line is where reputations are made. Promising it costs nothing; keeping the promise is worth eight; breaking it is worth minus eight and a public humiliation. The battle reports which happened, so nobody has to take anybody's word for it."
+    },
+    {
+      "id": "feast",
+      "name": "A feast",
+      "standing": 0,
+      "fading": 3,
+      "halfLifeYears": 1,
+      "causedBy": "a Feast record",
+      "explains": "Twelve days and some money for three points of goodwill with everyone invited. Not much on its own — but a feast is also where grudges get said out loud, so it is the cheapest way to LEARN what people are angry about if you have no Spymaster."
+    },
+    {
+      "id": "tourney",
+      "name": "A tourney",
+      "standing": 0,
+      "fading": 4,
+      "halfLifeYears": 2,
+      "causedBy": "a Tourney record",
+      "explains": "Fifteen days and real money for four points of goodwill, a public look at which of your captains are actually any good — their true competence becomes visible — and a small chance that somebody's best knight breaks a leg for nothing at all."
+    }
+  ],
+
+  "theArithmeticOfBeingLiked": "Fifty is where every house starts: neither friend nor enemy. Everything on this list is added on and leaks away; everything in data/grievances.json is taken off and stays. A court left alone drifts down, never up. That asymmetry is the reason there is a game here at all."
+}

@@ -1,0 +1,114 @@
+---
+type: "unit"
+id: "unit:foresters"
+title: "Foresters"
+standing: "proposed"
+standing_source: "defaulted"
+source_path: "data/units.json"
+source_line: 105
+origin: "mined"
+generator: "tools/codex/emit.mjs"
+aliases:
+  - "unit:foresters"
+---
+
+# Foresters
+
+> **STANDING — PROPOSED ⚠**  
+> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
+> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+
+People who eat because they can hit a moving deer. Superb shots, quick on their feet, slow to tire — and constitutionally unable to stand in a formed line where somebody can hit them back, which they know perfectly well and so should you. On the SCREEN job they back away automatically from anything that comes within forty-five paces, so they work without a single order. In woodland, where formations cannot hold and arrows are half wasted, they are the most dangerous troops on the field.
+
+*Verified verbatim against `data/units.json`:105 on every lint — no quote, no object.*
+
+## The numbers
+
+| field | meaning | value |
+|---|---|---|
+| `class` | *undocumented in the file's own `fields` block* | `MISSILE` |
+| `raisedBy` | Which holding types (data/holdings.json) or bargains (data/obligations.json) raise this unit. | `weald` |
+| `typicalMen` | *undocumented in the file's own `fields` block* | `60` |
+| `marchSpeed` | Leagues per day on a good summer road. | `9` |
+| `dailyWear` | Fatigue points gained per day on the march. | `2` |
+| `massPerManKg` | Man plus kit — or horse plus man plus kit. Only matters for shock. | `76` |
+| `armour` | *undocumented in the file's own `fields` block* | `none` |
+| `shield` | *undocumented in the file's own `fields` block* | `buckler` |
+| `primaryWeapon` | *undocumented in the file's own `fields` block* | `long-knife` |
+| `sidearm` | *undocumented in the file's own `fields` block* | `long-knife` |
+| `missileWeapon` | *undocumented in the file's own `fields` block* | `hunting-bow` |
+| `skill` | 0-100 individual fighting quality; feeds to-hit. | `34` |
+| `drillBase` | 0-100 formation quality; the Host's per-unit drill overrides it. | `25` |
+| `refusalBase` | 0-1000. How strongly this unit's set weapons make a charging horse refuse — ONLY when braced, only in the front arc. | `0` |
+| `refusalRangeMm` | How far ahead the refusal reaches. Longer weapons project further. | `0` |
+| `turnMulPermille` | Multiplier on the base turn rate. | `1400` |
+| `fatigueMulPermille` | How fast this unit tires, from armour weight and the work. | `900` |
+| `speedMulPermille` | *undocumented in the file's own `fields` block* | `1150` |
+| `defaultFormation` | *undocumented in the file's own `fields` block* | `screen` |
+| `allowedFormations` | *undocumented in the file's own `fields` block* | `screen`, `loose`, `column` |
+| `traits` | *undocumented in the file's own `fields` block* | `Evade`, `FastFoot`, `Nimble` |
+| `defaultQuirks` | *undocumented in the file's own `fields` block* | `will-not-stand-in-line` |
+| `musterCost` | Coin per battle, for the court's arithmetic. Not a battle number. | `45` |
+
+## What it beats, and what beats it
+
+- **Role:** The best value in the game — in the trees. The worst — in a line.
+- **Countered by:** Cavalry in the open, absolutely and always. Being cornered against anything.
+
+## What you would see on the field
+
+> Scattered, constantly moving, always backing away. If they are standing still in the open, something has gone wrong.
+
+*Shelf: `units` in `data/units.json`.*
+
+## Keywords
+
+- [[Evade]] — *its `traits` names `Evade` by id*
+- [[Fleet]] — *its `traits` names `FastFoot` by id*
+- [[Nimble]] — *its `traits` names `Nimble` by id; this page names "Nimble" literally*
+
+## Equipment
+
+- [[Buckler]] — *its `shield` names `buckler` by id; this page names "Buckler" literally*
+- [[Homespun]] — *its `armour` names `none` by id*
+- [[Long Knife]] — *its `primaryWeapon` names `long-knife` by id; its `sidearm` names `long-knife` by id*
+
+## Formations
+
+- [[Column of March]] — *its `allowedFormations` names `column` by id*
+- [[Open Order]] — *its `allowedFormations` names `loose` by id*
+- [[Skirmish Screen]] — *its `allowedFormations` names `screen` by id; its `defaultFormation` names `screen` by id*
+
+## Orders
+
+- [[Screen]] — *this page names "Screen" literally*
+
+## Terrain
+
+- [[Woodland]] — *this page names "Woodland" literally*
+
+## Quirks
+
+- [[Will Not Stand in Line]] — *its `defaultQuirks` names `will-not-stand-in-line` by id*
+
+## Backlinks
+
+### Worked examples
+
+- [[The Host of Aldmarch]] — *fields a unit of type `foresters`*
+
+### Standing plans
+
+- [[AMMO_BELOW]] — *this page names "Foresters" literally*
+
+### Quirks
+
+- [[Will Not Stand in Line]] — *this page names "Foresters" literally*
+
+### Holdings
+
+- [[Weald]] — *this page names "Foresters" literally*
+
+---
+
+*Generated by `tools/codex/emit.mjs` from `data/units.json`:105. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*

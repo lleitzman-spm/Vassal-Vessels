@@ -1,0 +1,100 @@
+---
+type: "unit"
+id: "unit:company-horse"
+title: "Free Company Horse"
+standing: "proposed"
+standing_source: "defaulted"
+source_path: "data/units.json"
+source_line: 429
+origin: "mined"
+generator: "tools/codex/emit.mjs"
+aliases:
+  - "unit:company-horse"
+---
+
+# Free Company Horse
+
+> **STANDING — PROPOSED ⚠**  
+> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
+> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+
+Professional horsemen who serve the purse. At 380 a tick their shock is about seven-tenths of a knight's — the square again — and their horses are unarmoured, which shows badly under arrows. They carry the game's most brutal wire between treasury and field: with arrears unpaid, every couple of seconds there is a small chance they simply ride off the field. Not a morale penalty. They go home.
+
+*Verified verbatim against `data/units.json`:429 on every lint — no quote, no object.*
+
+## The numbers
+
+| field | meaning | value |
+|---|---|---|
+| `class` | *undocumented in the file's own `fields` block* | `HORSE` |
+| `raisedBy` | Which holding types (data/holdings.json) or bargains (data/obligations.json) raise this unit. | `contract` |
+| `typicalMen` | *undocumented in the file's own `fields` block* | `70` |
+| `marchSpeed` | Leagues per day on a good summer road. | `13` |
+| `dailyWear` | Fatigue points gained per day on the march. | `2` |
+| `massPerManKg` | Man plus kit — or horse plus man plus kit. Only matters for shock. | `560` |
+| `armour` | *undocumented in the file's own `fields` block* | `mail-and-plates` |
+| `shield` | *undocumented in the file's own `fields` block* | `kite` |
+| `primaryWeapon` | *undocumented in the file's own `fields` block* | `lance` |
+| `sidearm` | *undocumented in the file's own `fields` block* | `sword` |
+| `skill` | 0-100 individual fighting quality; feeds to-hit. | `58` |
+| `drillBase` | 0-100 formation quality; the Host's per-unit drill overrides it. | `54` |
+| `refusalBase` | 0-1000. How strongly this unit's set weapons make a charging horse refuse — ONLY when braced, only in the front arc. | `0` |
+| `refusalRangeMm` | How far ahead the refusal reaches. Longer weapons project further. | `0` |
+| `turnMulPermille` | Multiplier on the base turn rate. | `1600` |
+| `fatigueMulPermille` | How fast this unit tires, from armour weight and the work. | `1300` |
+| `chargeSpeedMmPerTick` | *undocumented in the file's own `fields` block* | `380` |
+| `arrivalReadyTicks` | *undocumented in the file's own `fields` block* | `320` |
+| `defaultFormation` | *undocumented in the file's own `fields` block* | `close` |
+| `allowedFormations` | *undocumented in the file's own `fields` block* | `wedge`, `close`, `loose`, `column` |
+| `traits` | *undocumented in the file's own `fields` block* | `Mounted`, `Shock`, `Mercenary`, `UnpaidLeave` |
+| `defaultQuirks` | *undocumented in the file's own `fields` block* | `flees-early-if-unpaid`, `first-to-plunder` |
+| `musterCost` | Coin per battle, for the court's arithmetic. Not a battle number. | `300` |
+
+## What it beats, and what beats it
+
+- **Role:** Knights you can rent. Two-thirds of the punch at half the price and none of the pride — as long as the pay chest is full.
+- **Countered by:** The same physics that beats knights, only sooner — and an empty treasury, which beats them completely.
+
+## What you would see on the field
+
+> Good horse doing sound work — or, if you did not pay them, an empty place where good horse used to be.
+
+*Shelf: `units` in `data/units.json`.*
+
+## Units
+
+- [[Knights]] — *this page names "Knights" literally*
+
+## Keywords
+
+- [[Mercenary]] — *its `traits` names `Mercenary` by id; this page names "Mercenary" literally*
+- [[Mounted]] — *its `traits` names `Mounted` by id; this page names "Mounted" literally*
+- [[Shock]] — *its `traits` names `Shock` by id*
+- [[Will Simply Leave]] — *its `traits` names `UnpaidLeave` by id*
+
+## Equipment
+
+- [[Arming Sword]] — *its `sidearm` names `sword` by id*
+- [[Couched Lance]] — *its `primaryWeapon` names `lance` by id*
+- [[Kite Shield]] — *its `shield` names `kite` by id*
+- [[Mail and Coat of Plates]] — *its `armour` names `mail-and-plates` by id*
+
+## Formations
+
+- [[Close Order]] — *its `allowedFormations` names `close` by id; its `defaultFormation` names `close` by id*
+- [[Column of March]] — *its `allowedFormations` names `column` by id*
+- [[Open Order]] — *its `allowedFormations` names `loose` by id*
+- [[Wedge]] — *its `allowedFormations` names `wedge` by id*
+
+## Quirks
+
+- [[Fights For Wages]] — *its `defaultQuirks` names `flees-early-if-unpaid` by id*
+- [[First to Plunder]] — *its `defaultQuirks` names `first-to-plunder` by id*
+
+## Backlinks
+
+*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+
+---
+
+*Generated by `tools/codex/emit.mjs` from `data/units.json`:429. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*

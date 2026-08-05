@@ -1,0 +1,274 @@
+{
+  "$schema": "vassal-vessels/quirks/1",
+  "explains": "A quirk is a named, documented behaviour that the court hands to the battle. This is the joint between the two halves of the game, and it is deliberately loose. The court knows WHY a lord's knights will charge before the horn — it has no business telling a battle engine how a charge works. So it sends a name, a strength, an explanation, and sometimes a target, and the battle does with it whatever its own model allows.\n\nThis file is the whole vocabulary, and for each quirk it also states exactly what THIS canon's battle engine does with it, so nobody has to guess and no two engines have to agree.",
+  "contractWithTheBattle": {
+    "implementWhatYouCan": "A battle engine implements the quirks it can express and IGNORES the rest. Ignoring is legal and expected, not a failure.",
+    "neverCrash": "Never throw on an unknown quirk id. New ones will appear in later versions of the contract.",
+    "reportBack": "Whatever you implement, list its id in Aftermath.quirksHonoured, so the court narrates causes it knows were real instead of inventing them.",
+    "intensity": "Every quirk carries a strength from 0 to 100. Twenty is a tendency; ninety is a certainty. Where the effect below is a chance, intensity scales it; where it is a flat number, intensity above 60 applies it whole and below 30 applies half.",
+    "target": "Some quirks point at somebody — another captain, a contingent, a house, a side. A quirk with a target and no target found is simply inert."
+  },
+  "fields": {
+    "appliesTo": "captain, contingent or unit — where the court hangs it and where the battle reads it.",
+    "from": "What in the record book produces it. Every quirk is a consequence of something you did or failed to do.",
+    "battleEffect": "What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing.",
+    "readOnField": "How a watcher can tell it is happening — required of every mechanic (law 6)."
+  },
+
+  "quirks": [
+    {
+      "id": "old-grudge",
+      "name": "An Old Grudge",
+      "appliesTo": "captain",
+      "targets": "a captain id",
+      "from": "a grievance in the record book against another captain — or against the crown itself",
+      "battleEffect": "Every word sent by or concerning the target lands 20 heed lower. If the target is the commander, every word you send this captain lands 20 lower, all day.",
+      "explains": "Somebody here wronged him, and it may well have been you. Twenty points of heed is the difference between a man who obeys and a man who drags — and the court can heal this, while the battle absolutely cannot.",
+      "readOnField": "Orders that arrive and produce visibly less than they should."
+    },
+    {
+      "id": "will-not-fight-beside",
+      "name": "Will Not Fight Beside",
+      "appliesTo": "contingent",
+      "targets": "a contingent id",
+      "from": "a rivalry between two captains — most often two men who both wanted the same seat",
+      "battleEffect": "No courage passes between these two contingents in either direction, however steady one of them is. Any SUPPORT order toward the target is refused outright, whatever the obedience.",
+      "explains": "These two houses have a quarrel older than your war. Put them side by side and neither will steady the other, so there is a hole in your line exactly where you thought you had a join. Deployment is a political puzzle.",
+      "readOnField": "A gap in the line that keeps re-appearing, and two blocks that never help each other."
+    },
+    {
+      "id": "brothers-sworn",
+      "name": "Brothers Sworn",
+      "appliesTo": "captain",
+      "targets": "a captain id",
+      "from": "an oath of brotherhood in the record book, or close kin serving in the same host",
+      "battleEffect": "SUPPORT orders toward his brother's contingent land 25 heed higher and are executed at RUN pace. If the brother's contingent breaks while this captain was held elsewhere by an order of yours, a deed is recorded and the court takes it as a grievance against the crown.",
+      "explains": "The one quirk that gives you something for nothing — and it comes with a bill, because if you use him somewhere else on the day his brother dies, that is your fault and everybody says so.",
+      "readOnField": "One contingent that moves to another's aid faster than anything else on the field."
+    },
+    {
+      "id": "blood-feud",
+      "name": "Blood Feud",
+      "appliesTo": "captain",
+      "targets": "an enemy house id",
+      "from": "kin of his killed by that house in an earlier battle — a slain record the court never settled",
+      "battleEffect": "Against that house's contingents: +15 heed on any ATTACK order, +10 resolve, and REIN_IN is never heeded. His pursuers kill rather than capture — half the prisoners, and the ones he does take are worth watching.",
+      "explains": "The enemy across the field killed his people. He will fight them harder than you could ever ask and he will not stop when you tell him to, and the ransoms you were counting on will not arrive.",
+      "readOnField": "One contingent that goes further and comes back later than anyone else, every time."
+    },
+    {
+      "id": "refuses-to-strike-kin",
+      "name": "Will Not Strike His Wife's Family",
+      "appliesTo": "contingent",
+      "targets": "a house id on the other side",
+      "from": "a marriage or blood tie across the battle line",
+      "battleEffect": "Against units of that house: melee output multiplied by 600 per mille, and CHARGE orders toward them take an extra 30 difficulty.",
+      "explains": "His wife is their lord's sister. He will fight — he came, after all — but he will not press home, and everybody on both sides of the field knows it. The engine has to look at the other Host to find this one, which is the only place the two sides' papers ever touch.",
+      "readOnField": "A fight in one part of the line that never quite gets anywhere."
+    },
+    {
+      "id": "claims-the-van",
+      "name": "Claims the Place of Honour",
+      "appliesTo": "captain",
+      "from": "high pride, or a promise of the van recorded before the campaign",
+      "battleEffect": "If he is deployed in the front line, +8 heed all battle. If he is not, he is insulted from tick zero: -15 heed all battle, and the Aftermath reports the honour as broken so the court can record the slight honestly.",
+      "explains": "He expects the front of the line — the dangerous, glorious place. Deny it and he sulks now and resents you afterwards; grant it and you have put your proudest man where the most people die. There is no third option, and that is the point.",
+      "readOnField": "Where he is standing when the battle begins."
+    },
+    {
+      "id": "charges-without-orders",
+      "name": "Charges Without Orders",
+      "appliesTo": "captain",
+      "from": "an aggressive or proud captain, and knights of any kind",
+      "battleEffect": "On each of his own-hand checks, if an enemy is within a hundred metres and his men are steady, a seeded chance of intensity x 2 per thousand that he attacks unbidden.",
+      "explains": "These men see a chance and take it, whether or not you told them to. Wonderful when the chance was real. Catastrophic when it was bait — and light horse exist to be bait. This quirk was called 'hotheaded' in one of the source designs; it is one behaviour with one name now.",
+      "readOnField": "A contingent leaving the line with no rider anywhere near it."
+    },
+    {
+      "id": "cautious-with-his-own",
+      "name": "Cautious With His Own",
+      "appliesTo": "captain",
+      "from": "high caution, or a blood-debt the crown never settled",
+      "battleEffect": "He takes the HEDGE branch of every middling heed outcome whatever his aggression, and his own-withdrawal fires at four-tenths morale instead of three.",
+      "explains": "He has lost too many of his people in your wars already. He will pull them back sooner than you would like — and he will be right more often than you will admit.",
+      "readOnField": "A contingent that is always forty metres further back than you put it."
+    },
+    {
+      "id": "boastful",
+      "name": "Boastful",
+      "appliesTo": "captain",
+      "from": "a promise made loudly at court, usually while asking for something",
+      "battleEffect": "The OVERREACH band widens upward by 10, so he tips into the glory version earlier. And he is the man who presses a REFUSED charge home: refusal slows his horses only half as much, and any shock he delivers costs him three times the usual riders.",
+      "explains": "He told the whole court he would do a great deed and he means to do one whether the battle needs it or not. The impalement rule exists because of men like him: horses spurred onto set spear points, at three times the cost, in front of everybody.",
+      "readOnField": "A charge that does not slow down when it should — and then a great many empty saddles."
+    },
+    {
+      "id": "craven",
+      "name": "Craven",
+      "appliesTo": "captain",
+      "from": "a captain who has fled before, and whose record says so",
+      "battleEffect": "His hedges stand off forty metres further than anyone's, and his own-withdrawal fires at four-tenths morale instead of three.",
+      "explains": "His courage has a floor and it is a long way off the ground. Put him somewhere the battle will not find him — or leave him at home and pay the political price for the insult, which is exactly the choice the game wants you to have to make.",
+      "readOnField": "A contingent that is technically obeying from somewhere nothing can reach it."
+    },
+    {
+      "id": "iron-oath",
+      "name": "Iron Oath",
+      "appliesTo": "captain",
+      "from": "an oath sworn and kept for years, visible in the record book",
+      "battleEffect": "He can never DEFY — the worst he does is DRAG. WITHDRAW and REIN_IN land 20 heed higher. The cost: every one of his own-hand actions fires as though his aggression were 30, so he will never save you from your own bad order.",
+      "explains": "He swore, and his word is iron. A man who only ever follows is worth an enormous amount on a bad day and nothing at all on a good one.",
+      "readOnField": "A contingent that does exactly what it was last told, long after that was a good idea."
+    },
+    {
+      "id": "steady-hand",
+      "name": "Steady Hand",
+      "appliesTo": "captain",
+      "from": "twenty years of bad days, recorded as battles fought without fleeing",
+      "battleEffect": "His units cross into WAVERING 50,000 later than anyone's, a rally under his hand returns 100,000 more morale, and his contingent ignores the first friend-breaks-nearby panic of the day.",
+      "explains": "The captain you want holding the centre at the crisis. He does not make anything happen; he makes the thing that was going to happen happen half a minute later, which is usually enough.",
+      "readOnField": "A block that should have gone and has not."
+    },
+    {
+      "id": "first-to-plunder",
+      "name": "First to Plunder",
+      "appliesTo": "contingent",
+      "from": "a greedy captain, knights, and free companies",
+      "battleEffect": "REIN_IN and SHORT pursuit are heeded as though his greed were 30 higher, and his share of the field's plunder is multiplied by 1500 per mille.",
+      "explains": "The moment there is something worth taking — a baggage train, a broken flank, an undefended camp — these men stop being an army and start being a crowd with bags. It is money in your treasury and a hole in your line, at the same time, in the same second.",
+      "readOnField": "A contingent going the wrong way, towards the carts."
+    },
+    {
+      "id": "hungry-for-ransom",
+      "name": "Hungry for Ransom",
+      "appliesTo": "captain",
+      "from": "a captain with debts, or a house that has ransomed its way out of trouble before",
+      "battleEffect": "In pursuit his units capture at +150 per thousand and kill at half rate. While enemies worth a ransom are still standing and fighting, his ATTACK orders land 5 heed lower — he is choosing his targets by their jewellery.",
+      "explains": "War is a business and prisoners are the profit. Good gold, good politics if you wanted mercy anyway, and a slightly worse battle in the meantime.",
+      "readOnField": "Broken men being caught rather than cut down."
+    },
+    {
+      "id": "mud-wise",
+      "name": "Mud-Wise",
+      "appliesTo": "captain",
+      "from": "campaigns fought on ground like this, in the record book",
+      "battleEffect": "His contingent takes half the terrain cohesion penalties, and his brace call comes 40 ticks earlier.",
+      "explains": "He has fought on ground like this before. Worth his weight in dry boots, and never once mentioned in a chronicle."
+    },
+    {
+      "id": "drillmaster",
+      "name": "Drillmaster",
+      "appliesTo": "contingent",
+      "from": "a captain who spends his own money training his men",
+      "battleEffect": "+12 drill to every unit of the contingent, which is a faster turn, faster cohesion recovery and a steadier line.",
+      "explains": "Worth more than a hundred extra men and costs a great deal less. This is what you are really buying when you grant a lord good land and let him keep the revenue.",
+      "readOnField": "Ranks that stay dressed while everyone else's fray."
+    },
+    {
+      "id": "veterans-know-the-ground",
+      "name": "Veterans",
+      "appliesTo": "unit",
+      "from": "veterancy above 60 — men who have done this before",
+      "battleEffect": "Reform time after a charge multiplied by 800 per mille, panic received multiplied by 800 per mille, +5 heed.",
+      "explains": "They form up faster, they panic slower, and they can tell when a line is about to go. Veterancy is earned in battles and capped at eighty, and the men who have it will also ask you for more.",
+      "readOnField": "A unit that reacts before the thing has finished happening."
+    },
+    {
+      "id": "may-turn",
+      "name": "May Turn",
+      "appliesTo": "contingent",
+      "targets": "the enemy side id",
+      "from": "treachery above 60 — which is grievance you never settled, wages you never paid, or kin across the line",
+      "battleEffect": "Enables the treachery check: every two seconds, if his side's Tide has sunk to -10 or worse, a seeded chance that the contingent leaves the field, or above treachery 60 changes sides outright.",
+      "explains": "At some point in this battle these men may stop being on your side. The court guarantees you could have read the number before you sent the summons — with a Spymaster you would have seen it exactly — so when it happens it is not the game cheating. It is the game remembering.",
+      "readOnField": "A contingent turning to face the wrong way, in full view of the men who were relying on it."
+    },
+    {
+      "id": "flees-early-if-unpaid",
+      "name": "Fights For Wages",
+      "appliesTo": "contingent",
+      "from": "a free company with wages owing",
+      "battleEffect": "Morale floor drops to zero, and on every own-hand check each unit has a 25 in a thousand chance of simply withdrawing from the field.",
+      "explains": "A company that has not been paid does not die for you. They will fight while it is going well and be gone the moment it is not — and that is not a morale penalty, they physically go home.",
+      "readOnField": "An empty place where good soldiers used to be."
+    },
+    {
+      "id": "answers-to-the-grandmaster",
+      "name": "Answers to His Own Master",
+      "appliesTo": "contingent",
+      "from": "the Sworn Order",
+      "battleEffect": "Obedience is capped at 55 by the court before the battle ever sees it, and EXHORT gives this contingent no heed bonus at all — the commander's voice is not the voice they are listening for.",
+      "explains": "They obey their own Grandmaster before they obey your Marshal, so at some point they will do what they believe is right rather than what you asked. Resolve like iron and obedience capped at fifty-five is a very specific kind of nightmare to command."
+    },
+    {
+      "id": "will-not-flee",
+      "name": "Will Not Flee",
+      "appliesTo": "unit",
+      "from": "the Sworn Order, and captains of very high valour",
+      "battleEffect": "Morale floor raised to 250,000, so the unit never enters ROUTING. It fights where it stands until it is destroyed.",
+      "explains": "They do not run away. This is not always good news: a unit that cannot retreat is a unit that can be destroyed in place, and you will watch it happen without being able to save them.",
+      "readOnField": "A block getting smaller and never moving."
+    },
+    {
+      "id": "breaks-early",
+      "name": "Breaks Early",
+      "appliesTo": "unit",
+      "from": "pick-men, and any contingent with resolve under 35",
+      "battleEffect": "Morale ceiling multiplied by 850 per mille and panic received multiplied by 1300 per mille.",
+      "explains": "They will be the first thing on your side to give way, and everyone within ninety metres will feel it. Stand them somewhere quiet and far from anything you love.",
+      "readOnField": "A block that flinches visibly under fire before anybody has been hurt."
+    },
+    {
+      "id": "holds-to-the-last-on-own-land",
+      "name": "Fighting For Their Own Roofs",
+      "appliesTo": "unit",
+      "from": "any unit whose home holding is on this field",
+      "battleEffect": "Morale floor raised by 80,000 and +6 heed, while the fight is on ground the court marked as their home.",
+      "explains": "These men are standing between an enemy and their own barns. They do not break when other men break — which is the single most important reason a losing realm can still fight back.",
+      "readOnField": "One block in a folding wing that does not fold."
+    },
+    {
+      "id": "will-not-stand-in-line",
+      "name": "Will Not Stand in Line",
+      "appliesTo": "unit",
+      "from": "foresters and other people who fight for a living without being soldiers",
+      "battleEffect": "In close order or shield wall: melee output multiplied by 800 per mille and morale ceiling 80,000 lower. In loose order or screen: +5 heed.",
+      "explains": "Put them in a formed battle line and they are worse than useless, and they know perfectly well that you know it. Put them in broken ground and they are the best value in the game.",
+      "readOnField": "Men in a formed line who keep drifting out of it."
+    },
+    {
+      "id": "will-not-leave-the-province",
+      "name": "Will Not Leave the Province",
+      "appliesTo": "contingent",
+      "from": "town militia, who came out to defend their own district",
+      "battleEffect": "Pursuit policy is forced to REIN_IN whatever you set, and any order that would take them more than 200 metres from where they deployed takes an extra 25 difficulty.",
+      "explains": "They came out for their own district and they will not chase anybody over the horizon. Numbers, fast, and nailed to the ground you found them on.",
+      "readOnField": "A large block standing still while the rest of the army goes hunting."
+    },
+    {
+      "id": "hungry",
+      "name": "Hungry",
+      "appliesTo": "unit",
+      "from": "hunger above 40 — an empty granary, which is a Steward you never appointed",
+      "battleEffect": "Speed multiplied by 900 per mille, fatigue drain multiplied by 1150 per mille, -5 heed.",
+      "explains": "They have not eaten properly in days. Everything they do, they do more slowly and more reluctantly, and none of it is their fault."
+    },
+    {
+      "id": "marched-through-the-night",
+      "name": "Marched Through the Night",
+      "appliesTo": "unit",
+      "from": "a forced march ordered to make the muster day",
+      "battleEffect": "Starts the battle with fatigue no lower than 550,000 and morale ceiling 60,000 lower.",
+      "explains": "They arrived in time, which is the good news. They arrived exhausted, which is the rest of it. Sometimes that is the right trade and the game will not tell you which times."
+    },
+    {
+      "id": "service-nearly-up",
+      "name": "His Forty Days Are Nearly Done",
+      "appliesTo": "contingent",
+      "from": "a summons that has drawn the vessel down to three days or fewer",
+      "battleEffect": "-25 heed and 120,000 off every unit's morale ceiling.",
+      "explains": "Feudal service is a fixed number of days a year and he is on day thirty-eight of forty. He is thinking about his harvest and it shows: harder to order, quicker to break. This is the most elegant wire between the court and the field in the whole game, because it means that WHEN you fight is a combat decision.",
+      "readOnField": "A contingent that is present, correct and audibly counting."
+    }
+  ]
+}

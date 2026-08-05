@@ -1,0 +1,526 @@
+{
+  "$schema": "vassal-vessels/example-host/1",
+  "$about": "A COMPLETE Host, exactly as the court hands one to the battle. This is the opening position of the realm of Aldmarch with nothing done about it: forty-one days of politics unspent, six hundred and seventy-three men, and no Marshal. It is here so that an engine builder has a real artefact to build against instead of a description, and so that a reader can see every idea in this project standing in one field at once. Every number is derived from data/constants.json and the tables beside it, and every one of them can be checked by hand.",
+  "$convention": "Keys prefixed with a dollar sign are commentary for the manual and are NOT part of the Host contract. Everything else is. A parser may drop every $-key and lose nothing but the explanation.",
+  "$namesAreInvented": "Aldmarch, its houses, its holdings and every person in it are fictional and are meant to be obviously so.",
+
+  "contract": "1.0.0",
+  "id": "host-aldmarch-1187-cald",
+  "name": "The Host of Aldmarch",
+  "side": "aldmarch",
+  "seed": "cald-1187-a3f",
+  "mustered": { "year": 1187, "season": "seedtime", "day": 53, "absolute": 427253 },
+
+  "occasion": {
+    "causeId": "ford-of-cald-1187",
+    "causeName": "The crossing at Cald",
+    "defending": true,
+    "onOwnLand": true,
+    "homeHoldingIds": ["millrow", "harrowgate", "thornbury-town", "bannerwood-manor", "oakhold"],
+    "legitimacy": 50,
+    "surprise": 0,
+    "daysInTheField": 3,
+    "$explains": "A defensive war on Thornbury's and Bannerwood's own doorsteps — worth twenty-five points of willingness to those two houses and twelve to everybody else, and it is already inside every number below. The cause is UNBLESSED, because the Chaplaincy has been empty for a year, so legitimacy is a flat fifty and the Sworn Order did not come."
+  },
+
+  "command": {
+    "commanderId": "payne-holt",
+    "authority": 52,
+    "orderCapacity": 2,
+    "$explainsOrderCapacity": "TWO. The Marshalcy is empty, so the crown named its own household captain and can direct two contingents at a time and bind four standing plans. A seated Marshal would make that four riders and six plans; Bertrand Stormmarch would make it five and seven. This single number is what an unfilled seat costs the player in their own hands, in the middle of a fight.",
+    "chain": [
+      { "captainId": "payne-holt", "defersTo": null },
+      { "captainId": "mavis-thornbury", "defersTo": "payne-holt" },
+      { "captainId": "aldric-bannerwood", "defersTo": "payne-holt" },
+      { "captainId": "ysolde-greyfen", "defersTo": "payne-holt" },
+      { "captainId": "hoel-of-the-wold", "defersTo": "payne-holt" },
+      { "captainId": "bertrand-stormmarch", "defersTo": "payne-holt" },
+      { "captainId": "cateline-ashfell", "defersTo": "payne-holt" },
+      { "captainId": "odo-larkfield", "defersTo": "payne-holt" }
+    ],
+    "disputes": [
+      {
+        "aId": "bertrand-stormmarch",
+        "bId": "aldric-bannerwood",
+        "over": "precedence",
+        "intensity": 55,
+        "explains": "Both of them want the empty Marshalcy and each thinks the other is a fool. Put their men side by side and neither will move to save the other."
+      }
+    ],
+    "vanPromisedTo": null,
+    "$explainsVan": "Nobody was promised the front of the line, which is a small mercy: two of these captains claim it as of right, and only one of them can have it."
+  },
+
+  "contingents": [
+    {
+      "id": "c-household",
+      "name": "The Household",
+      "source": "household",
+      "captainId": "payne-holt",
+      "unitIds": ["u-household-guard", "u-crown-banner"],
+      "resolve": 76,
+      "obedience": 88,
+      "treachery": 0,
+      "cohesion": 85,
+      "fellowship": "crown",
+      "paid": true,
+      "arrears": 0,
+      "owed": 0,
+      "present": 150,
+      "disposition": "eager",
+      "quirks": [],
+      "story": "A hundred and fifty of your own paid soldiers, forty of them standing under the Crown Banner itself. No letters, no excuses, no grudges — and four hundred and fifty crowns a season whether there is a war or not."
+    },
+    {
+      "id": "c-thornbury",
+      "name": "The men of Thornbury",
+      "source": "feudal-levy",
+      "houseId": "thornbury",
+      "houseName": "House Thornbury",
+      "captainId": "mavis-thornbury",
+      "unitIds": ["u-millrow-spears", "u-millrow-bows", "u-harrowgate-maa", "u-harrowgate-xbow"],
+      "resolve": 70,
+      "obedience": 60,
+      "treachery": 0,
+      "cohesion": 70,
+      "fellowship": "thornbury",
+      "paid": true,
+      "arrears": 0,
+      "owed": 125,
+      "present": 125,
+      "disposition": "willing",
+      "quirks": [
+        { "id": "holds-to-the-last-on-own-land", "intensity": 70, "explains": "The enemy is three leagues from their own fields. These men do not break when other men break." },
+        { "id": "cautious-with-his-own", "intensity": 60, "explains": "Old Lord Mavis has buried enough of his people. He will pull them out sooner than you want him to." }
+      ],
+      "story": "One hundred and twenty-five men, every one he owes, on the day he was asked, standing between an enemy and his own barns."
+    },
+    {
+      "id": "c-bannerwood",
+      "name": "The men of Bannerwood",
+      "source": "feudal-levy",
+      "houseId": "bannerwood",
+      "houseName": "House Bannerwood",
+      "captainId": "aldric-bannerwood",
+      "unitIds": ["u-oakhold-maa", "u-oakhold-xbow", "u-bannerwood-spears"],
+      "resolve": 69,
+      "obedience": 56,
+      "treachery": 0,
+      "cohesion": 65,
+      "fellowship": "bannerwood",
+      "paid": true,
+      "arrears": 0,
+      "owed": 90,
+      "present": 90,
+      "disposition": "willing",
+      "quirks": [
+        { "id": "holds-to-the-last-on-own-land", "intensity": 65, "explains": "Bannerwood is behind this ford too." },
+        { "id": "claims-the-van", "intensity": 75, "explains": "Aldric expects the front of the line. Give it to somebody else and he will remember." },
+        { "id": "charges-without-orders", "intensity": 70, "explains": "He will go when he thinks it is time, not when you say so." },
+        { "id": "will-not-fight-beside", "targetId": "c-stormmarch", "intensity": 55, "explains": "He and Bertrand Stormmarch both want the Marshalcy." }
+      ],
+      "story": "Ninety men, and their lord came himself, and he sent his BEST first because he is still auditioning for the Marshalcy."
+    },
+    {
+      "id": "c-greyfen",
+      "name": "The men of Greyfen",
+      "source": "feudal-levy",
+      "houseId": "greyfen",
+      "houseName": "House Greyfen",
+      "captainId": "ysolde-greyfen",
+      "unitIds": ["u-greyfen-bows", "u-greyfen-spears"],
+      "resolve": 41,
+      "obedience": 47,
+      "treachery": 0,
+      "cohesion": 55,
+      "fellowship": "greyfen",
+      "paid": true,
+      "arrears": 0,
+      "owed": 90,
+      "present": 68,
+      "disposition": "sullen",
+      "quirks": [],
+      "story": "Sixty-eight of the ninety she owes: her farmers and her village archers. Her fifty marines are still standing on the quay at Salt Quay, because you gave the Stewardship to somebody else."
+    },
+    {
+      "id": "c-wold",
+      "name": "The men of the Wold",
+      "source": "feudal-levy",
+      "houseId": "wold",
+      "houseName": "House Wold",
+      "captainId": "hoel-of-the-wold",
+      "unitIds": ["u-weald-foresters"],
+      "resolve": 53,
+      "obedience": 56,
+      "treachery": 0,
+      "cohesion": 60,
+      "fellowship": "wold",
+      "paid": true,
+      "arrears": 0,
+      "owed": 70,
+      "present": 53,
+      "disposition": "dutiful",
+      "quirks": [
+        { "id": "will-not-stand-in-line", "intensity": 85, "explains": "Put these people in a formed line and you have wasted them. Put them in the trees by the ford and they are the best value on the field." }
+      ],
+      "story": "Fifty-three foresters who walked seventy leagues in eight days and would rather be somewhere with cover."
+    },
+    {
+      "id": "c-stormmarch",
+      "name": "The men of Stormmarch",
+      "source": "feudal-levy",
+      "houseId": "stormmarch",
+      "houseName": "House Stormmarch",
+      "captainId": "bertrand-stormmarch",
+      "unitIds": ["u-coldgate-riders", "u-riding-hollow-knights"],
+      "resolve": 47,
+      "obedience": 47,
+      "treachery": 0,
+      "cohesion": 75,
+      "fellowship": "stormmarch",
+      "paid": true,
+      "arrears": 0,
+      "owed": 40,
+      "present": 30,
+      "disposition": "sullen",
+      "quirks": [
+        { "id": "claims-the-van", "intensity": 85, "explains": "The proudest man in the realm, holding the poorest land, commanding the best horse. He expects the front." },
+        { "id": "charges-without-orders", "intensity": 80, "explains": "Twenty heavy knights led by an aggressive man with something to prove." },
+        { "id": "veterans-know-the-ground", "intensity": 65, "explains": "The Coldgate riders have been doing this since childhood." },
+        { "id": "will-not-fight-beside", "targetId": "c-bannerwood", "intensity": 55, "explains": "See above. They both want the Marshalcy." }
+      ],
+      "story": "Ten riders and twenty knights. Forty of Coldgate's fifty are still standing on the frontier wall, because there is no Constable to relieve them."
+    },
+    {
+      "id": "c-ashfell",
+      "name": "The men of Ashfell",
+      "source": "feudal-levy",
+      "houseId": "ashfell",
+      "houseName": "House Ashfell",
+      "captainId": "cateline-ashfell",
+      "unitIds": ["u-deepcut-pickmen"],
+      "resolve": 44,
+      "obedience": 53,
+      "treachery": 0,
+      "cohesion": 40,
+      "fellowship": "ashfell",
+      "paid": true,
+      "arrears": 0,
+      "owed": 30,
+      "present": 27,
+      "disposition": "dutiful",
+      "quirks": [
+        { "id": "breaks-early", "intensity": 70, "explains": "Miners with picks. They will be the first thing on your side to give way." }
+      ],
+      "story": "Twenty-seven miners with picks, tired from thirty-six leagues of road. Sixty Sworn Brothers sat in her abbey and did not come, because nobody blessed the war."
+    },
+    {
+      "id": "c-highhall",
+      "name": "The Highhall levy",
+      "source": "town-militia",
+      "captainId": "odo-larkfield",
+      "unitIds": ["u-highhall-spears", "u-highhall-xbow"],
+      "resolve": 56,
+      "obedience": 72,
+      "treachery": 0,
+      "cohesion": 45,
+      "fellowship": "highhall",
+      "paid": true,
+      "arrears": 0,
+      "owed": 0,
+      "present": 130,
+      "disposition": "dutiful",
+      "quirks": [
+        { "id": "will-not-leave-the-province", "intensity": 80, "explains": "They came out to defend their own district and they will not chase anybody over the horizon." }
+      ],
+      "story": "The crown's own town, which needs no charter because you hold it yourself. A hundred and thirty shopkeepers with spears, under the captain of their own watch."
+    }
+  ],
+
+  "units": [
+    {
+      "id": "u-crown-banner", "name": "The Crown Banner", "story": "Forty picked men and a standard. There is no other body on this field that is you.",
+      "contingentId": "c-household", "homeHoldingId": "highhall", "homeHoldingName": "Highhall", "typeId": "crown-banner",
+      "kind": "foot", "reach": "melee", "weight": "heavy", "paperStrength": 40, "strength": 40,
+      "drill": 80, "veterancy": 65, "equipment": 95, "armour": 88, "fatigue": 10, "hunger": 0,
+      "resolve": 80, "obedience": 92, "treachery": 0, "fellowship": "crown", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-household-guard", "name": "The Household Guard", "story": "A hundred and ten men who live where you live and do exactly what they are told, the first time.",
+      "contingentId": "c-household", "homeHoldingId": "highhall", "homeHoldingName": "Highhall", "typeId": "household-guard",
+      "kind": "foot", "reach": "melee", "weight": "heavy", "paperStrength": 110, "strength": 110,
+      "drill": 85, "veterancy": 60, "equipment": 85, "armour": 80, "fatigue": 10, "hunger": 0,
+      "resolve": 76, "obedience": 88, "treachery": 0, "fellowship": "crown", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-millrow-spears", "name": "The Spears of Millrow", "story": "Farmers off Thornbury's best land, three leagues from where they are standing.",
+      "contingentId": "c-thornbury", "homeHoldingId": "millrow", "homeHoldingName": "Millrow", "typeId": "spearmen",
+      "kind": "foot", "reach": "melee", "weight": "medium", "paperStrength": 60, "strength": 60,
+      "drill": 45, "veterancy": 20, "equipment": 40, "armour": 35, "fatigue": 20, "hunger": 0,
+      "resolve": 72, "obedience": 60, "treachery": 0, "fellowship": "thornbury", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-millrow-bows", "name": "The Bows of Millrow", "story": "Twenty village archers who practise at the butts on Sundays.",
+      "contingentId": "c-thornbury", "homeHoldingId": "millrow", "homeHoldingName": "Millrow", "typeId": "bowmen",
+      "kind": "shot", "reach": "missile", "weight": "light", "paperStrength": 20, "strength": 20,
+      "drill": 40, "veterancy": 25, "equipment": 35, "armour": 15, "fatigue": 20, "hunger": 0,
+      "resolve": 70, "obedience": 60, "treachery": 0, "fellowship": "thornbury", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-harrowgate-maa", "name": "The Men-at-arms of Harrowgate", "story": "Professionals off Thornbury's castle wall. Twenty-five of forty; the rest are still standing on it.",
+      "contingentId": "c-thornbury", "homeHoldingId": "harrowgate", "homeHoldingName": "Harrowgate", "typeId": "men-at-arms",
+      "kind": "foot", "reach": "melee", "weight": "heavy", "paperStrength": 40, "strength": 25,
+      "drill": 70, "veterancy": 45, "equipment": 75, "armour": 70, "fatigue": 20, "hunger": 0,
+      "resolve": 74, "obedience": 64, "treachery": 0, "fellowship": "thornbury", "marchSpeed": 7, "quirks": []
+    },
+    {
+      "id": "u-harrowgate-xbow", "name": "The Crossbows of Harrowgate", "story": "Twenty crossbowmen who can punch a bolt through a knight.",
+      "contingentId": "c-thornbury", "homeHoldingId": "harrowgate", "homeHoldingName": "Harrowgate", "typeId": "crossbowmen",
+      "kind": "shot", "reach": "missile", "weight": "medium", "paperStrength": 30, "strength": 20,
+      "drill": 60, "veterancy": 35, "equipment": 65, "armour": 40, "fatigue": 20, "hunger": 0,
+      "resolve": 72, "obedience": 62, "treachery": 0, "fellowship": "thornbury", "marchSpeed": 7, "quirks": []
+    },
+    {
+      "id": "u-oakhold-maa", "name": "The Men-at-arms of Oakhold", "story": "Aldric sent his best first. He is still auditioning for the Marshalcy.",
+      "contingentId": "c-bannerwood", "homeHoldingId": "oakhold", "homeHoldingName": "Oakhold", "typeId": "men-at-arms",
+      "kind": "foot", "reach": "melee", "weight": "heavy", "paperStrength": 40, "strength": 25,
+      "drill": 70, "veterancy": 45, "equipment": 75, "armour": 70, "fatigue": 24, "hunger": 0,
+      "resolve": 72, "obedience": 58, "treachery": 0, "fellowship": "bannerwood", "marchSpeed": 7, "quirks": []
+    },
+    {
+      "id": "u-oakhold-xbow", "name": "The Crossbows of Oakhold", "story": "Twenty from the castle guild.",
+      "contingentId": "c-bannerwood", "homeHoldingId": "oakhold", "homeHoldingName": "Oakhold", "typeId": "crossbowmen",
+      "kind": "shot", "reach": "missile", "weight": "medium", "paperStrength": 30, "strength": 20,
+      "drill": 60, "veterancy": 35, "equipment": 65, "armour": 40, "fatigue": 24, "hunger": 0,
+      "resolve": 70, "obedience": 56, "treachery": 0, "fellowship": "bannerwood", "marchSpeed": 7, "quirks": []
+    },
+    {
+      "id": "u-bannerwood-spears", "name": "The Spears of Bannerwood", "story": "Forty-five of the manor's sixty. Fifteen stayed behind for the sowing.",
+      "contingentId": "c-bannerwood", "homeHoldingId": "bannerwood-manor", "homeHoldingName": "Bannerwood", "typeId": "spearmen",
+      "kind": "foot", "reach": "melee", "weight": "medium", "paperStrength": 60, "strength": 45,
+      "drill": 45, "veterancy": 20, "equipment": 40, "armour": 35, "fatigue": 24, "hunger": 0,
+      "resolve": 68, "obedience": 55, "treachery": 0, "fellowship": "bannerwood", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-greyfen-bows", "name": "The Bows of Greyfen", "story": "Sent complete, because they are the cheapest thing she has.",
+      "contingentId": "c-greyfen", "homeHoldingId": "greyfen-manor", "homeHoldingName": "Greyfen", "typeId": "bowmen",
+      "kind": "shot", "reach": "missile", "weight": "light", "paperStrength": 20, "strength": 20,
+      "drill": 40, "veterancy": 25, "equipment": 35, "armour": 15, "fatigue": 27, "hunger": 0,
+      "resolve": 41, "obedience": 47, "treachery": 0, "fellowship": "greyfen", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-greyfen-spears", "name": "The Spears of Greyfen", "story": "Forty-eight of sixty. The missing twelve, and the fifty marines behind them, are a message.",
+      "contingentId": "c-greyfen", "homeHoldingId": "greyfen-manor", "homeHoldingName": "Greyfen", "typeId": "spearmen",
+      "kind": "foot", "reach": "melee", "weight": "medium", "paperStrength": 60, "strength": 48,
+      "drill": 45, "veterancy": 20, "equipment": 40, "armour": 35, "fatigue": 27, "hunger": 0,
+      "resolve": 41, "obedience": 47, "treachery": 0, "fellowship": "greyfen", "marchSpeed": 8, "quirks": []
+    },
+    {
+      "id": "u-weald-foresters", "name": "The Foresters of the Weald", "story": "Fifty-three people who eat because they can hit a moving deer.",
+      "contingentId": "c-wold", "homeHoldingId": "the-weald", "homeHoldingName": "The Weald", "typeId": "foresters",
+      "kind": "shot", "reach": "missile", "weight": "light", "paperStrength": 60, "strength": 53,
+      "drill": 25, "veterancy": 60, "equipment": 45, "armour": 10, "fatigue": 25, "hunger": 0,
+      "resolve": 53, "obedience": 56, "treachery": 0, "fellowship": "wold", "marchSpeed": 9,
+      "quirks": [
+        { "id": "will-not-stand-in-line", "intensity": 85, "explains": "In the open they are a rumour. In the trees they are the best value on the field." }
+      ]
+    },
+    {
+      "id": "u-coldgate-riders", "name": "The Riders of Coldgate", "story": "Ten of fifty. The other forty are on the frontier wall, and there is no Constable to take them off it.",
+      "contingentId": "c-stormmarch", "homeHoldingId": "coldgate", "homeHoldingName": "Coldgate", "typeId": "march-riders",
+      "kind": "horse", "reach": "both", "weight": "light", "paperStrength": 50, "strength": 10,
+      "drill": 65, "veterancy": 65, "equipment": 50, "armour": 30, "fatigue": 19, "hunger": 0,
+      "resolve": 50, "obedience": 49, "treachery": 0, "fellowship": "stormmarch", "marchSpeed": 14,
+      "quirks": [
+        { "id": "veterans-know-the-ground", "intensity": 65, "explains": "They have been raiding and being raided since childhood." }
+      ]
+    },
+    {
+      "id": "u-riding-hollow-knights", "name": "The Knights of Riding Hollow", "story": "Twenty heavy horse — the only heavy horse in the realm outside your own household. They are two days behind.",
+      "contingentId": "c-stormmarch", "homeHoldingId": "riding-hollow", "homeHoldingName": "Riding Hollow", "typeId": "knights",
+      "kind": "horse", "reach": "melee", "weight": "heavy", "paperStrength": 40, "strength": 20,
+      "drill": 55, "veterancy": 55, "equipment": 95, "armour": 90, "fatigue": 21, "hunger": 0,
+      "resolve": 48, "obedience": 45, "treachery": 0, "fellowship": "stormmarch", "marchSpeed": 12,
+      "quirks": [
+        { "id": "charges-without-orders", "intensity": 80, "explains": "Twenty armoured knights led by the proudest man in the realm." },
+        { "id": "first-to-plunder", "intensity": 45, "explains": "Stormmarch is poor and its knights know exactly what a baggage train is worth." }
+      ]
+    },
+    {
+      "id": "u-deepcut-pickmen", "name": "The Pick-men of Deepcut", "story": "Twenty-seven miners with picks, thirty-six leagues from the shaft, wondering what they are doing here.",
+      "contingentId": "c-ashfell", "homeHoldingId": "deepcut", "homeHoldingName": "Deepcut", "typeId": "pick-men",
+      "kind": "foot", "reach": "melee", "weight": "light", "paperStrength": 40, "strength": 27,
+      "drill": 15, "veterancy": 10, "equipment": 20, "armour": 10, "fatigue": 37, "hunger": 0,
+      "resolve": 44, "obedience": 53, "treachery": 0, "fellowship": "ashfell", "marchSpeed": 8,
+      "quirks": [
+        { "id": "breaks-early", "intensity": 70, "explains": "They will be the first thing on your side to give way." }
+      ]
+    },
+    {
+      "id": "u-highhall-spears", "name": "The Spears of Highhall", "story": "The capital's militia. They will hold their own gate all day and will not walk past it.",
+      "contingentId": "c-highhall", "homeHoldingId": "highhall-town", "homeHoldingName": "Highhall Town", "typeId": "militia-spears",
+      "kind": "foot", "reach": "melee", "weight": "light", "paperStrength": 120, "strength": 100,
+      "drill": 30, "veterancy": 10, "equipment": 30, "armour": 20, "fatigue": 17, "hunger": 0,
+      "resolve": 56, "obedience": 72, "treachery": 0, "fellowship": "highhall", "marchSpeed": 7,
+      "quirks": [
+        { "id": "will-not-leave-the-province", "intensity": 80, "explains": "They will not pursue." }
+      ]
+    },
+    {
+      "id": "u-highhall-xbow", "name": "The Crossbows of Highhall", "story": "The town guild, thirty strong and quietly rather good.",
+      "contingentId": "c-highhall", "homeHoldingId": "highhall-town", "homeHoldingName": "Highhall Town", "typeId": "crossbowmen",
+      "kind": "shot", "reach": "missile", "weight": "light", "paperStrength": 40, "strength": 30,
+      "drill": 45, "veterancy": 20, "equipment": 55, "armour": 25, "fatigue": 17, "hunger": 0,
+      "resolve": 57, "obedience": 72, "treachery": 0, "fellowship": "highhall", "marchSpeed": 7, "quirks": []
+    }
+  ],
+
+  "captains": [
+    {
+      "id": "payne-holt", "name": "Ser Payne Holt", "houseId": null, "houseName": null, "seatId": "steward",
+      "command": 62, "valour": 70, "wits": 55, "aggression": 45, "caution": 60, "pride": 30, "greed": 20,
+      "loyalty": 95, "grievance": 0, "standing": 40, "rivals": [], "kin": [], "wounded": false, "age": 44,
+      "record": { "battlesFought": 6, "battlesWon": 4, "timesDistinguished": 1, "timesFled": 0 },
+      "quirks": [],
+      "$explains": "A landless household captain given the Stewardship and now the command as well, because there is no Marshal. Loyal to the point of embarrassment and merely competent — and the great lords all know it, which is exactly why the host's authority is fifty-two."
+    },
+    {
+      "id": "mavis-thornbury", "name": "Lord Mavis Thornbury", "houseId": "thornbury", "houseName": "House Thornbury", "seatId": null,
+      "command": 55, "valour": 45, "wits": 60, "aggression": 25, "caution": 75, "pride": 40, "greed": 35,
+      "loyalty": 68, "grievance": 10, "standing": 70, "rivals": [], "kin": [], "wounded": false, "age": 61,
+      "record": { "battlesFought": 11, "battlesWon": 7, "timesDistinguished": 2, "timesFled": 1 },
+      "quirks": [
+        { "id": "cautious-with-his-own", "intensity": 60, "explains": "He has buried enough of his people." }
+      ]
+    },
+    {
+      "id": "aldric-bannerwood", "name": "Lord Aldric Bannerwood", "houseId": "bannerwood", "houseName": "House Bannerwood", "seatId": null,
+      "command": 72, "valour": 80, "wits": 50, "aggression": 70, "caution": 30, "pride": 75, "greed": 45,
+      "loyalty": 61, "grievance": 5, "standing": 65,
+      "rivals": [{ "captainId": "bertrand-stormmarch", "intensity": 55 }], "kin": [], "wounded": false, "age": 38,
+      "record": { "battlesFought": 8, "battlesWon": 6, "timesDistinguished": 3, "timesFled": 0 },
+      "quirks": [
+        { "id": "claims-the-van", "intensity": 75, "explains": "He expects the front of the line." },
+        { "id": "charges-without-orders", "intensity": 70, "explains": "He will go when he thinks it is time." }
+      ]
+    },
+    {
+      "id": "ysolde-greyfen", "name": "Lady Ysolde Greyfen", "houseId": "greyfen", "houseName": "House Greyfen", "seatId": null,
+      "command": 50, "valour": 40, "wits": 85, "aggression": 30, "caution": 65, "pride": 60, "greed": 55,
+      "loyalty": 44, "grievance": 20, "standing": 75, "rivals": [], "kin": [], "wounded": false, "age": 44,
+      "record": { "battlesFought": 3, "battlesWon": 2, "timesDistinguished": 0, "timesFled": 0 },
+      "quirks": [],
+      "$explains": "Wits eighty-five and a grudge of twenty. She is the cleverest person in this host and she is here under protest, and both facts will be visible before the battle is a minute old."
+    },
+    {
+      "id": "hoel-of-the-wold", "name": "Ser Hoel of the Wold", "houseId": "wold", "houseName": "House Wold", "seatId": null,
+      "command": 58, "valour": 60, "wits": 70, "aggression": 40, "caution": 55, "pride": 50, "greed": 25,
+      "loyalty": 55, "grievance": 5, "standing": 45, "rivals": [], "kin": [], "wounded": false, "age": 51,
+      "record": { "battlesFought": 5, "battlesWon": 3, "timesDistinguished": 1, "timesFled": 0 },
+      "quirks": [
+        { "id": "mud-wise", "intensity": 70, "explains": "He has fought at this ford before, and he remembers where the ground goes soft." }
+      ]
+    },
+    {
+      "id": "bertrand-stormmarch", "name": "Ser Bertrand Stormmarch", "houseId": "stormmarch", "houseName": "House Stormmarch", "seatId": null,
+      "command": 78, "valour": 85, "wits": 65, "aggression": 80, "caution": 35, "pride": 85, "greed": 20,
+      "loyalty": 44, "grievance": 10, "standing": 55,
+      "rivals": [{ "captainId": "aldric-bannerwood", "intensity": 55 }], "kin": [], "wounded": false, "age": 41,
+      "record": { "battlesFought": 19, "battlesWon": 14, "timesDistinguished": 6, "timesFled": 0 },
+      "quirks": [
+        { "id": "claims-the-van", "intensity": 85, "explains": "The proudest man in the realm." },
+        { "id": "charges-without-orders", "intensity": 80, "explains": "And the most aggressive." },
+        { "id": "boastful", "intensity": 60, "explains": "He told the whole court what he would do at this ford, and a great many people were listening." }
+      ],
+      "$explains": "The best soldier in the realm, at obedience forty-seven, because you have passed him over for the Marshalcy five years running. Everything good about this host and everything dangerous about it are the same man."
+    },
+    {
+      "id": "cateline-ashfell", "name": "Lady Cateline Ashfell", "houseId": "ashfell", "houseName": "House Ashfell", "seatId": null,
+      "command": 40, "valour": 35, "wits": 75, "aggression": 20, "caution": 70, "pride": 65, "greed": 15,
+      "loyalty": 51, "grievance": 14, "standing": 40, "rivals": [], "kin": [], "wounded": false, "age": 36,
+      "record": { "battlesFought": 1, "battlesWon": 0, "timesDistinguished": 0, "timesFled": 0 },
+      "quirks": []
+    },
+    {
+      "id": "odo-larkfield", "name": "Odo Larkfield", "houseId": null, "houseName": null, "seatId": null,
+      "command": 45, "valour": 50, "wits": 40, "aggression": 35, "caution": 60, "pride": 20, "greed": 10,
+      "loyalty": 80, "grievance": 0, "standing": 15, "rivals": [], "kin": [], "wounded": false, "age": 47,
+      "record": { "battlesFought": 2, "battlesWon": 1, "timesDistinguished": 0, "timesFled": 0 },
+      "quirks": [],
+      "$explains": "Captain of Highhall's watch. Not a lord, not a soldier, and entirely reliable inside twenty miles of his own gate."
+    }
+  ],
+
+  "supply": {
+    "provisionDays": 24,
+    "sacks": 180,
+    "forage": 0.7,
+    "baggageCarts": 22,
+    "physicians": 2,
+    "payArrears": 0,
+    "$explains": "Six hundred and seventy-three men eat 6.7 sacks a day, and seedtime forage of 0.7 means the countryside gives back almost nothing — so a hundred and eighty sacks is twenty-four days. Enough to fight, not enough to besiege, and just enough to wait two days for the Knights of Riding Hollow."
+  },
+
+  "latecomers": [
+    {
+      "unitIds": ["u-riding-hollow-knights"],
+      "contingentId": "c-stormmarch",
+      "lateDays": 2,
+      "entersAtFraction": 0.25,
+      "explains": "Bertrand Stormmarch came short and late — sixty-two leagues and a grudge about the empty Marshalcy. His twenty heavy knights, the only heavy horse in the realm outside your household, arrive a quarter of the way through the fighting. An engine that does not model reinforcements should treat them as absent and say so in the report."
+    }
+  ],
+
+  "absent": [
+    {
+      "whoId": "greyfen", "whoName": "House Greyfen", "kind": "house", "answer": "short", "owed": 90, "sent": 68,
+      "reason": "Came short: twenty-two men held back, including all fifty marines.",
+      "explains": "You gave the Stewardship to a household captain with no land. Lady Ysolde had a claim of five and has carried a grudge of twenty ever since. Two hundred crowns of wergild, four days ago, would have bought thirteen of these men back.",
+      "grievanceActIds": ["act-1185-invest-steward"]
+    },
+    {
+      "whoId": "wold", "whoName": "House Wold", "kind": "house", "answer": "short", "owed": 70, "sent": 53,
+      "reason": "Came short and two days late.",
+      "explains": "Seventy leagues away through woods, and the Justiciarship he has wanted for eight years is still empty.",
+      "grievanceActIds": ["act-1179-justiciar-vacant"]
+    },
+    {
+      "whoId": "stormmarch", "whoName": "House Stormmarch", "kind": "house", "answer": "short", "owed": 40, "sent": 30,
+      "reason": "Came short and two days late; forty men remain on the frontier wall.",
+      "explains": "There is no Constable, so Coldgate must keep its full garrison of forty. Appoint one and ten more riders move from this list to the other one.",
+      "grievanceActIds": ["act-1182-marshal-vacant", "act-1180-constable-vacant"]
+    },
+    {
+      "whoId": "ashfell", "whoName": "House Ashfell", "kind": "house", "answer": "near-full", "owed": 30, "sent": 27,
+      "reason": "Came near full.",
+      "explains": "Three men short of thirty. Nobody will mention it.",
+      "grievanceActIds": []
+    },
+    {
+      "whoId": "sworn-order", "whoName": "The Sworn Order", "kind": "order", "answer": "refusal", "owed": 60, "sent": 0,
+      "reason": "The cause is not blessed.",
+      "explains": "Sixty of the best foot soldiers in the game, free, sitting in Ashfell Abbey doing nothing, because the Chaplaincy is empty and nobody declared this war holy. This is the single largest missing number on the field.",
+      "grievanceActIds": ["act-1186-chaplain-vacant"]
+    },
+    {
+      "whoId": "thornbury-town", "whoName": "Thornbury Town", "kind": "town", "answer": "refusal", "owed": 130, "sent": 0,
+      "reason": "No charter has been signed.",
+      "explains": "A hundred and thirty militia spears, eighteen leagues away, available for eight days of a Chancellor's time and a fifth of Thornbury's taxes forever.",
+      "grievanceActIds": []
+    }
+  ],
+
+  "standing": {
+    "legitimacy": 50,
+    "momentum": 0,
+    "belief": 48,
+    "$explains": "Belief forty-eight: they are not sure they will win. Six hundred and seventy-three men against an estimated seven to nine hundred, no Marshal, and the man commanding is a household captain rather than a great lord."
+  },
+
+  "notes": [
+    "673 men present at the first minute; 693 once the Knights of Riding Hollow arrive.",
+    "Order capacity 2: two riders and four standing plans. The Marshalcy has been empty for five years.",
+    "Every absence in this host was a decision, and every one of them can be priced before it is made. See data/answers.json.",
+    "Three legible plays would change this field: grant the Marshalcy (+2 riders, +2 plans, one house up and its rival down, net minus three men); pay a 200-crown wergild to Greyfen (+13 men); charter Thornbury Town (+130 poor spears and a fifth of its tax, forever). Do all three and 673 becomes 813 with four riders — and one new grudge with a long memory, which is next year's problem, dated."
+  ]
+}

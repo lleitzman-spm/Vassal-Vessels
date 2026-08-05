@@ -1,0 +1,39 @@
+{
+  // The engine is headless on purpose, and this file is where that is enforced
+  // rather than merely promised. Note what is ABSENT from "lib": there is no
+  // "DOM". A domain module that reaches for `document`, `window`, `fetch` or a
+  // canvas will not compile, which is the point — the front end is out of mind,
+  // and a compiler error is a better guard than a good intention.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": [],
+
+    // Determinism is a law here (see CLAUDE.md), and strictness is how it is
+    // kept. An implicit `any` flowing into a simulation is a value nobody has
+    // reasoned about, and the same seed must always give the same battle.
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    // `data/*.json` IS the game (KINGDOM.md law 6: a number that is not in
+    // data/ does not exist). The engine therefore reads its constants from
+    // those files directly rather than keeping a second copy in TypeScript,
+    // which is the only way the promise "a playtest tunes exactly one file"
+    // can be true.
+    "resolveJsonModule": true,
+
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true
+  },
+  "include": ["src", "test"]
+}

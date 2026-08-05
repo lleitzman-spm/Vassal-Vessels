@@ -1,0 +1,160 @@
+{
+  "$schema": "vassal-vessels/standing-plans/1",
+  "explains": "A standing plan is an order agreed before it is needed: a condition, an order, and a recipient. 'If horsemen come within a hundred paces — brace.' 'If you have been fighting six seconds — step back.' 'When the second horn sounds — the reserve strikes their left.' When the condition is met the order installs INSTANTLY: no rider, no delay, and — this is the whole point — NO HEED CHECK, because the captain agreed to it at the morning briefing while he was calm and it was hypothetical.\n\nThat is the loophole in the politics, and it is meant to be there. You cannot make a disloyal lord obey you in the middle of a crisis. You CAN get him to agree to something that has not happened yet. Standing plans are how a king with bad vassals fights a good battle, and learning that is learning this game.",
+  "whereThisCameFrom": "The graft's single largest join: one battle design had sealed written orders carried by a rider, the other had horn signals briefed at deployment. They were the same idea arrived at twice, so they are now ONE mechanism — and a horn is simply a trigger the commander pulls by hand instead of the field pulling it for him.",
+
+  "rules": {
+    "slotsAtDeployment": "orderCapacity + 2 — so a vacant Marshalcy is two riders and four plans, and a great Marshal is six and eight. Binding these at deployment is FREE.",
+    "perUnitLimit": "1 armed plan per unit; 2 if its captain's wits are 70 or better.",
+    "midBattleBinding": "The BIND_PLAN order: it rides a courier and the captain weighs it ON ARRIVAL — he may refuse to take the envelope. Once he has taken it, it fires unchecked.",
+    "checkedEveryTicks": 5,
+    "firesOnce": true,
+    "clearedOnRout": "A routing unit loses its armed plans. Men running do not read.",
+    "noHeedCheckOnFiring": "Correct, deliberate, and the reason the mechanism exists.",
+    "recipient": "A contingent (the captain relays to all his units in the same tick) or a single unit.",
+    "explains": "Slots are the court's hand on your foresight exactly as riders are its hand on your voice — both come out of the same number, the Marshal's orderCapacity."
+  },
+
+  "hornChannels": {
+    "count": 3,
+    "explains": "Three horns, numbered. Sounding one costs no rider and takes no time; any plan bound to that channel fires at once, anywhere on the field, for everybody. A horn is not an order — it is a trigger you pull with your own hand, for the crises a rule cannot describe. Bind nothing to a horn and it is just a noise.",
+    "channels": [
+      { "id": 1, "name": "The First Horn", "customaryUse": "The general advance. Everybody goes at the same moment, which no number of riders can buy you." },
+      { "id": 2, "name": "The Second Horn", "customaryUse": "The stroke you were saving: the reserve, the ambush in the wood, the wheel onto their flank." },
+      { "id": 3, "name": "The Third Horn", "customaryUse": "The crisis call. Stand fast, close up, hold what you have — or, if the day is gone, break off together." }
+    ],
+    "noDullness": "Horns have no morale effect of their own and do not wear out with repetition. One of the source designs made repeated horns count for less; this canon dropped it, because a horn here carries no morale — only a plan somebody already agreed to. See docs/OPEN-QUESTIONS.md."
+  },
+
+  "triggers": [
+    {
+      "id": "HORN_SOUNDED",
+      "valueUnit": "channel number, 1 to 3",
+      "typicalValue": 2,
+      "checkedAgainst": "the commander's own hand",
+      "example": { "trigger": "HORN_SOUNDED", "value": 2, "recipient": "c-household", "order": "CHARGE", "orderParams": { "targetUnit": "their-left" } },
+      "herald": "The second horn sounds, and the Household goes for their left as agreed.",
+      "explains": "The one trigger you pull yourself. It is how you make two contingents that cannot see each other act on the same heartbeat, and how you keep one judgement call in your own hands instead of writing it down as a rule.",
+      "readOnField": "One long note, and several things happening at once in different parts of the field."
+    },
+    {
+      "id": "ENEMY_CAVALRY_WITHIN",
+      "valueUnit": "millimetres",
+      "typicalValue": 100000,
+      "checkedAgainst": "the nearest enemy MOUNTED unit's centre",
+      "example": { "trigger": "ENEMY_CAVALRY_WITHIN", "value": 100000, "recipient": "u-millrow-spears", "order": "BRACE" },
+      "herald": "The Spears of Millrow set their points before the rider could have reached them.",
+      "explains": "The classic pairing, and the first plan most players learn. Bracing takes a second and a half; a charging horse covers thirty metres in that time. You cannot afford to notice and then react — you have to have decided already.",
+      "readOnField": "Spears go level with no rider anywhere near. It looks like the unit read the enemy's mind."
+    },
+    {
+      "id": "ENEMY_WITHIN",
+      "valueUnit": "millimetres",
+      "typicalValue": 70000,
+      "checkedAgainst": "the nearest enemy unit of any kind",
+      "example": { "trigger": "ENEMY_WITHIN", "value": 70000, "recipient": "c-thornbury", "order": "LOOSE_FIRE" },
+      "herald": "The bows of Thornbury open at seventy paces, as they were told to.",
+      "explains": "Pair it with LOOSE_FIRE to make archers hold their arrows until the target is close enough to be worth shooting — which is worth about four times shooting at him now, and is nearly impossible to time by hand across a nine-second ride."
+    },
+    {
+      "id": "ENGAGED_FOR_TICKS",
+      "valueUnit": "ticks of continuous contact",
+      "typicalValue": 110,
+      "checkedAgainst": "the unit's own contact counter",
+      "example": { "trigger": "ENGAGED_FOR_TICKS", "value": 110, "recipient": "u-greyfen-spears", "order": "FALL_BACK", "orderParams": { "distanceMm": 40000 } },
+      "herald": "The Spears of Greyfen hit, held five seconds, and stepped cleanly back before the press could turn.",
+      "explains": "THE SIX SECONDS, automated. A melee changes character at a hundred and twenty ticks: long weapons drop to one fighting rank and their reach becomes a penalty instead of an advantage. Set this to a hundred and ten on your spearmen with FALL_BACK and they will hit, hurt and get out just before the fight turns against them — a manoeuvre almost nobody can time by hand.",
+      "readOnField": "The spear line hits, holds five seconds, steps back. Then does it again."
+    },
+    {
+      "id": "MORALE_BELOW",
+      "valueUnit": "morale, 0 to 1000 as displayed",
+      "typicalValue": 300,
+      "checkedAgainst": "the unit's own morale",
+      "example": { "trigger": "MORALE_BELOW", "value": 300, "recipient": "u-deepcut-pickmen", "order": "FALL_BACK", "orderParams": { "distanceMm": 90000 } },
+      "herald": "The Pick-men of Deepcut pulled out of the line while they were still a unit.",
+      "explains": "Fires when a unit's will drops past a line you drew. A unit that withdraws at three hundred can rally; a unit that routs at one hundred and fifty usually does not. This is the cheapest insurance in the game for troops you know are brittle.",
+      "readOnField": "A unit leaves the line while it is still in order. Nothing looks more professional."
+    },
+    {
+      "id": "SELF_STRENGTH_BELOW",
+      "valueUnit": "per mille of the unit's muster strength",
+      "typicalValue": 400,
+      "checkedAgainst": "the unit's own men remaining",
+      "example": { "trigger": "SELF_STRENGTH_BELOW", "value": 400, "recipient": "u-oakhold-maa", "order": "FALL_BACK", "orderParams": { "distanceMm": 150000 } },
+      "herald": "Down to two men in five, the Men-at-arms of Oakhold came out.",
+      "explains": "Half a unit is worth saving. A quarter of a unit is worth nothing to anybody, and its rout will frighten everything within ninety metres on the way past."
+    },
+    {
+      "id": "AMMO_BELOW",
+      "valueUnit": "volleys remaining",
+      "typicalValue": 5,
+      "checkedAgainst": "the unit's own quivers",
+      "example": { "trigger": "AMMO_BELOW", "value": 5, "recipient": "c-wold", "order": "FALL_BACK", "orderParams": { "distanceMm": 120000 } },
+      "herald": "Nearly out of arrows, the foresters went back behind the spears.",
+      "explains": "Archers with empty quivers standing in front of your line are not archers, they are casualties waiting to happen. Bind this and they take themselves out of the way."
+    },
+    {
+      "id": "FRIEND_ROUTS_WITHIN",
+      "valueUnit": "millimetres",
+      "typicalValue": 80000,
+      "checkedAgainst": "any friendly unit entering ROUTING",
+      "example": { "trigger": "FRIEND_ROUTS_WITHIN", "value": 80000, "recipient": "c-household", "order": "HOLD_POSITION" },
+      "herald": "The Household closed up the instant the militia went.",
+      "explains": "Panic reaches ninety metres and courage only forty-five, so the moment a neighbour breaks is exactly when the next unit along needs to be doing something deliberate rather than drifting backwards. Pair with HOLD_POSITION or BRACE.",
+      "readOnField": "One unit runs and the unit beside it visibly tightens instead of following."
+    },
+    {
+      "id": "ENEMY_ENTERS_ZONE",
+      "valueUnit": "a rectangle drawn on the field, in millimetres",
+      "typicalValue": null,
+      "checkedAgainst": "any enemy unit's centre inside the box",
+      "example": { "trigger": "ENEMY_ENTERS_ZONE", "zone": { "x": 420000, "y": 260000, "w": 90000, "h": 60000 }, "recipient": "u-coldgate-riders", "order": "CHARGE", "orderParams": { "targetUnit": "nearestInZone" } },
+      "herald": "The riders came out of the trees at the moment the crossing was committed.",
+      "explains": "THE AMBUSH. Draw a box on the map — the wood, the ford, the dead ground behind the ridge — and seal a charge against it. Your riders come out at the exact instant the enemy commits, with no rider needed and no nine-second warning.",
+      "readOnField": "Nothing, and then everything."
+    },
+    {
+      "id": "TICK_REACHED",
+      "valueUnit": "ticks from the start of the battle",
+      "typicalValue": 2400,
+      "checkedAgainst": "the clock",
+      "example": { "trigger": "TICK_REACHED", "value": 2400, "recipient": "c-stormmarch", "order": "CHARGE", "orderParams": { "targetUnit": "nearest" } },
+      "herald": "At two minutes, exactly as briefed, Stormmarch went in.",
+      "explains": "A plain alarm clock — crude, and the only way to coordinate two wings that cannot see each other and cannot hear the same horn. Set the same tick on both and they go together whatever happens to your riders."
+    },
+    {
+      "id": "BANNER_LOST",
+      "valueUnit": "none",
+      "checkedAgainst": "the Crown Banner's own unit",
+      "example": { "trigger": "BANNER_LOST", "recipient": "c-household", "order": "HOLD_POSITION" },
+      "herald": "The banner went down, and the Household did not move.",
+      "explains": "If the banner falls, every unit in the army loses a quarter of its will at once and your signal range goes to nothing — every order afterwards is a courier ride. A pre-sealed 'if the banner falls, hold' on your steadiest contingent is the cheapest insurance there is."
+    },
+    {
+      "id": "ENEMY_BROKE",
+      "valueUnit": "none",
+      "checkedAgainst": "the enemy army's break condition",
+      "example": { "trigger": "ENEMY_BROKE", "recipient": "u-riding-hollow-knights", "order": "HOLD_POSITION" },
+      "herald": "The Knights of Riding Hollow held while the rest of the field went hunting.",
+      "explains": "The best use of the whole mechanism. A standing plan takes no heed check — which is precisely how you stop a greedy vassal throwing away your only cavalry chasing ransom money. You could not have ordered him to stop. You could get him to agree, this morning, that he would.",
+      "readOnField": "The one unit in the winning army that does not join the chase."
+    }
+  ],
+
+  "heraldTemplates": {
+    "plan_fired": "{recipient} does as was agreed: {orderName}.",
+    "plan_bound": "A sealed word goes out to {recipient}: if {triggerPhrase}, then {orderName}.",
+    "plan_refused": "{captain} would not take the envelope. {cause}",
+    "explains": "Every plan that fires is announced in plain words, because a plan firing looks like magic otherwise — a unit doing exactly the right thing with no rider in sight. The herald's job is to make sure the player knows it was their own foresight and not the engine being kind."
+  },
+
+  "howToUseThemWell": {
+    "1_theBrittleUnit": "Every army has one unit that will break first. MORALE_BELOW 300 with FALL_BACK costs one slot and saves it.",
+    "2_theSixSeconds": "Spearmen without sidearms lose the press badly. ENGAGED_FOR_TICKS 110 with FALL_BACK is worth more than any equipment you could buy them.",
+    "3_theHorse": "ENEMY_CAVALRY_WITHIN 100000 with BRACE on anything that can brace. Bracing is too slow to order in time, ever.",
+    "4_theGreedyLord": "ENEMY_BROKE with HOLD_POSITION on the contingent whose captain has the highest greed. This is the game's clearest lesson: read the court sheet, then bind the plan.",
+    "5_theHorn": "Keep at least one horn channel bound to the stroke you are saving, and do not spend it early. A horn is the only judgement you get to make at the speed of thought.",
+    "explains": "A player who understands the counters can bind four plans in the first minute and then have their hands free for the one decision that actually decides the day. That is the skill ceiling of this game, and it is entirely about knowing the physics and reading the court."
+  }
+}

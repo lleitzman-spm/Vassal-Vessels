@@ -1,0 +1,94 @@
+{
+  "$schema": "vassal-vessels/obligations/1",
+  "explains": "How somebody comes to owe you soldiers, and what happens when you ask. This is the heart of the game: the whole court exists so that when you call, an army actually shows up.",
+  "theVessel": {
+    "name": "The Vessel",
+    "k": "court.obligation",
+    "explains": "Picture every house as a cup holding one year's fighting. The grant of land that made them lords says exactly how much is in it: so many men, for forty days. A summons DRINKS from the cup. The cup refills on New Year's Day and not on a timer you can watch creep along — so you cannot wait for it, you can only plan around it. The game is called Vassal Vessels because this cup is what everything else is about.",
+    "numbers": { "capacityDays": 40, "refills": "at the turn of the year" },
+    "readOnTheScreen": "Every house's cup is drawn before you send the letter, with the days already drunk shaded in. Nothing about the vessel is ever a surprise; that is the point of drawing it."
+  },
+
+  "obligations": [
+    {
+      "id": "feudal-service",
+      "name": "Feudal service",
+      "createdBy": "an Enfeoff record — the grant of land IS the contract, and the terms are written into it",
+      "revokedBy": "removing that record, or an Attaint",
+      "k": "court.obligation",
+      "numbers": {
+        "typicalOwedDays": 40,
+        "typicalOwedMen": "20 to 140, stated in the grant itself",
+        "beyondTheVessel": "the first summons past his forty days costs 15 willingness and a grudge of 6; the second, 25 and 8; the third, 35 and 8"
+      },
+      "explains": "When you give a house land, you write down how many men they owe you and for how many days. That written line is the single most important number in your realm. If you want more soldiers permanently, the cleanest way in the game is to grant more land and write a bigger number in the charter — and unlike money, you can never take it back cheaply.",
+      "theTrap": "Calling the same house twice in a year drinks a cup that is already half empty. Ask a third time and a loyal man is refusing you in public — and the game drew you the empty cup before you sent every one of those letters."
+    },
+    {
+      "id": "castle-guard",
+      "name": "Castle-guard",
+      "createdBy": "holding a castle or a march-fort",
+      "numbers": { "castleGarrison": 25, "marchFortGarrison": 40, "constableReduction": "a quarter, with a Constable seated" },
+      "explains": "Some of a lord's men are not soldiers you can call — they are standing on his walls, and if they come down, his home burns. A frontier fort needs forty men just to go on existing. That is why the lord with the best cavalry in your realm can only bring you ten riders, and why appointing a Constable feels like magic.",
+      "readOnTheScreen": "Every holding's roll shows its garrison held back in grey, so the men you cannot have are named as clearly as the men you can."
+    },
+    {
+      "id": "scutage",
+      "name": "Scutage — shield money",
+      "createdBy": "an AcceptScutage record: the lord offers coin instead of coming",
+      "k": "court.obligation.scutageCrownsPerManOwed",
+      "numbers": { "crownsPerManOwed": 2, "stewardMayDemand": 3 },
+      "explains": "A lord can buy his way out of a campaign: two crowns for every man he owed. It is completely legal, it costs him nothing in grudges, and it fills your treasury. It is also a trap, because hiring mercenaries costs about six crowns a man — so his money buys back a third of the soldiers he did not send.",
+      "theTrap": "After three straight years of taking coin, the obligation itself starts to rot: the men he owes fall by a tenth every year, because his sons are growing up having never marched for you. The easy path eats the very thing it is spending."
+    },
+    {
+      "id": "charter-militia",
+      "name": "The town charter",
+      "createdBy": "a Charter record",
+      "numbers": { "libertyShare": "a fifth of that town's tax, forever", "riotIfLeviedTwiceInYears": 3, "typicalMen": 160 },
+      "explains": "A town will hand over its militia — a great many indifferent spearmen, and fast, because towns sit on the roads — but only if you sign away some of its liberties. That signature is permanent: a fifth of the town's taxes, gone forever, for one battle's worth of men. Sometimes that is exactly the right trade. It should always feel like taking out a mortgage."
+    },
+    {
+      "id": "contract",
+      "name": "The mercenary contract",
+      "createdBy": "a Contract record",
+      "k": "court.coin",
+      "numbers": { "hireCrownsPerMan": 2, "seasonCrownsPerMan": 4, "unpaidSeasonTreachery": 12, "unpaidSeasonResolve": -8 },
+      "explains": "Companies of professional soldiers will fight for anybody who pays. They are good, they are experienced, and they do not care about your family at all. Miss one payment and their willingness to turn on you climbs twelve points a season, and their courage loses its floor entirely.",
+      "theTrap": "Every lord who sat at home while you hired foreigners takes a grudge of 4, and the Church takes 6 off your legitimacy. Money into soldiers is the one conversion that does not need anybody to like you — and it makes fewer people like you every time you use it."
+    },
+    {
+      "id": "sworn-service",
+      "name": "The Order's oath",
+      "createdBy": "a blessed Proclaim, plus an abbey that houses their chapter",
+      "numbers": { "men": 60, "obedienceCap": 55, "unjustWarLegitimacy": -20 },
+      "explains": "The Sworn Brothers are the best foot soldiers in the game and they cost nothing at all. The catch is that they answer their own Grandmaster before they answer your Marshal — obedience capped at fifty-five, whatever you do — so at some point in a battle they will do what they believe is right instead of what you asked. And they come only for a war your Chaplain has blessed, which means an empty Chaplaincy is sixty free elite soldiers sitting in an abbey."
+    },
+    {
+      "id": "household",
+      "name": "The Household",
+      "createdBy": "paying for it, every season, forever",
+      "k": "court.coin.householdCrownsPerManPerSeason",
+      "numbers": { "crownsPerManPerSeason": 3, "daysToStand": 0 },
+      "explains": "Your own soldiers, who live where you live. They are always there, they are always good, and they are always yours: no letters, no waiting, no excuses, no grudges. They are also the most expensive men in the realm, and every crown in the Household is a crown not settling a grudge — which is the whole reason the rest of this file exists."
+    },
+    {
+      "id": "great-summons",
+      "name": "The Great Summons",
+      "createdBy": "a Summon record marked great, on a defensive cause only",
+      "k": "court.obligation",
+      "numbers": {
+        "everyYears": 5,
+        "menMultiplier": 1.75,
+        "grievanceEach": 15,
+        "forgivenOnVictory": true,
+        "doubledOnDefeat": true,
+        "garrisonsStripped": true
+      },
+      "explains": "Once in five years, and only when the realm itself is being invaded, you may call not the quotas but EVERYTHING — every man every house can raise, castle garrisons and unchartered towns included. It brings about three-quarters again as many soldiers as an ordinary muster. Every house takes a grudge of fifteen for it, and here is the beautiful part: win, and the grudge is wiped out entirely and nobody mentions it again. Lose, and it doubles, with every house in the kingdom at once.",
+      "theSecondCost": "It takes every man off every wall in the realm. While a Great Summons stands, a raid on any holding is a holding lost. This is the way out of a losing streak, and it is a gamble, not a refund."
+    }
+  ],
+
+  "theWholeShape": "Five kinds of soldier and one escape hatch. The levy is free and answers to somebody else. The Household is yours and never stops costing. Companies are money into men and an insult to everyone not asked. Towns are numbers now against income forever. The Order is free, superb, and not quite yours. Pick two, because you can never afford all five, and the picking is the game."
+}

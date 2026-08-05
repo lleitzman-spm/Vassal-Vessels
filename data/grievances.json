@@ -1,0 +1,174 @@
+{
+  "$schema": "vassal-vessels/grievances/1",
+  "explains": "Every way you can make a house angry, exactly how angry it makes them, and what they do about it. Grudges are the engine of this game. Kindness fades on its own; a grudge does not — you have to go and settle it, or it sits there for thirty years and then his son inherits half of it.",
+  "howGrievanceWorks": {
+    "k": "court.loyalty",
+    "doesNotDecay": "A grudge does not fade with time the way a favour does. It cools by a fifth after ten years and that is all.",
+    "isInherited": "An heir inherits half his father's grudges. Killing a difficult lord only ever half-solves the problem, which is the most useful thing this game will ever teach you about power.",
+    "isSettled": "By a deliberate act: a wergild in coin, a public apology that costs you standing, justice done on whoever wronged him (which makes a NEW enemy), a gift, a grant of land, or a Justiciar's judgement.",
+    "isRead": "Never stored. Folded fresh out of the record list every single time anybody asks. Strike the record and the grudge is gone — not forgiven, GONE, because it never existed anywhere else.",
+    "isHidden": "Until the crown has LEARNED of it, it does not appear in the crown's own reading. That is the only uncertainty in the whole court, and the Spymaster's seat is what removes it.",
+    "countedOnce": "Every grudge is counted exactly once. It sits inside loyalty, and loyalty sits inside willingness. The one exception is 'foreigners hired over him', which is shown as its own named line in the willingness tally instead of being folded into loyalty — so that a player can see it, and so that it is never added twice."
+  },
+
+  "theLadder": {
+    "explains": "A slighted vassal is not a number going down. He is a sequence of named behaviours going up a ladder, and every rung is something you can watch happen.",
+    "rungs": [
+      { "atLeast": 1, "deed": "Murmurs", "explains": "Nothing yet. A rumour at court, which you will only hear about if you have a Spymaster." },
+      { "atLeast": 10, "deed": "Short measure", "explains": "He comes, but at three-quarters strength, with a courteous letter about the state of the roads." },
+      { "atLeast": 20, "deed": "Foot-dragging", "explains": "Three to six days late. If the battle is on the muster day, he arrives partway through it — or after it." },
+      { "atLeast": 30, "deed": "Withholds his best", "explains": "His contingent sheds units WORST-KEPT-LAST: you get his militia and he keeps his knights at home. This is why 'comes at three-quarters' is an insult and not a shortfall." },
+      { "atLeast": 40, "deed": "Faction", "explains": "He makes common cause with another angry lord. Their grudges are linked now: punish one and the other's willingness drops too. You cannot see factions without a Spymaster." },
+      { "atLeast": 50, "deed": "Defiance", "explains": "He refuses the summons in public. Every OTHER house's obedience custom falls by three — they have all now watched somebody refuse the crown and survive, and they remember it next year." },
+      { "atLeast": 65, "deed": "Revolt", "explains": "His levy becomes an enemy army, his lands stop paying you, and the roads through his territory close: every house beyond him is four days further away." },
+      { "atLeast": 80, "deed": "Treachery", "explains": "He answers the summons, he marches, he stands in your line — and at some point in the battle he stops being on your side. You can only reach this rung by summoning a man you could have read at eighty or more, so the betrayal was always visible, which makes it your fault, which is what makes it a story." }
+    ]
+  },
+
+  "grievances": [
+    {
+      "id": "passed-over",
+      "name": "Passed over for a seat",
+      "weight": "4 per point of his claim, so 4 to 20",
+      "k": "court.seats.passedOverPerClaimPoint",
+      "causedBy": "an Invest record naming somebody else",
+      "settledBy": ["wergild", "grant", "another seat", "justice"],
+      "explains": "You gave an office to somebody else. The stronger his claim, the worse it stings — a man whose father held the Marshalcy and who has won two battles for you does not take it well. The sharpest and most common grudge in the game, because there are seven seats and there are always more claimants."
+    },
+    {
+      "id": "unseated",
+      "name": "The seat left empty",
+      "weight": "1 per year vacant, capped at 8",
+      "k": "court.seats.unseatedPerYear",
+      "causedBy": "not filling a seat he has a claim on",
+      "settledBy": ["granting him the seat", "wergild"],
+      "explains": "Leaving a chair empty is not a way of avoiding the argument. Every man who wanted it gets slightly angrier every year it stands there being nobody's. Small, slow, and the reason 'do nothing' is never free."
+    },
+    {
+      "id": "seat-taken-back",
+      "name": "A seat taken back",
+      "weight": "10 normally, 25 after eight years, 40 after sixteen",
+      "k": "court.seats.customaryGrievance",
+      "causedBy": "removing an Invest record",
+      "settledBy": ["restoring it", "a very large grant"],
+      "explains": "The longer a family has held an office, the more they think of it as theirs. After sixteen years, taking it back is not a personnel decision, it is a confiscation — and every other house in the realm files it under 'things the crown does to people'."
+    },
+    {
+      "id": "over-called",
+      "name": "Called past his forty days",
+      "weight": "6 for the first, 8 for each further one in the same year",
+      "k": "court.obligation.beyondTheVesselGrievanceFirst",
+      "causedBy": "a Summon when the vessel is already dry",
+      "settledBy": ["wergild", "gift", "a year of not asking"],
+      "explains": "He owes you forty days of war a year. Ask for a forty-first and he will probably still come — once. Ask a third time and a loyal man is refusing you in public, and the game drew you the empty cup before you sent every one of those letters."
+    },
+    {
+      "id": "harvest-taken",
+      "name": "Called at harvest",
+      "weight": 5,
+      "causedBy": "a Summon in the harvest season on farming land",
+      "settledBy": ["wergild", "grain out of your own granary"],
+      "explains": "You called his farmers off the fields in the one season the whole year's food is decided. He came, his people went hungry, and next year his land earns you forty per cent less as well. You are paid back twice for this one."
+    },
+    {
+      "id": "blood-debt",
+      "name": "Blood-debt",
+      "weight": "1 per 5 points of losses beyond the host's average, capped at 25",
+      "k": "court.battleJoins.bloodDebtPerFivePointsExcess",
+      "causedBy": "an Aftermath where his contingent bled far worse than everyone else's",
+      "settledBy": ["wergild", "grant", "sharing the plunder", "justice on the commander"],
+      "explains": "Notice this is about UNFAIR losses, not losses. A house whose men died alongside everybody else's has nothing to complain about. A house whose men were put in the front and left there while others watched has a case, and the whole court knows it. This is the grudge the battle writes by itself."
+    },
+    {
+      "id": "unrewarded",
+      "name": "Unrewarded",
+      "weight": 10,
+      "causedBy": "a captain distinguished himself and got nothing within a year",
+      "settledBy": ["a seat", "land", "coin", "a wardship"],
+      "explains": "He held the ford. Everybody saw it. A year later he is still holding the same small manor he held before, and he has stopped being proud and started being bitter. Entirely avoidable, and players forget it constantly — which is why the reward clock is drawn on the calendar the day the deed comes home."
+    },
+    {
+      "id": "unransomed",
+      "name": "Kin left in captivity",
+      "weight": "3 per season unpaid, capped at 30",
+      "causedBy": "a Captured record on his kin with no ransom paid",
+      "settledBy": ["paying the ransom"],
+      "explains": "His brother is in an enemy tower and you have not paid to get him out. It gets three points worse every season, forever, until you do. Leave a man in there four years and you have lost the house."
+    },
+    {
+      "id": "mercenaries-preferred",
+      "name": "Foreigners hired over him",
+      "weight": "4 per campaign he was left out of, capped at 16",
+      "k": "court.willingness.mercenaryScornPerCampaign",
+      "shownAs": "its own line in the willingness tally, not folded into loyalty — so it is counted once",
+      "causedBy": "a Contract record in a campaign he was not summoned to",
+      "settledBy": ["summoning him next time", "wergild"],
+      "explains": "You paid strangers to fight while he sat at home. He hears that as: the crown does not trust me and does not need me. Which becomes, one more step along: the crown will not miss me."
+    },
+    {
+      "id": "ward-died",
+      "name": "His heir died in your care",
+      "weight": "45, and half of it spreads to every kinsman",
+      "causedBy": "a Death record on a captain held as a ward",
+      "settledBy": ["almost nothing — a very large grant, or generations"],
+      "explains": "You took his son into your household as a guarantee of his loyalty, and his son died there. This is the worst thing in the game, and it is the price of the strongest instrument in the game. Hostages work. This is what they cost when they go wrong."
+    },
+    {
+      "id": "heir-in-ward-too-long",
+      "name": "His heir held too long",
+      "weight": "1 per year past three, capped at 10",
+      "causedBy": "a Ward record older than three years",
+      "settledBy": ["sending the boy home"],
+      "explains": "A ward is a guest for three years and a hostage after that. Everybody knows the difference, including him, including you."
+    },
+    {
+      "id": "attainder-of-kin",
+      "name": "You stripped his kin",
+      "weight": "20 x closeness — blood 1.0, marriage 0.5",
+      "causedBy": "an Attaint record on a related house",
+      "settledBy": ["restoring the land", "a very large wergild"],
+      "explains": "Taking a rebel's land is sometimes the only answer there is. Every single person related to him disagrees, and you have traded one enemy for four."
+    },
+    {
+      "id": "taxed-hard",
+      "name": "Taxed beyond custom",
+      "weight": "3 per extraordinary levy",
+      "causedBy": "a Tax record marked extraordinary",
+      "settledBy": ["a year without one", "wergild"],
+      "explains": "Ordinary taxes are ordinary. Ask for more than that twice and people start counting; three times and you are funding a war against the consequences of funding the war."
+    },
+    {
+      "id": "justice-denied",
+      "name": "Justice denied",
+      "weight": 8,
+      "causedBy": "turning away his Petition at the crown's gate",
+      "settledBy": ["hearing it", "a judgement in his favour"],
+      "explains": "He rode to your court with a complaint and you sent him home without hearing it. Turning a petition away costs no days at all, which is exactly why players do it, which is exactly why it is on this list."
+    },
+    {
+      "id": "beyond-the-bond",
+      "name": "The Great Summons",
+      "weight": "15, forgiven entirely on victory, doubled on defeat",
+      "k": "court.obligation.greatSummonsGrievance",
+      "causedBy": "a Summon marked great",
+      "settledBy": ["winning"],
+      "explains": "You called out every man in the realm, garrisons and all, which is not something anybody owes you. Win and all is forgiven and nobody mentions it again. Lose and you have thirty points of grudge with every house in the kingdom at once."
+    },
+    {
+      "id": "van-denied",
+      "name": "Denied the place of honour",
+      "weight": 8,
+      "causedBy": "an Aftermath reporting a promised van that was not given",
+      "settledBy": ["giving it next time", "wergild"],
+      "explains": "You promised him the front of the line — the dangerous, glorious place — and put somebody else there. In a world where a family's whole worth is its reputation, that is a public theft. The battle reports honestly whether the promise was kept, so the court never has to guess."
+    },
+    {
+      "id": "abandoned-on-the-field",
+      "name": "Left to die",
+      "weight": 20,
+      "causedBy": "an Aftermath deed 'abandoned' — a captain who was ordered to support them and looked away",
+      "settledBy": ["justice on the captain who did it", "wergild", "a grant"],
+      "explains": "His men were breaking and the contingent ordered to save them stood and watched. This grudge is against the crown as well as the captain, because the crown put them there. One line in a battle report starting a feud that outlives three wars is exactly what this game is for."
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "$schema": "vassal-vessels/terrain/1",
+  "explains": "The ground is not scenery. Everything in this game runs on speed, on how tightly a formation holds together, and on how far you can see — and the ground changes all three. Learn one rule before any other: mud halves a charge's speed, and shock damage is the SQUARE of the speed left at contact, so mud QUARTERS a cavalry charge. That is not a penalty somebody wrote in a table. That is just what happens.",
+  "whoOwnsTheGround": "The court hands the battle a coarse description — a season and a handful of named features ('ford', 'wood', 'ridge', 'marsh', 'road', 'mud'). The battle owns the real field: it builds the tile map itself from that description plus the battle seed, writes the finished tiles into the replay header, and never asks the court another question. Same seed and same description always make the same field.",
+
+  "grid": {
+    "tileMm": 8000,
+    "tilesX": 150,
+    "tilesY": 100,
+    "fieldWidthMm": 1200000,
+    "fieldHeightMm": 800000,
+    "elevationUnit": "decimetres (100 mm)",
+    "perTile": ["elevation", "ground", "cover"],
+    "explains": "A field twelve hundred metres wide and eight hundred deep, cut into eight-metre squares. Each square knows how high it is, what it is made of, and how much it hides you."
+  },
+
+  "slope": {
+    "k": "battle.terrain",
+    "gradePermille": "signed rise over run along the direction of travel, times 1000",
+    "speedMulFormula": "clamp(1000 - grade * 2, 400, 1150)",
+    "fatigueMulFormula": "1000 + max(grade, 0) * 3",
+    "explains": "A one-in-ten slope costs a fifth of your speed going up and a third more of your wind, and gives fifteen per cent back coming down. A one-in-four slope halves you. And because shock is speed squared, charging downhill at 1150 against a man coming uphill at 800 hits (1150 divided by 800) squared — 2.07, more than twice as hard — before a single bonus is applied to anything, because there are no bonuses."
+  },
+
+  "theThreeReasonsToTakeTheHill": {
+    "1_momentum": "You come down at 1150 and he comes up at 800. Squared, that is more than twice the shock.",
+    "2_missiles": "Height adds range and up to eighty per thousand to hit, because you can see the whole depth of his formation instead of just his front rank.",
+    "3_voice": "Line of sight is worked out against elevation, and a unit that can SEE the Crown Banner takes your orders in one second instead of a nine-second ride. The hill is where your voice reaches furthest.",
+    "explains": "Three completely unrelated pieces of physics all pointing at the same tile. Nobody expects the third one, and it is the important one: the hill is not a fortress, it is a signal tower."
+  },
+
+  "groundTypes": [
+    {
+      "id": "turf",
+      "name": "Firm Turf",
+      "speedMulPermille": 1000,
+      "chargeSpeedMulPermille": 1000,
+      "cohesionCapPermille": 1000,
+      "fatigueMulPermille": 1000,
+      "cover": 0,
+      "explains": "Good dry grass. The default, and the ground every cavalry commander prays for.",
+      "readOnField": "Nothing changes. That is the tell."
+    },
+    {
+      "id": "road",
+      "name": "Road",
+      "speedMulPermille": 1250,
+      "chargeSpeedMulPermille": 900,
+      "cohesionCapPermille": 1000,
+      "fatigueMulPermille": 850,
+      "cover": 0,
+      "forcesColumn": true,
+      "explains": "Fast to march on and it saves your men's legs — but it is narrow, so units on a road are squeezed into column, four men wide and helpless. Roads are for getting there, never for being there.",
+      "readOnField": "A long thin unit going quickly. Alarming if the enemy is close."
+    },
+    {
+      "id": "ploughed",
+      "name": "Ploughed Field",
+      "speedMulPermille": 880,
+      "chargeSpeedMulPermille": 800,
+      "cohesionCapPermille": 850,
+      "fatigueMulPermille": 1200,
+      "cover": 0,
+      "explains": "Furrows and clods. Slower, more tiring, and your ranks will not stay straight across it however well drilled they are.",
+      "readOnField": "A block that keeps having to dress itself."
+    },
+    {
+      "id": "soft",
+      "name": "Soft Ground and Mud",
+      "speedMulPermille": 620,
+      "chargeSpeedMulPermille": 500,
+      "cohesionCapPermille": 700,
+      "fatigueMulPermille": 1600,
+      "cover": 0,
+      "explains": "THE CAVALRY KILLER, and the most important tile in this file. Charge speed halves; shock is speed squared; so a knight charge across mud does a QUARTER of its damage. Meanwhile everybody's wind burns sixty per cent faster, which hurts the men in the heaviest armour most. If you are outnumbered by better troops, find mud and stand behind it.",
+      "readOnField": "Horses visibly labouring and armoured men stopping to breathe — the most watchable thing in the game."
+    },
+    {
+      "id": "marsh",
+      "name": "Marsh",
+      "speedMulPermille": 450,
+      "chargeSpeedMulPermille": 350,
+      "cohesionCapPermille": 550,
+      "fatigueMulPermille": 2000,
+      "cover": 1,
+      "explains": "Soft ground's worse cousin. Nothing crosses a marsh quickly and nothing crosses it in good order. Treat it as a wall you are allowed to walk through slowly.",
+      "readOnField": "A unit entering as a block and leaving as a queue."
+    },
+    {
+      "id": "scrub",
+      "name": "Scrub and Gorse",
+      "speedMulPermille": 820,
+      "chargeSpeedMulPermille": 700,
+      "cohesionCapPermille": 750,
+      "fatigueMulPermille": 1150,
+      "cover": 1,
+      "explains": "Waist-high thorn. It breaks up formations and hides men lying down in it, which is exactly where an ambush plan belongs.",
+      "readOnField": "Ragged edges on every block that crosses it."
+    },
+    {
+      "id": "woods",
+      "name": "Woodland",
+      "speedMulPermille": 700,
+      "chargeSpeedMulPermille": 500,
+      "cohesionCapPermille": 500,
+      "fatigueMulPermille": 1250,
+      "cover": 3,
+      "forbidsFormations": ["close", "shieldwall", "wedge", "ring"],
+      "blocksLineOfSight": true,
+      "explains": "Trees do four things at once and every one matters. Cohesion is capped at half, so no formation holds together. Close order is forbidden outright — no shield wall, no pike hedge, no wedge. Cover cuts arrow hits to well under half. And woods BLOCK LINE OF SIGHT, so there is no signal from your banner: every order into a wood is a courier ride. Cavalry in woodland is worth almost nothing. Archers in woodland are worth almost nothing. Light foot in woodland is worth everything.",
+      "readOnField": "Units disappearing into it and coming out the wrong shape."
+    },
+    {
+      "id": "rock",
+      "name": "Rock and Scree",
+      "speedMulPermille": 600,
+      "chargeSpeedMulPermille": 400,
+      "cohesionCapPermille": 650,
+      "fatigueMulPermille": 1500,
+      "cover": 1,
+      "explains": "Loose stone on a slope. Horses will not do it well and men turn ankles doing it. Good ground to have on your flank so that nobody can come round it.",
+      "readOnField": "Everybody picking their way."
+    },
+    {
+      "id": "ford",
+      "name": "Ford",
+      "speedMulPermille": 400,
+      "chargeSpeedMulPermille": 300,
+      "cohesionCapPermille": 400,
+      "fatigueMulPermille": 1800,
+      "cover": 0,
+      "forcesColumn": true,
+      "explains": "The one shallow place in the river. Slow, exhausting, in column, at four-tenths cohesion — a unit coming out of a ford is not a unit, it is a queue. Whoever holds a ford fights the enemy a few files at a time however many thousands are waiting behind. Anybody who lets you finish crossing has made a mistake; anybody who hits you halfway across has won.",
+      "readOnField": "A thin dribble of men emerging one at a time. If you are on the far bank with cavalry, this is your moment."
+    },
+    {
+      "id": "water",
+      "name": "Deep Water",
+      "speedMulPermille": 0,
+      "chargeSpeedMulPermille": 0,
+      "cohesionCapPermille": 0,
+      "fatigueMulPermille": 0,
+      "cover": 0,
+      "impassable": true,
+      "explains": "The river either side of the ford. Nobody goes here, which is the useful part: a river anchors a flank, and an anchored flank is the cheapest defence in the game, because a flank attack is worth four frontal ones and a rear attack eight.",
+      "readOnField": "A line nobody crosses."
+    },
+    {
+      "id": "crag",
+      "name": "Crag",
+      "speedMulPermille": 0,
+      "chargeSpeedMulPermille": 0,
+      "cohesionCapPermille": 0,
+      "fatigueMulPermille": 0,
+      "cover": 0,
+      "impassable": true,
+      "blocksLineOfSight": true,
+      "explains": "Rock too steep to climb. Like deep water, but it also blocks your voice — the banner cannot be seen through it.",
+      "readOnField": "A hole in the map, and a hole in your signal."
+    }
+  ],
+
+  "features": {
+    "explains": "The six coarse words the court is allowed to say about a battlefield, and exactly what the battle does with each. The recipes below are deterministic: same seed and same feature list, same tiles, every time. Where a recipe says 'seeded', it means a value drawn from the battle's own seeded dice, which a replay reproduces exactly.",
+    "list": [
+      {
+        "id": "ford",
+        "placesGround": ["water", "ford"],
+        "recipe": "A river of DEEP WATER two tiles wide runs across the field's short axis at a seeded position between tiles 60 and 90, with one FORD gap eight tiles wide at a seeded position. A road, if present, meets the gap.",
+        "explains": "The most decisive piece of ground in the game. Everything funnels; nothing crosses in order; whoever is standing on the far bank when the first files emerge decides the battle."
+      },
+      {
+        "id": "wood",
+        "placesGround": ["woods", "scrub"],
+        "recipe": "Two to four WOODS blobs of 30 to 90 tiles each, seeded, placed away from the field's centre line, each ringed by one tile of SCRUB.",
+        "explains": "Cover, no formations, no line of sight — so no signal from your banner. Woods are where light foot are worth their weight and where ambush plans belong."
+      },
+      {
+        "id": "ridge",
+        "placesGround": [],
+        "recipe": "The elevation map gains a ridge line: a band running roughly across the field at a seeded angle, rising 30 to 60 decimetres above the surrounding ground over four to six tiles.",
+        "explains": "The only feature that changes no tile's material and changes everything anyway — because it moves speed, missile range and line of sight all at once. This is the hill worth fighting for."
+      },
+      {
+        "id": "marsh",
+        "placesGround": ["marsh", "soft"],
+        "recipe": "One to three MARSH blobs of 20 to 60 tiles at the field's low ground, each ringed by two tiles of SOFT.",
+        "explains": "A wall you can walk through slowly. Armies do not fight in marshes; armies get caught in them."
+      },
+      {
+        "id": "road",
+        "placesGround": ["road"],
+        "recipe": "A ROAD one tile wide crossing the field from edge to edge through the flattest available line, bending around woods and water.",
+        "explains": "How late contingents reach the fight in time to matter, and how yours leave in time to live."
+      },
+      {
+        "id": "mud",
+        "placesGround": ["soft", "ploughed"],
+        "recipe": "Twenty to forty per cent of the field's open turf becomes SOFT, in seeded patches of 10 to 40 tiles; the remainder of the open ground becomes PLOUGHED.",
+        "explains": "The court says 'it has been raining' and the battle turns the meaning of every cavalry unit on the field upside down. A wet field is the single largest thing the season does to a battle."
+      }
+    ],
+    "noFeatures": "A Ground with no features at all is honest open turf with gentle seeded undulation. Battles on open turf are decided by armies, not by acres."
+  },
+
+  "cover": {
+    "k": "battle.missiles.coverHitMulPerLevelPermille",
+    "levels": { "0": 1000, "1": 780, "2": 608, "3": 474 },
+    "explains": "Cover multiplies arrow hits by 780 in a thousand for each level, so woodland at level 3 lets fewer than half the arrows through. It does absolutely nothing against a man with a sword."
+  },
+
+  "lineOfSight": {
+    "algorithm": "Integer Bresenham across the tile grid. A tile blocks if its elevation stands more than 400 mm above the straight sight line between the two points, or if its ground blocks line of sight (woods, crag).",
+    "usedFor": [
+      "signal range — an order in one second instead of a nine-second ride",
+      "missile targeting",
+      "the steadiness a visible reserve radiates",
+      "whether the commander may EXHORT a contingent",
+      "cavalry dread in the rear arc"
+    ],
+    "explains": "Whether one thing can see another is worked out by walking a straight line across the tiles and asking whether anything sticks up in the way. It matters far more than you would expect, because SEEING THE BANNER is what turns nine seconds into one."
+  },
+
+  "whatWasLeftOut": "One source design carried a village feature (lanes, half cover, a narrowed front) and a brook (a shallow crossing that costs cohesion without stopping anybody). Both are good and neither is here, because the court contract's vocabulary of features is six words long and adding to it is a contract change. See docs/OPEN-QUESTIONS.md."
+}

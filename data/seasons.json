@@ -1,0 +1,74 @@
+{
+  "$schema": "vassal-vessels/seasons/1",
+  "explains": "The year is four seasons of ninety days. Each one changes how fast men march, how tired they get, how much food the land gives back, and how much they resent being called at all. There is no good season for everything — which is exactly why WHEN you fight is a real decision and not a formality.",
+  "fields": {
+    "marchSpeed": "Multiplier on every marching day. Winter roads are not a penalty; they are mud.",
+    "fatigueWear": "Multiplier on the tiredness a day of marching adds — and the host arrives with that tiredness in its hands.",
+    "forage": "What the countryside gives back to an army standing on it. Below 1.0 the granary drains faster than the arithmetic looks.",
+    "willingnessPenalty": "Straight off every house's willingness, before anything else is counted.",
+    "reachesTheBattle": "What the season is still doing once the fighting starts."
+  },
+
+  "seasons": [
+    {
+      "id": "seedtime",
+      "name": "Seedtime",
+      "modern": "spring",
+      "days": 90,
+      "marchSpeed": 0.85,
+      "fatigueWear": 1.15,
+      "forage": 0.7,
+      "willingnessPenalty": -8,
+      "yieldPenaltyIfSummoned": 0.15,
+      "provisionCostMultiplier": 1.3,
+      "reachesTheBattle": "Soft ground is likelier, and the host arrives a little more tired than it would in summer.",
+      "explains": "The roads are mud and the barns are at their emptiest — last year's grain is nearly gone and this year's is still in a sack. Calling men now costs the sowing, which takes fifteen per cent off the year's yield, and feeding them costs a third more than usual. Spring wars are for people who had no choice."
+    },
+    {
+      "id": "highsun",
+      "name": "Highsun",
+      "modern": "summer",
+      "days": 90,
+      "marchSpeed": 1.0,
+      "fatigueWear": 1.0,
+      "forage": 1.0,
+      "willingnessPenalty": 0,
+      "idleStandingPenalty": -4,
+      "reachesTheBattle": "Dry, firm ground: cavalry at its best and mud nowhere to be found.",
+      "explains": "The campaigning season. Dry roads, long days, food in the fields to forage, and everybody expects a war. That cuts both ways: an idle summer after a victory costs the crown four standing, because the host wanted to be led and you did not lead it."
+    },
+    {
+      "id": "harvest",
+      "name": "Harvest",
+      "modern": "autumn",
+      "days": 90,
+      "marchSpeed": 0.9,
+      "fatigueWear": 1.1,
+      "forage": 1.2,
+      "willingnessPenalty": -15,
+      "yieldPenaltyIfSummoned": 0.4,
+      "rollPenaltyNextYear": 0.2,
+      "grievance": "harvest-taken",
+      "reachesTheBattle": "The best-fed army of the year, standing on land it has just been taken away from.",
+      "explains": "The best-fed season and the worst political one. There is food everywhere for an army to forage — and every man you call away is a man not bringing the crops in. A manor summoned at harvest earns you forty per cent less next year, raises a fifth fewer soldiers, and its lord carries a grudge. This is the trap that catches everybody once."
+    },
+    {
+      "id": "wolfmoon",
+      "name": "Wolfmoon",
+      "modern": "winter",
+      "days": 90,
+      "marchSpeed": 0.6,
+      "fatigueWear": 1.6,
+      "forage": 0.4,
+      "willingnessPenalty": -20,
+      "attritionPerDayAfterFive": 0.01,
+      "surpriseBonus": 0.5,
+      "reachesTheBattle": "Mud and frozen ruts, an exhausted host — and up to half a point of surprise, which the battle spends on where the enemy is standing when you arrive.",
+      "explains": "Men do not march in winter. Everyone knows it, which is precisely why marching in winter works: the enemy is not looking. You pay for it in every other column — twenty points off every house's willingness, marching at little over half speed, tiredness climbing half again as fast, almost nothing to forage, and one man in a hundred lost every day past the fifth. In exchange the battle starts with up to half a point of surprise, and surprise is worth more than numbers."
+    }
+  ],
+
+  "theCalendarAsPressure": {
+    "explains": "Put the four together and the calendar is a set of doors that open and shut. Summer is when you should fight and when everyone expects you to. Autumn is when it is cheapest to feed an army and dearest to raise one. Winter is the gamble. Spring is the season you fight in because somebody else started it. A war declared in Highsun with a muster day in Harvest is a completely different problem from the same war declared a season later, and a good player is always thinking one door ahead."
+  }
+}

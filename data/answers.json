@@ -1,0 +1,119 @@
+{
+  "$schema": "vassal-vessels/answers/1",
+  "explains": "You send a letter. This is what comes back. THE MUSTER NEVER ROLLS DICE: which answer you get is pure arithmetic, and if you can read the numbers you can predict exactly what will stand in the field. The only thing you may not know is a grudge nobody has told you about — and that is what the Spymaster is for.",
+  "nineRungsTenNames": "There are nine rungs on this ladder and ten names on it, because 'sends coin' and 'sends a token' are the same rung: which one you get depends on whether he can actually afford the coin.",
+
+  "willingness": {
+    "k": "court.willingness",
+    "explains": "Add these up. That is his willingness, and the table below turns willingness into an answer. Every term names the records it came from, so a player who asks 'why did this house send sixty-eight and not ninety?' gets seven lines and can click through to the seven decisions that made them.",
+    "terms": [
+      { "term": "loyalty", "value": "0 to 100", "explains": "What he thinks of you: fifty, plus every kindness (fading), minus every grudge (which does not)." },
+      { "term": "the cause", "value": "(legitimacy - 50) x 0.4, between -20 and +20", "explains": "A war everyone agrees is right is worth twenty points with every house at once — the widest lever in the game, and it belongs to the Chaplain." },
+      { "term": "defending home", "value": "+25 within twenty leagues, +12 within fifty", "explains": "When the enemy is near HIS land, even a lord who hates you turns up. The single most important reason a losing realm can still fight back." },
+      { "term": "his heir is your ward", "value": "+20", "explains": "You have his son. He comes." },
+      { "term": "a Chancellor", "value": "+8", "explains": "A properly sealed summons out of a real chancery is harder to ignore than a note." },
+      { "term": "kinship", "value": "+15 blood, +8 marriage", "explains": "Family." },
+      { "term": "a dry vessel", "value": "-15, then -25, then -35", "explains": "You already used his forty days this year, and he can count as well as you can." },
+      { "term": "the season", "value": "0 summer, -8 seedtime, -15 harvest on farmland, -20 winter", "explains": "Summer is when wars happen. Everything else costs you." },
+      { "term": "faction", "value": "-5 per ally of his already refusing", "explains": "Angry lords stiffen each other's spines. You cannot see a faction without a Spymaster." },
+      { "term": "war weariness", "value": "-3 per battle in the last two years, capped at -12", "explains": "He has been fighting for you a great deal." },
+      { "term": "foreigners preferred", "value": "-4 per campaign he was left out of, capped at -16", "explains": "You hired mercenaries and left him at home, and he noticed. This is the one grudge shown as its own line here instead of being folded into loyalty, so that it is counted exactly once." },
+      { "term": "a distant muster", "value": "-5 beyond sixty leagues", "explains": "It is a very long way and he is not certain it is his business." }
+    ]
+  },
+
+  "answers": [
+    {
+      "id": "more-than-owed",
+      "willingnessAtLeast": 95,
+      "name": "Comes with more than he owes",
+      "fraction": 1.1,
+      "lateDays": 0,
+      "resolveBonus": 10,
+      "explains": "He brings volunteers: a tenth more men than the grant requires, and they arrive keen. This is what a devoted house in a just war on its own doorstep looks like, and it is worth working for."
+    },
+    {
+      "id": "in-full",
+      "willingnessAtLeast": 80,
+      "name": "Comes in full",
+      "fraction": 1.0,
+      "lateDays": 0,
+      "explains": "Exactly what he owes, on the day, in good order. The thing the entire court exists to produce."
+    },
+    {
+      "id": "near-full",
+      "willingnessAtLeast": 65,
+      "name": "Comes near full",
+      "fraction": 0.9,
+      "lateDays": 0,
+      "explains": "Nine men in ten, and nobody mentions the tenth."
+    },
+    {
+      "id": "short",
+      "willingnessAtLeast": 50,
+      "name": "Comes short",
+      "fraction": 0.75,
+      "lateDays": 2,
+      "explains": "Three-quarters, two days late, and a courteous letter about the state of the roads. Read the next section before you shrug at this one: short does not mean everything got smaller."
+    },
+    {
+      "id": "late-and-short",
+      "willingnessAtLeast": 35,
+      "name": "Comes late and short",
+      "fraction": 0.6,
+      "lateDays": 5,
+      "explains": "Three-fifths, five days late. If the battle is on the muster day these men arrive partway through it — which the battle may model as reinforcements, or may not model at all, in which case they simply were not there and the report says so."
+    },
+    {
+      "id": "deputy",
+      "willingnessAtLeast": 22,
+      "name": "Sends a deputy",
+      "fraction": 0.5,
+      "lateDays": 4,
+      "captainCommandPenalty": -20,
+      "explains": "He does not come himself. He sends a cousin with half the men and none of the good ones, and that cousin is twenty points worse at commanding them. Everybody at the muster understands precisely what has been said."
+    },
+    {
+      "id": "scutage",
+      "willingnessAtLeast": 12,
+      "name": "Sends coin instead",
+      "fraction": 0,
+      "crownsPerManOwed": 2,
+      "explains": "Shield money. Legal, blameless, no grudge either way — and it buys back about a third as many mercenaries as he did not send. If he cannot afford it, he sends a token instead."
+    },
+    {
+      "id": "token",
+      "willingnessAtLeast": 12,
+      "condition": "cannot afford the scutage",
+      "name": "Sends a token",
+      "fraction": 0.15,
+      "lateDays": 6,
+      "explains": "Fifteen men and an apology. It is not an army; it is a way of not quite refusing."
+    },
+    {
+      "id": "refusal",
+      "willingnessAtLeast": 3,
+      "name": "Refuses",
+      "fraction": 0,
+      "precedentToOthers": -3,
+      "explains": "He says no, in public. Worse than the men you lose: every OTHER house in the realm has now watched somebody refuse the crown and survive, and their obedience custom drops three points. A refusal you do not answer is a refusal you will get again."
+    },
+    {
+      "id": "turncoat",
+      "willingnessBelow": 3,
+      "name": "Turns his coat",
+      "fraction": 1.0,
+      "treachery": "min(90, (3 - willingness) x 4 + grievance x 0.5)",
+      "explains": "He accepts the summons. He marches. He stands in your line with all his men, and at some point in the battle he stops being on your side. You could have read this before you sent the letter — with a Spymaster you would have seen the exact number — so when it happens it is not the game being unfair. It is the game reminding you what you chose."
+    }
+  ],
+
+  "whichMenHeSends": {
+    "name": "Best first when willing, worst last when not",
+    "explains": "A house almost always has more men than it owes, so WHICH men it hands over is a second, quieter answer sitting underneath the first. If the answer is 'comes in full' or better, the quota is filled from the BEST troops downward — he is showing off, or earning something. If it is 'comes short' or worse, it is filled from the CHEAPEST upward and the good ones stay at home.\n\nSo 'comes at three-quarters' never means everything is a bit smaller. It means his fifty marines are still standing on the quay and you got his farmers. This one rule carries an enormous amount of the game's feeling, and it is why the same number of missing men can be a shrug or an insult.",
+    "cap": "A house can never send more than it can actually raise: sends = the smaller of (owed x fraction) and (men it can actually march).",
+    "readOnTheScreen": "The forecast lists the units he will send and the units he will keep, by name, before you send the letter."
+  },
+
+  "andThenTheAbsences": "Every house, company, town or order that was called and did not stand becomes an Absence in the Host — named, with its answer, the numbers owed and sent, the plain reason, and the records that caused it. An absence is a FINDING, never a silently smaller number. Half the emotional payload of a muster is in that list, and the other half is in the list of who did come."
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "vassal-vessels/troop-sources/1",
+  "explains": "Five ways to get soldiers, side by side. They are not better and worse — they are different bargains, and a realm that survives uses all five. Read this the way you would read the back of a card-game box: the whole strategy is in the columns.",
+  "columns": ["coin", "daysToStand", "quality", "whoseMenTheyAre", "politicalPrice"],
+
+  "sources": [
+    {
+      "id": "feudal-levy",
+      "name": "The feudal levy",
+      "coin": "free, within the vessel",
+      "daysToStand": "12 to 30 — the letter, then the gathering, then the march",
+      "quality": "medium and uneven, occasionally superb",
+      "whoseMenTheyAre": "the vassal's. His captain leads them, his loyalty holds them, his grudge poisons them.",
+      "politicalPrice": "drinks the vessel; calling in the wrong season wrecks his harvest; and when his men die badly it is YOUR blood-debt, not the enemy's.",
+      "typicalNumbers": { "menPerHouse": "30 to 140", "resolve": "45 to 75", "obedience": "40 to 80", "treachery": "0 to 40" },
+      "explains": "The backbone of every army you will ever field, and the one that talks back. These men are only yours because their lord says so, and their lord has opinions about you.",
+      "whenToReachForIt": "Always first. It is free, and everything else on this list is a way of covering what it failed to deliver."
+    },
+    {
+      "id": "household",
+      "name": "The Household",
+      "coin": "3 crowns per man per season, forever, war or no war",
+      "daysToStand": "0 — they are already standing in your courtyard",
+      "quality": "high and even",
+      "whoseMenTheyAre": "yours, absolutely",
+      "politicalPrice": "none at all — but it is capped by your treasury, and treasury is grudge-settling money",
+      "typicalNumbers": { "men": "80 to 250", "resolve": 85, "obedience": 90, "treachery": 0 },
+      "explains": "Your own paid soldiers. No letters, no waiting, no excuses, no grudges — the highest obedience in the game, which you feel every time an order lands. Also the only army you pay for in a season when nothing whatsoever is happening.",
+      "whenToReachForIt": "When the deadline is short. If the enemy is fourteen days away, the Household is the only army that exists."
+    },
+    {
+      "id": "mercenary",
+      "name": "A free company",
+      "coin": "2 crowns a man to contract, then 4 a man a season",
+      "daysToStand": "8 to 20 — they must be found and they must ride",
+      "quality": "high, veteran, hard",
+      "whoseMenTheyAre": "nobody's. They serve the purse.",
+      "politicalPrice": "every house that sat idle while you hired foreigners takes a grudge; the Church takes 6 off your legitimacy; unpaid, their treachery climbs 12 a season and they may simply ride off the field",
+      "typicalNumbers": { "men": "100 to 300", "resolve": "60 paid, 35 unpaid", "obedience": 70, "treachery": "10 paid, 60 unpaid" },
+      "explains": "Professional soldiers who will fight for anybody. They are very good at their job and they have no reason at all to die for you. They convert money into men, which is the only escape from a shrinking realm — and they insult every vassal who was not asked.",
+      "whenToReachForIt": "When your musters are bleeding and your coffer is not. The ladder out of a losing streak that does not require anybody to like you."
+    },
+    {
+      "id": "town-militia",
+      "name": "The town militia",
+      "coin": "cheap in coin, dear in liberties",
+      "daysToStand": "4 to 10 — towns sit on the roads",
+      "quality": "poor in the open field, stubborn behind a wall",
+      "whoseMenTheyAre": "the town's. They will not pursue and they do not want to leave their own province.",
+      "politicalPrice": "a Charter is permanent — a fifth of that town's tax, forever. Levy the same town twice in three years and it riots.",
+      "typicalNumbers": { "men": "80 to 160", "resolve": 45, "obedience": 55, "treachery": 5 },
+      "explains": "A great many shopkeepers with spears. They arrive faster than anybody because towns are near, they will hold their own wall all day out of sheer bloody-mindedness, and in an open field they are a rumour that has not run away yet.",
+      "whenToReachForIt": "When you need numbers this month and you are willing to pay for them every year afterwards."
+    },
+    {
+      "id": "sworn-order",
+      "name": "The Sworn Order",
+      "coin": "free",
+      "daysToStand": "15 to 25, and only for a blessed cause",
+      "quality": "elite, disciplined, certain",
+      "whoseMenTheyAre": "their Grandmaster's",
+      "politicalPrice": "they come only for a cause your Chaplain has blessed; their obedience is capped at 55 whatever you do; asking them into an unjust war costs 20 legitimacy",
+      "typicalNumbers": { "men": 60, "resolve": 95, "obedience": "capped at 55", "treachery": 0 },
+      "explains": "Sixty men who will not run away from anything, ever, for nothing. The catch is that they are certain they know God's will better than you do, so at some point in a battle they will do what they think is right instead of what you asked. Resolve 95 and obedience 55 is a very particular kind of nightmare to command.",
+      "whenToReachForIt": "When the war is genuinely just and you have a Chaplain. They are the reward for keeping the Church happy, and the reason an empty Chaplaincy is the largest invisible hole in most players' armies."
+    }
+  ],
+
+  "theTradeInOneLine": "Free men answer slowly and argue. Paid men answer at once and leave when the money stops. Holy men answer for nothing and answer to somebody else. There is no source that is fast, loyal, good and free, and every campaign you will wish there were."
+}

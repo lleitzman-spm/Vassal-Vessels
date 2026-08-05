@@ -1,0 +1,170 @@
+{
+  "$schema": "vassal-vessels/captains/1",
+  "explains": "Captains are the court arriving on the battlefield. Every contingent has one, and every improvised order you send passes through his temper before it reaches his men. The battle never invents a captain's heart — the court computes it out of the record of how you have treated him, and the battle only reveals it. This file is the model: the seven numbers a captain is made of, what he does with your word when it lands, what he does between your words, and what happens when he is killed.",
+  "theOnePoint": "You do not spend the court buying soldiers. Anybody can hire two hundred pikemen. You spend the court buying OBEDIENCE — the right to say 'fall back out of that melee' at difficulty 85 and have it actually happen.",
+
+  "axes": {
+    "explains": "Seven numbers, all 0 to 100, all handed over by the court in the Host. The first three are competence — how good he is. The last four are temper — what he does when nobody is telling him anything, which is what makes an unattended battle read like a story instead of a spreadsheet.",
+    "competence": [
+      { "id": "command", "name": "Command", "usedIn": "heed (plus a quarter of it), relay speed to his own units, how tight his formations stay, how late his brace call is", "explains": "How well he handles men. Craft steadies the hand: a skilled captain carries out a hard order well and calls the brace on time, where a poor one calls it three seconds late, which is how levies get ridden down with spears in their hands." },
+      { "id": "valour", "name": "Valour", "usedIn": "the morale he radiates to friends within sixty metres, rallying his broken, resisting capture", "explains": "Personal courage, and whether men fight harder because he is standing there. A valour-70 captain is worth more morale a tick to everything near him than being flanked costs. This is why captains ride to the fighting instead of watching it, and why captains get killed." },
+      { "id": "wits", "name": "Wits", "usedIn": "a second standing-plan slot per unit at 70 or better, reading ground, timing", "explains": "Cunning. At seventy and above his units can each carry two sealed plans instead of one, which in practice means his part of the field runs itself." }
+    ],
+    "temper": [
+      { "id": "aggression", "name": "Aggression", "usedIn": "which branch of every middling heed outcome he takes; counter-charges; charging unbidden", "explains": "Push or shrink. At 50 and above a middling heed makes him DRAG or OVERREACH — the glory versions. Below 50 he HEDGES: he does the safe version and keeps a line of retreat open whether you asked for one or not." },
+      { "id": "caution", "name": "Caution", "usedIn": "sounding his own withdrawal; how far his hedges stand off", "explains": "How readily he takes his men out. At 70 or above he will sound his own retreat without your leave when his contingent's heart goes — which is sometimes the best thing that happens to you all day, and sometimes the end of your left wing." },
+      { "id": "pride", "name": "Pride", "usedIn": "obedience (the court subtracts it), how badly he takes an order sent over his head, claiming the van", "explains": "How loudly he notices an insult. Send an order round him to one of his own units in front of his retinue and he is insulted for the rest of the day." },
+      { "id": "greed", "name": "Greed", "usedIn": "pursuit discipline, plunder seized, prisoners taken for ransom", "explains": "How much he wants the money. When the enemy breaks, a greedy captain fails 'hold the rein' on purpose. This is how you lose a battle you have already won, and the court told you in advance exactly which of your men would do it." }
+    ],
+    "howTheTwoDesignsMap": "One source design described captains with four axes — loyalty, boldness, skill and honour. They fold onto the contract exactly: boldness is aggression, skill is command, honour is a low greed plus the quirks he carries, and loyalty was never a battle number at all — the court has already folded it into the contingent's obedience before the battle sees it."
+  },
+
+  "heed": {
+    "explains": "When an improvised order ARRIVES — and only then, never re-rolled tick by tick — the captain weighs it once. The court's obedience number for and the danger, his dead, his grudges and his tiredness against, plus a seeded wobble of eight either way. The score picks one of six outcomes. Every outcome is visible motion. Every one is announced by the herald with its political cause named out loud, because the whole point of this game is that you can see your own past decisions arriving.",
+    "k": "battle.heed",
+    "terms": [
+      { "id": "obedience", "sign": "+", "value": "the contingent's obedience, straight from the Host", "explains": "The court's whole judgement of this man, folded into one number before the battle began." },
+      { "id": "craft", "sign": "+", "value": "command / 4, so 0 to 25", "explains": "A skilled man is steadier under a hard instruction." },
+      { "id": "bannerSeen", "sign": "+", "value": 10, "explains": "He can see the Crown Banner. Being looked at helps." },
+      { "id": "exhorted", "sign": "+", "value": 15, "explains": "The commander shouted at this contingent within the last fifteen seconds." },
+      { "id": "difficulty", "sign": "-", "value": "the order's difficulty from data/orders.json, plus its situational modifiers", "explains": "Asking frightened men in contact to step backwards is simply harder than asking them to stand." },
+      { "id": "danger", "sign": "-", "value": "10 if his contingent is already wavering; 20 if the order sends him at a front where the enemy outnumbers him half again", "explains": "He can see what you are sending him into." },
+      { "id": "hisDead", "sign": "-", "value": "half a point per one per cent of his men already lost", "explains": "Every man of his who has fallen is an argument against you." },
+      { "id": "insulted", "sign": "-", "value": 15, "explains": "You went round him to one of his own units, in front of his retinue, earlier today." },
+      { "id": "quirks", "sign": "±", "value": "from data/quirks.json", "explains": "The named things the court knows about him — an old grudge, an iron oath, a sworn brother in the next contingent." },
+      { "id": "fatigue", "sign": "-", "value": "his contingent's mean fatigue / 20000", "explains": "Tired men argue." },
+      { "id": "bloodlust", "sign": "-", "value": "his contingent's mean bloodlust, up to 250 after a long pursuit", "explains": "The longer they have been chasing, the deafer they are." },
+      { "id": "jitter", "sign": "±", "value": "a seeded whole number from -8 to +8", "explains": "People are not machines. Small, seeded, and reproducible in a replay — the same battle always wobbles the same way." }
+    ],
+    "outcomes": [
+      {
+        "id": "OBEY",
+        "heedAtLeast": 70,
+        "name": "He obeys",
+        "effect": "The order installs at full urgency and is carried out with his skill.",
+        "herald": "{captain} does as he is bid.",
+        "explains": "What you were hoping for. Note what it took: a court number above seventy, after the danger and his dead were taken off."
+      },
+      {
+        "id": "OBEY_HIS_WAY",
+        "heedAtLeast": 50,
+        "name": "He obeys, his way",
+        "effect": "The order installs, shaded by his temper. Aggression 60 or more: one pace tier faster than you asked. Aggression 40 or less: he keeps one unit back as his own reserve, if he has three.",
+        "herald": "{captain} does as he is bid — in his own fashion.",
+        "explains": "Not wrong. Not exactly what you said. This is most of what a real army does with a real order."
+      },
+      {
+        "id": "DRAG",
+        "heedAtLeast": 35,
+        "requiresAggressionAtLeast": 50,
+        "name": "He drags his feet",
+        "effect": "The order installs at six-tenths urgency: he moves at six-tenths pace and every commitment is delayed by two-thirds again. He is mysteriously last.",
+        "herald": "{captain} drags his feet. {cause}",
+        "explains": "A bold man who does not want to. He does not refuse — refusing is a public act with consequences — he is simply slow, and slow is enough to lose a wing."
+      },
+      {
+        "id": "HEDGE",
+        "heedAtLeast": 35,
+        "requiresAggressionBelow": 50,
+        "name": "He hedges",
+        "effect": "The safe substitute installs at eighty-five hundredths urgency. Attack becomes a forty-metre standoff; support becomes take post and no more; advance keeps a unit back. Craven captains stand off forty metres further still.",
+        "herald": "{captain} does the careful version. {cause}",
+        "explains": "A careful man who does not want to. Every order has a named safe substitute in data/orders.json, so this is never the engine inventing something."
+      },
+      {
+        "id": "OVERREACH",
+        "heedAtLeast": 20,
+        "requiresAggressionAtLeast": 50,
+        "name": "He overreaches",
+        "effect": "The glory version installs. He charges early and from too far, commits all his horse at once, pursues past the horn — and if he is boastful he will press a refused charge home onto the points.",
+        "herald": "{captain} goes further than he was told. {cause}",
+        "explains": "The most dangerous outcome in the game, because it looks like enthusiasm for about eight seconds."
+      },
+      {
+        "id": "HARD_HEDGE",
+        "heedAtLeast": 20,
+        "requiresAggressionBelow": 50,
+        "name": "He shuts the gate",
+        "effect": "Technical compliance from outside dying range: eighty-metre standoffs, missiles never advanced past effective range.",
+        "herald": "{captain} obeys the letter of it and nothing more. {cause}",
+        "explains": "He can point at your order and say he did it. He is not wrong, and his men are all still alive, and your line has a hole in it."
+      },
+      {
+        "id": "DEFY",
+        "heedBelow": 20,
+        "name": "He defies you",
+        "effect": "Your word is set aside. His charge becomes HOLD centred on his own position — 'protect my own'. Recorded as a deed and carried home to court.",
+        "herald": "{captain} sets your word aside and looks to his own. {cause}",
+        "explains": "You watch your court policy fail in front of witnesses. It is never a surprise: the number that produced it was readable before you ever summoned him."
+      }
+    ],
+    "supportVeto": {
+      "explains": "SUPPORT is the grudge order, and it is checked before the table. If the friend he is told to save belongs to a captain he holds a rivalry or a grudge against, and his contingent's obedience is under 75, the table is skipped: a bold man DRAGS, a careful man DEFIES. And if that friend then breaks while this stands, the deed 'abandoned' goes home in the report.",
+      "obedienceBar": 75,
+      "herald": "{captain} looks upon them hard-pressed, and looks away.",
+      "whyItMatters": "One line in a battle report should be able to start a feud that outlives three wars. This is that line."
+    },
+    "reEvaluation": {
+      "explains": "An interpretation stands until something makes him think again. Nothing ever waits, and nothing is re-rolled every tick.",
+      "triggers": [
+        "a new word arrives",
+        "his contingent's casualties cross a quarter of its men",
+        "a unit of his own contingent breaks",
+        "the Crown Banner falls"
+      ]
+    },
+    "causePhrases": {
+      "explains": "The herald names the single most negative term in the heed tally, so that every disobedience says out loud WHY. This is law 4 — every reading shows its working — done in words instead of numbers.",
+      "obedience": "He has not forgotten the slight, and it was not a small one.",
+      "difficulty": "You asked a hard thing of frightened men.",
+      "danger": "He can count, and he does not like the count.",
+      "hisDead": "He has buried too many of his people in your wars.",
+      "insulted": "You went round him in front of his own retinue this morning.",
+      "fatigue": "His men have been on their feet since before dawn.",
+      "bloodlust": "They have been hunting for two minutes and they cannot hear anything.",
+      "quirkOldGrudge": "The grudge is older than this war.",
+      "quirkClaimsTheVan": "He was promised the front of the line and somebody else was given it.",
+      "quirkCautiousWithHisOwn": "He has decided his people have paid enough."
+    }
+  },
+
+  "hisOwnHand": {
+    "explains": "Between your words a captain is never idle. Every two seconds he may take at most one action of his own, unasked. Good captains make the army feel alive; bad ones make it feel haunted. This is checked in a fixed order, so a replay always does the same thing.",
+    "k": "battle.command.captainThinkEveryTicks",
+    "actions": [
+      { "order": 1, "id": "unpaid-leave", "when": "his contingent is a free company with wages owing", "does": "each unit has a small chance of simply riding off the field", "explains": "Not a morale penalty. They go home. The most brutal wire between your treasury and your battle line." },
+      { "order": 2, "id": "brace-call", "when": "enemy horse within a hundred and twenty metres, coming at his front, and he has brace-capable units standing loose", "does": "orders them to brace, late by (100 minus his command) x 40 / 100 ticks", "explains": "A skilled man calls it in time. A poor one calls it three seconds late, which at a gallop is thirty metres, which is the whole difference." },
+      { "order": 3, "id": "counter-charge", "when": "aggression 50 or more, an enemy charge has just struck his contingent, and he holds fresh horse", "does": "sends it at the charger's flank", "explains": "The single most valuable thing a good captain does without being asked, because you were never going to get a rider there in time." },
+      { "order": 4, "id": "commit-his-reserve", "when": "one of his units is wavering and he holds an unengaged one", "does": "puts it in beside the friend — at the enemy's flank if his aggression is 60 or more", "explains": "He is running his own little battle inside yours." },
+      { "order": 5, "id": "rally-ride", "when": "one of his units is routing", "does": "he rides to it, which is what lets it rally at all", "explains": "A unit can only come back if a captain is near enough to gather it. This is why he goes, and it is where captains die." },
+      { "order": 6, "id": "own-withdrawal", "when": "caution 70 or more, or the craven quirk, and his contingent's mean morale falls below three-tenths", "does": "sounds his own retreat without your leave; the herald cries it; the deed goes home", "explains": "Sometimes he has saved you two hundred men. Sometimes he has opened your line. The court will have an opinion either way." },
+      { "order": 7, "id": "charges-unbidden", "when": "he carries a quirk like hotheaded or charges-without-orders, an enemy is within a hundred metres and his men are steady", "does": "goes in, on a seeded chance scaled by the quirk's intensity", "explains": "Wonderful when the chance was real. Catastrophic when it was bait — and light horse exist to be bait." }
+    ]
+  },
+
+  "mortality": {
+    "explains": "A captain rides with one of his units — his banner unit. He shares its danger, which is the price of the courage he radiates. Losing your best captain can decide a battle; so can gambling with him.",
+    "k": "battle.captains",
+    "rules": [
+      "If his banner unit breaks, there is a seeded chance he falls with it. If it is destroyed outright, he falls.",
+      "A fallen captain may be slain, wounded, maimed or CAPTURED — and a captured captain is worth a ransom priced by his standing at court, which is a court number arriving on the field and going home again as money.",
+      "His contingent loses heart at once, loses every one of his own-hand actions, and heeds nothing at all until the next man steps up.",
+      "The successor is the senior surviving unit leader, with every one of the seven axes at three-quarters. He is worse at everything, and the court will notice which house he is from."
+    ],
+    "readOnField": "A banner going down in the middle of a contingent, and then that contingent doing nothing at all for half a minute."
+  },
+
+  "heraldTemplates": {
+    "explains": "Every narratable event carries a herald line in plain words. The engine fills these and writes them to the replay log, so a battle can be READ as a chronicle on the day the engine works, with no pictures at all — and so the game can be tuned against text before anybody draws a single soldier.",
+    "order_issued": "A rider goes out to {recipient}: {orderName}.",
+    "order_not_sent": "There was no rider left to send.",
+    "interpretation": "see heed.outcomes — each outcome carries its own line and its cause",
+    "captain_fell": "{captain} is down.",
+    "captain_captured": "{captain} is taken alive, and worth {ransom} crowns to whoever holds him.",
+    "succession": "{successor} takes up {captain}'s command, and he is not the man his lord was.",
+    "own_withdrawal": "{captain} sounds his own retreat. You did not tell him to.",
+    "treachery_withdraw": "{contingent} leaves the field. They were never going to stay.",
+    "treachery_defect": "{contingent} turns its coat, and the men beside them see it happen.",
+    "abandoned": "{captain} watched {friend} go under, and did not move."
+  }
+}

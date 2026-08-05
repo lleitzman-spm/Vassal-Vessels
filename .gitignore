@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# The rendered Codex — regenerable with `npm run codex:html`.
+# Kept out of git so a stale render can never be mistaken for the current manual.
+renders/
+
+# Replay logs from playtest runs. A battle is a seed plus a list of orders;
+# the log is derived, so it is never the record.
+replays/
+
+# Environment. THIS REPO HAS NO SECRETS AND MUST NEVER ACQUIRE ANY.
+# The engine is headless and offline: no server, no database, no API, no keys.
+# If you find yourself needing a .env here, stop and ask what went wrong.
+.env
+.env.*
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/

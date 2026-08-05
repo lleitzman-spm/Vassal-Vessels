@@ -1,0 +1,21 @@
+{
+  "name": "vassal-vessels",
+  "version": "0.0.0",
+  "description": "A medieval realm where the court exists to decide what shows up when the host musters — then the battle is fought in real time. A headless, deterministic battle engine.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsc --noEmit",
+    "codex": "node tools/codex/emit.mjs",
+    "codex:lint": "node tools/codex/lint.mjs",
+    "codex:trace": "node tools/codex/trace.mjs",
+    "codex:html": "node tools/codex/html.mjs",
+    "codex:check": "node tools/codex/html-check.mjs",
+    "leakcheck": "node tools/leakcheck.mjs"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.2",
+    "vitest": "^4.1.10"
+  }
+}
