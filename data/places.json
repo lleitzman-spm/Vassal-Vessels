@@ -1,0 +1,765 @@
+{
+  "$schema": "vassal-vessels/places/1",
+  "explains": "A place is a STATE a case can be sitting in — braced, routing, marching, dry, overdue. Places are the nouns of the operational graph, and every one of them is somewhere a case genuinely rests: if nothing can be true of a case while it sits there, it is a step in a calculation, not a place. Nearly every place below is a literal value in the engine's own type declarations, named in the `state` field so you can go and read it.",
+  "fields": {
+    "id": "The place's identifier. Every transition names two of these and the lint refuses any that does not resolve.",
+    "name": "What to call the state in plain words.",
+    "flow": "Which machine this place belongs to (data/flows.json).",
+    "state": "The LITERAL value in the engine's own code, where one exists. This is what makes a place findable rather than invented — an empty string means the state is real in the design but has no single named value in the tree yet.",
+    "role": "`entry` — where a case starts. `terminal` — a case here never leaves. `normal` — everything else.",
+    "readOnField": "What you would actually SEE if you were standing there watching. A state you cannot see is a state a player cannot learn.",
+    "explains": "The plain-English account of what being in this state means for the case.",
+    "sourcePath": "Where this state's literal value actually lives in the tree. A place with no sourcePath is a state the DESIGN names but the code has not yet given a single named value — and it will honestly read as `proposed` until it does.",
+    "quote": "A verbatim line from sourcePath proving the state is real. No quote, no object."
+  },
+  "places": [
+    {
+      "id": "battle-deploy",
+      "flow": "battle",
+      "state": "DEPLOY",
+      "role": "entry",
+      "name": "Deploying",
+      "readOnField": "Two armies standing still, in lines, looking at each other across ground nobody has crossed yet.",
+      "explains": "Before the first tick of fighting. Every unit is placed, faced, put into a formation and given its posture. Nothing is random here and nothing has happened yet — this is the last moment the battle is entirely yours.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type BattlePhase = \"DEPLOY\" | \"BATTLE\" | \"PURSUIT\" | \"ENDED\";"
+    },
+    {
+      "id": "battle-joined",
+      "flow": "battle",
+      "state": "BATTLE",
+      "role": "normal",
+      "name": "Battle Joined",
+      "readOnField": "Everything at once, which is rather the problem.",
+      "explains": "The real fight. All thirteen phases run every tick, orders ride, men shoot, lines meet and nerve starts to go. This is where the overwhelming majority of a battle's ticks are spent.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type BattlePhase = \"DEPLOY\" | \"BATTLE\" | \"PURSUIT\" | \"ENDED\";"
+    },
+    {
+      "id": "battle-pursuit",
+      "flow": "battle",
+      "state": "PURSUIT",
+      "role": "normal",
+      "name": "The Pursuit",
+      "readOnField": "One army in pieces running away, and the other coming apart chasing it.",
+      "explains": "An army has broken and the chase is on. The rules quietly change: the command phase stops running entirely, so NOBODY IS LISTENING — every order you send into a pursuit is thrown away. This is where most of the day's killing and nearly all of its capturing happens, and it is where a won battle gets thrown away by a cavalry commander who will not rein in.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type BattlePhase = \"DEPLOY\" | \"BATTLE\" | \"PURSUIT\" | \"ENDED\";"
+    },
+    {
+      "id": "battle-ended",
+      "flow": "battle",
+      "state": "ENDED",
+      "role": "terminal",
+      "name": "Ended",
+      "readOnField": "Quiet, and a great deal of counting.",
+      "explains": "It is over. The aftermath is drawn up — the dead, the wounded, the captured, the deeds worth remembering — and handed back to the court to absorb into the record.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type BattlePhase = \"DEPLOY\" | \"BATTLE\" | \"PURSUIT\" | \"ENDED\";"
+    },
+    {
+      "id": "nerve-steady",
+      "flow": "nerve",
+      "state": "STEADY",
+      "role": "entry",
+      "name": "Steady",
+      "readOnField": "A straight line, level weapons, men looking forward.",
+      "explains": "The men are fine. They will advance when told, hold when told, and take casualties without looking over their shoulders. Steady units are also the ones that steady OTHERS — a steady unit nearby is worth real nerve to a shaken neighbour.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"STEADY\""
+    },
+    {
+      "id": "nerve-shaken",
+      "flow": "nerve",
+      "state": "SHAKEN",
+      "role": "normal",
+      "name": "Shaken",
+      "readOnField": "The line thickens and loses its edge; men glance sideways at each other rather than forward.",
+      "explains": "Frightened but still fighting. A shaken unit does everything a bit worse and is one bad minute from wavering, but it is emphatically still in the battle and can be talked back up.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"SHAKEN\""
+    },
+    {
+      "id": "nerve-wavering",
+      "flow": "nerve",
+      "state": "WAVERING",
+      "role": "normal",
+      "name": "Wavering",
+      "readOnField": "The back ranks start drifting rearward while the front ranks are still swinging. The unit gets visibly deeper and narrower.",
+      "explains": "About to go. The men at the back have already decided; the men at the front have not noticed yet. This is the last state from which a captain can save a unit, and the reason exhorting exists.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"WAVERING\""
+    },
+    {
+      "id": "nerve-routing",
+      "flow": "nerve",
+      "state": "ROUTING",
+      "role": "normal",
+      "name": "Routing",
+      "readOnField": "The unit stops being a unit. Men drop shields and run, and they run faster than they ever moved forward.",
+      "explains": "Broken. Cohesion is thrown away entirely, the formation opens to loose, the current order is discarded and the unit runs for its own baseline. A routing unit fights nobody and is killed cheaply by anyone who bothers to chase. It may turn and stand exactly once.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"ROUTING\""
+    },
+    {
+      "id": "nerve-rallying",
+      "flow": "nerve",
+      "state": "RALLYING",
+      "role": "normal",
+      "name": "Rallying",
+      "readOnField": "The running stops. Men turn round, out of breath, and start finding each other again.",
+      "explains": "The one second chance in the game. A routing unit that has got its nerve back up, held it there, has no enemy near it, and is either beside its captain or back on its own baseline, will stop and re-form. It comes back SHAKEN, not steady, and it will not do this twice.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"RALLYING\""
+    },
+    {
+      "id": "nerve-fled",
+      "flow": "nerve",
+      "state": "FLED",
+      "role": "terminal",
+      "name": "Fled",
+      "readOnField": "Gone. Dust on the road out.",
+      "explains": "Off the field and not coming back. These men are not dead — most of them will be counted alive in the aftermath and will be there next season — but they are no use to you today.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"FLED\""
+    },
+    {
+      "id": "nerve-destroyed",
+      "flow": "nerve",
+      "state": "DESTROYED",
+      "role": "terminal",
+      "name": "Destroyed",
+      "readOnField": "A shape on the ground where a unit used to be.",
+      "explains": "Killed or taken where they stood, without breaking. Rare, grim, and worth far more to a herald than a rout: units that die in place are the ones songs get written about, and the deed goes into the record.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"DESTROYED\""
+    },
+    {
+      "id": "footing-none",
+      "flow": "footing",
+      "state": "NONE",
+      "role": "entry",
+      "name": "Loose Footing",
+      "readOnField": "Weapons carried, not set. Men shifting their feet.",
+      "explains": "Doing nothing special. A unit in this state can move freely and turn quickly — and will be ridden straight over by cavalry, because nothing is refusing the horses.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Posture = \"NONE\" | \"BRACED\" | \"SHOOTING\" | \"STAKED\";"
+    },
+    {
+      "id": "footing-braced",
+      "flow": "footing",
+      "state": "BRACED",
+      "role": "normal",
+      "name": "Braced",
+      "readOnField": "Butts in the earth, points level, absolutely still.",
+      "explains": "Set against a charge. This is the single most important state in the game: a braced line projects REFUSAL out in front of it, and a horse will not willingly run onto it. It works only to the front, it takes time to set, and it is gone the instant the unit moves. Everything about cavalry is an argument about whether the spearmen got here in time.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Posture = \"NONE\" | \"BRACED\" | \"SHOOTING\" | \"STAKED\";"
+    },
+    {
+      "id": "footing-shooting",
+      "flow": "footing",
+      "state": "SHOOTING",
+      "role": "normal",
+      "name": "Shooting",
+      "readOnField": "Volleys going out on a rhythm; men reaching for the quiver between them.",
+      "explains": "Loosing at something. Shooting costs ammunition, which does not come back, and a unit that is shooting is not bracing — a fact archers rediscover the moment horsemen appear on their flank.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Posture = \"NONE\" | \"BRACED\" | \"SHOOTING\" | \"STAKED\";"
+    },
+    {
+      "id": "footing-staked",
+      "flow": "footing",
+      "state": "STAKED",
+      "role": "normal",
+      "name": "Staked",
+      "readOnField": "A hedge of sharpened poles in the ground, angled outward at a horse's chest.",
+      "explains": "Behind planted stakes. Stakes refuse horses the way a braced spear line does, with two enormous differences: they do not get tired and they do not need the men to stand still. Planting them takes time you usually do not have, which is why the archers who manage it are the ones who win.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Posture = \"NONE\" | \"BRACED\" | \"SHOOTING\" | \"STAKED\";"
+    },
+    {
+      "id": "pace-stop",
+      "flow": "pace",
+      "state": "STOP",
+      "role": "entry",
+      "name": "Halted",
+      "readOnField": "Standing.",
+      "explains": "Not moving. Fatigue drains at its slowest and cohesion recovers, which makes standing still an underrated order.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "pace-walk",
+      "flow": "pace",
+      "state": "WALK",
+      "role": "normal",
+      "name": "Walking",
+      "readOnField": "An ordinary marching pace, ranks intact.",
+      "explains": "Moving while keeping the line. Cheap in fatigue and almost free in cohesion — how a good commander crosses ground.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "pace-advance",
+      "flow": "pace",
+      "state": "ADVANCE",
+      "role": "normal",
+      "name": "Advancing",
+      "readOnField": "Purposeful, faster than a walk, the line still recognisably a line.",
+      "explains": "The working pace of a battle. Fast enough to matter, slow enough that the formation survives the trip.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "pace-run",
+      "flow": "pace",
+      "state": "RUN",
+      "role": "normal",
+      "name": "Running",
+      "readOnField": "The line frays at the edges; the fit men pull ahead of the tired ones.",
+      "explains": "Hurrying. Real cohesion cost and real fatigue cost, and you arrive as a worse-organised version of what you set out as.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "pace-charge",
+      "flow": "pace",
+      "state": "CHARGE",
+      "role": "normal",
+      "name": "Charging",
+      "readOnField": "Everything committed, at speed, aimed at one thing.",
+      "explains": "The last hundred metres. Shock scales with the SQUARE of closing speed, so this is where battles are decided — and it is enormously expensive in fatigue and cohesion whether it lands or not.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "pace-rout",
+      "flow": "pace",
+      "state": "ROUT",
+      "role": "normal",
+      "name": "Fleeing",
+      "readOnField": "Faster than any of them ever moved toward the enemy.",
+      "explains": "Running away. The fastest tier on the table and the only one nobody chooses.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";"
+    },
+    {
+      "id": "heed-weighing",
+      "flow": "heed",
+      "state": "",
+      "role": "entry",
+      "name": "Weighing It",
+      "readOnField": "A captain reading a scrap of paper, then looking at the ground in front of him, then at his own men.",
+      "explains": "The order has arrived and the captain is deciding what to do with it. Everything the court ever did to this man is in the room: how much he likes you, what you owe him, who you gave his seat to, how the day is going, and how frightened his own men look."
+    },
+    {
+      "id": "heed-obey",
+      "flow": "heed",
+      "state": "OBEY",
+      "role": "terminal",
+      "name": "Obey",
+      "readOnField": "It simply happens.",
+      "explains": "He does what you said, when you said it. This is the outcome you are buying with every favour, every settled grudge and every season of wages paid on time.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"OBEY\""
+    },
+    {
+      "id": "heed-obey-his-way",
+      "flow": "heed",
+      "state": "OBEY-HIS-WAY",
+      "role": "terminal",
+      "name": "Obey, His Way",
+      "readOnField": "The thing you asked for, arriving from a direction you did not pick.",
+      "explains": "He does it, but he does it his own way — a different approach, a different formation, a different moment. Usually harmless. Occasionally he is right and you were wrong. Occasionally it is a disaster and he will explain afterwards that he was being sensible.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"OBEY-HIS-WAY\""
+    },
+    {
+      "id": "heed-drag",
+      "flow": "heed",
+      "state": "DRAG",
+      "role": "terminal",
+      "name": "Drag",
+      "readOnField": "Nothing, for a while. Then the thing you asked for, too late to matter.",
+      "explains": "He obeys slowly. No refusal, no argument, nothing you can point at — just enough delay that the moment has passed. The most infuriating outcome in the game and one of the hardest to prove.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"DRAG\""
+    },
+    {
+      "id": "heed-hedge",
+      "flow": "heed",
+      "state": "HEDGE",
+      "role": "terminal",
+      "name": "Hedge",
+      "readOnField": "Half the contingent moves. The other half stays exactly where it was.",
+      "explains": "He does part of it. He commits what he can afford to lose and keeps the rest back, because he does not trust the order, or you, or the day.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"HEDGE\""
+    },
+    {
+      "id": "heed-overreach",
+      "flow": "heed",
+      "state": "OVERREACH",
+      "role": "terminal",
+      "name": "Overreach",
+      "readOnField": "More than you asked for, going further than you meant, and not stopping.",
+      "explains": "He does too much. An aggressive captain given a modest order will find the biggest possible reading of it. A push becomes a charge; a charge becomes a pursuit off the map. Overreach has won battles and lost more.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"OVERREACH\""
+    },
+    {
+      "id": "heed-hard-hedge",
+      "flow": "heed",
+      "state": "HARD-HEDGE",
+      "role": "terminal",
+      "name": "Hard Hedge",
+      "readOnField": "A token gesture in the direction of the order, and no real movement at all.",
+      "explains": "Hedging with contempt. He goes through the motions well enough that he cannot be accused of refusing, and commits nothing whatsoever.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"HARD-HEDGE\""
+    },
+    {
+      "id": "heed-defy",
+      "flow": "heed",
+      "state": "DEFY",
+      "role": "terminal",
+      "name": "Defy",
+      "readOnField": "The courier rides back alone.",
+      "explains": "He refuses outright. This is not a random misfortune — a captain reaches this only when the political arithmetic has been against you for a long time, and the herald will name the reason. Somebody warned you.",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "| \"DEFY\""
+    },
+    {
+      "id": "order-issued",
+      "flow": "order",
+      "state": "",
+      "role": "entry",
+      "name": "Issued",
+      "readOnField": "A commander turning to speak to a rider.",
+      "explains": "You have decided. The order exists and has gone nowhere. How many you may have in flight at once is set by your Marshal — which is the court reaching directly onto the battlefield and putting a hand on the controls."
+    },
+    {
+      "id": "order-riding",
+      "flow": "order",
+      "state": "",
+      "role": "normal",
+      "name": "Riding",
+      "readOnField": "A single horseman crossing the field at a gallop, taking the shortest line and not the safest one.",
+      "explains": "In transit. The courier is a real thing at a real place moving at a real speed, and he can be killed — orders sent across the front of an enemy advance frequently never arrive. Distance is delay, and delay is why you plan."
+    },
+    {
+      "id": "order-arrived",
+      "flow": "order",
+      "state": "",
+      "role": "normal",
+      "name": "Arrived",
+      "readOnField": "A rider reining in beside a banner.",
+      "explains": "It got there. Now it faces the captain's heed, which is a different machine and a much less friendly one."
+    },
+    {
+      "id": "order-active",
+      "flow": "order",
+      "state": "",
+      "role": "normal",
+      "name": "In Force",
+      "readOnField": "A contingent doing a thing on purpose.",
+      "explains": "The order has been accepted in some form and is now the contingent's job. It stays its job until it is finished, until you replace it, or until it stops being possible."
+    },
+    {
+      "id": "order-done",
+      "flow": "order",
+      "state": "",
+      "role": "terminal",
+      "name": "Carried Out",
+      "readOnField": "The thing you wanted, done.",
+      "explains": "Completed. The contingent falls back on its standing charge and waits for the next idea."
+    },
+    {
+      "id": "order-abandoned",
+      "flow": "order",
+      "state": "",
+      "role": "terminal",
+      "name": "Abandoned",
+      "readOnField": "A contingent giving up on something mid-way and doing something else.",
+      "explains": "Overtaken by events — the target is gone, the ground is taken, the unit broke, or you sent something newer. Not a failure so much as a fact."
+    },
+    {
+      "id": "order-lost",
+      "flow": "order",
+      "state": "",
+      "role": "terminal",
+      "name": "Never Arrived",
+      "readOnField": "Nothing. Which is exactly the problem.",
+      "explains": "The courier died on the way. You will not be told. From where you are standing, an order that was never received and an order that was defied look identical, and that ambiguity is deliberate."
+    },
+    {
+      "id": "treachery-true",
+      "flow": "treachery",
+      "state": "",
+      "role": "entry",
+      "name": "True",
+      "readOnField": "A contingent fighting your battle.",
+      "explains": "Loyal enough. Whatever this house thinks of you privately, it is here and it is fighting."
+    },
+    {
+      "id": "treachery-grudging",
+      "flow": "treachery",
+      "state": "",
+      "role": "normal",
+      "name": "Grudging",
+      "readOnField": "Present, engaged, and somehow always the last to close.",
+      "explains": "Treachery is climbing. Nothing has happened yet, but this contingent is now a thing you should be watching rather than counting on."
+    },
+    {
+      "id": "treachery-acting",
+      "flow": "treachery",
+      "state": "",
+      "role": "normal",
+      "name": "Acting Against You",
+      "readOnField": "Orders quietly ignored, a flank left open that did not need to be, a withdrawal nobody sanctioned.",
+      "explains": "Working against you without having said so. They have not changed sides — they are simply making sure you lose, which is cheaper and safer for them than switching."
+    },
+    {
+      "id": "treachery-defected",
+      "flow": "treachery",
+      "state": "",
+      "role": "terminal",
+      "name": "Turned",
+      "readOnField": "A banner going down and coming back up facing the other way.",
+      "explains": "Changed sides, on the field, in front of everyone. It only happens when the day is already going badly — a traitor is a coward with arithmetic — and every point that got them here was on the record months ago."
+    },
+    {
+      "id": "year-seedtime",
+      "flow": "year",
+      "state": "seedtime",
+      "role": "entry",
+      "name": "Seedtime",
+      "readOnField": "Mud, empty barns, and men who want to be planting.",
+      "explains": "Spring. The roads are bad, the granaries are at their lowest, and calling men off the sowing costs a sixth of the year's food. Spring wars are for people who had no choice.",
+      "sourcePath": "data/seasons.json",
+      "quote": "\"id\": \"seedtime\""
+    },
+    {
+      "id": "year-highsun",
+      "flow": "year",
+      "state": "highsun",
+      "role": "normal",
+      "name": "Highsun",
+      "readOnField": "Dry roads, long days, and everyone expecting a war.",
+      "explains": "Summer, the campaigning season. Everything is at its best — and because everyone knows it, a summer spent idle after a victory costs you standing. The host wanted to be led.",
+      "sourcePath": "data/seasons.json",
+      "quote": "\"id\": \"highsun\""
+    },
+    {
+      "id": "year-harvest",
+      "flow": "year",
+      "state": "harvest",
+      "role": "normal",
+      "name": "Harvest",
+      "readOnField": "Full fields and men looking at them instead of at you.",
+      "explains": "Autumn. Food is abundant and forage is easy, so the army feeds itself — but calling farmers now is the single most resented summons in the game.",
+      "sourcePath": "data/seasons.json",
+      "quote": "\"id\": \"harvest\""
+    },
+    {
+      "id": "year-wolfmoon",
+      "flow": "year",
+      "state": "wolfmoon",
+      "role": "normal",
+      "name": "Wolfmoon",
+      "readOnField": "Short days, hard ground, and nothing at all to eat off the land.",
+      "explains": "Winter. Marching is slow and exhausting, forage is near nothing so the granary drains fast, and nobody wants to be out. Winter campaigns are how kingdoms are surprised — and how armies starve.",
+      "sourcePath": "data/seasons.json",
+      "quote": "\"id\": \"wolfmoon\""
+    },
+    {
+      "id": "muster-unproclaimed",
+      "flow": "muster",
+      "state": "",
+      "role": "entry",
+      "name": "No War Yet",
+      "readOnField": "A realm going about its business.",
+      "explains": "You have not named a cause. Nothing can be summoned, because a summons with no proclaimed reason has no legitimacy and every house knows it."
+    },
+    {
+      "id": "muster-proclaimed",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "Cause Proclaimed",
+      "readOnField": "Criers at every market cross.",
+      "explains": "You have said why. The cause you pick sets your legitimacy, and legitimacy is the largest single term in whether anybody comes. A war of defence writes itself; a war of ambition you will have to pay for in favours."
+    },
+    {
+      "id": "muster-summoned",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "Houses Summoned",
+      "readOnField": "Riders leaving in every direction with sealed letters.",
+      "explains": "The call has gone out to named houses, at a named place, by a named day. From here it is out of your hands and into theirs."
+    },
+    {
+      "id": "muster-answered",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "Answers In",
+      "readOnField": "Replies coming back, some of them thinner than you hoped.",
+      "explains": "Every house has decided what to send, and the answer is a reading, not a roll — willingness computed from loyalty, cause, season, grudges, distance and an empty cup. Whoever is missing, you can point at the day you lost them."
+    },
+    {
+      "id": "muster-gathering",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "Gathering",
+      "readOnField": "Men trickling in from farms and villages to a lord's hall.",
+      "explains": "Each house is pulling its own men together before it can start moving. Scattered holdings take longer, and that time is spent before a single league is walked."
+    },
+    {
+      "id": "muster-marching",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "On the Road",
+      "readOnField": "Columns on bad roads, getting slower.",
+      "explains": "Real leagues at a real pace, wearing men out as they go. This is where the season does its damage and where a house that lives far away arrives as less than it left."
+    },
+    {
+      "id": "muster-stood",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "The Host Stands",
+      "readOnField": "An army, in a field, smaller than the one you imagined.",
+      "explains": "Everyone who is coming has come. This is the moment the court half of the game is scored: what you actually have, who is missing, how tired they are, and how much they will take from you."
+    },
+    {
+      "id": "muster-fought",
+      "flow": "muster",
+      "state": "",
+      "role": "normal",
+      "name": "Fought",
+      "readOnField": "A field with the fighting over it.",
+      "explains": "The battle has been resolved and handed back an aftermath — the dead, the wounded, the taken, the deeds. None of it is in the record yet."
+    },
+    {
+      "id": "muster-absorbed",
+      "flow": "muster",
+      "state": "",
+      "role": "terminal",
+      "name": "Absorbed",
+      "readOnField": "Clerks writing, and a great many people finding out things they will not forget.",
+      "explains": "The aftermath has become RECORDS — deaths, ransoms, rewards, grudges, deeds. Nothing about the battle is stored as a number anywhere; it is all acts on the chronicle, and every future reading computes itself from them."
+    },
+    {
+      "id": "muster-abandoned",
+      "flow": "muster",
+      "state": "",
+      "role": "terminal",
+      "name": "Called Off",
+      "readOnField": "Men going home, unimpressed.",
+      "explains": "You summoned a realm and then did not use it. The men still lost the days, the vessels still drained, and the resentment is real — calling up an army and sending it home is one of the more expensive ways to do nothing."
+    },
+    {
+      "id": "vessel-full",
+      "flow": "vessel",
+      "state": "",
+      "role": "entry",
+      "name": "Full",
+      "readOnField": "A house that answers cheerfully.",
+      "explains": "The year's service is untouched. Call them and they come without complaint — this is what the enfeoffment bought you and it refills once a year whether you used it or not."
+    },
+    {
+      "id": "vessel-drawn",
+      "flow": "vessel",
+      "state": "",
+      "role": "normal",
+      "name": "Drawn Down",
+      "readOnField": "A house that answers, and mentions how long it has been out.",
+      "explains": "Some of the year's days are spent. Still owed, still coming, but the arithmetic is now visible to both of you and they are counting."
+    },
+    {
+      "id": "vessel-dry",
+      "flow": "vessel",
+      "state": "",
+      "role": "normal",
+      "name": "Dry",
+      "readOnField": "A very long pause before the answer comes back.",
+      "explains": "The cup is empty. They owe you nothing more this year. You may still call — and they may still come — but every day past the line costs willingness, and it costs more the second time and more again the third."
+    },
+    {
+      "id": "vessel-beyond",
+      "flow": "vessel",
+      "state": "",
+      "role": "normal",
+      "name": "Beyond the Vessel",
+      "readOnField": "Men who are here because they were told to be, and want you to know it.",
+      "explains": "Serving past what was owed. It is not forbidden and that is the point: the cost is not a refusal, it is a grievance that compounds, and grievances are what decide whether an order is obeyed a year from now."
+    },
+    {
+      "id": "grievance-done",
+      "flow": "grievance",
+      "state": "",
+      "role": "entry",
+      "name": "Done",
+      "readOnField": "Nothing at all, yet.",
+      "explains": "The wrong has happened and gone into the record. Until the wronged house learns of it, it does absolutely nothing — a secret injustice is genuinely free, right up until it is not."
+    },
+    {
+      "id": "grievance-known",
+      "flow": "grievance",
+      "state": "",
+      "role": "normal",
+      "name": "Known",
+      "readOnField": "A messenger arriving somewhere you are not.",
+      "explains": "They have found out. The clock starts here, not on the day you did it, which means a distant house can carry a fresh grudge about something years old."
+    },
+    {
+      "id": "grievance-burning",
+      "flow": "grievance",
+      "state": "",
+      "role": "normal",
+      "name": "Burning",
+      "readOnField": "A house that sends the minimum, late, and does not look at you.",
+      "explains": "At full weight. This is pulling directly on willingness, resolve, obedience and treachery — every number that decides whether an army shows up and does what it is told."
+    },
+    {
+      "id": "grievance-cooling",
+      "flow": "grievance",
+      "state": "",
+      "role": "normal",
+      "name": "Cooling",
+      "readOnField": "Civility, of a slightly stiff kind.",
+      "explains": "Time is taking the heat out of it. It never reaches zero on its own — old grudges keep a residue forever — but it stops dominating the arithmetic."
+    },
+    {
+      "id": "grievance-cold",
+      "flow": "grievance",
+      "state": "",
+      "role": "terminal",
+      "name": "Cold",
+      "readOnField": "Nothing you would notice. Which is not the same as nothing.",
+      "explains": "Faded to its residue. Still on the record, still read, still counted — just small. Enough of these and a house you have never actually wronged badly will still refuse you."
+    },
+    {
+      "id": "grievance-amended",
+      "flow": "grievance",
+      "state": "",
+      "role": "terminal",
+      "name": "Amended",
+      "readOnField": "A public act of restitution, and a house that turns up next time.",
+      "explains": "You made it right — coin, land, a judgement, or an apology in front of people. The grudge is not deleted; the record of your amends is read ALONGSIDE it, which is a better outcome and a more honest one."
+    },
+    {
+      "id": "grievance-inherited",
+      "flow": "grievance",
+      "state": "",
+      "role": "terminal",
+      "name": "Inherited",
+      "readOnField": "A young lord who dislikes you for reasons that predate him.",
+      "explains": "The wronged man died and his heir took up a share of it. Not the whole weight — but enough that killing time is not a strategy, and some of the worst grudges in a long game belong to people you never met."
+    },
+    {
+      "id": "captive-taken",
+      "flow": "captive",
+      "state": "",
+      "role": "entry",
+      "name": "Taken",
+      "readOnField": "A man being pulled off a horse and not killed.",
+      "explains": "Captured rather than killed, which is a decision somebody made in the moment and is worth far more than a corpse. Whether it happens at all depends on who was chasing and how badly they wanted money."
+    },
+    {
+      "id": "captive-ransom-set",
+      "flow": "captive",
+      "state": "",
+      "role": "normal",
+      "name": "Ransom Set",
+      "readOnField": "A letter naming a price and a date.",
+      "explains": "A price has been named, scaled to the man's standing, and a day by which it is due. Now somebody has to find the coin."
+    },
+    {
+      "id": "captive-ransomed",
+      "flow": "captive",
+      "state": "",
+      "role": "terminal",
+      "name": "Ransomed Home",
+      "readOnField": "A lord riding back through his own gate, poorer and alive.",
+      "explains": "Paid and released. If you paid for your own man, he and his house remember it — this is one of the cheapest ways to buy real loyalty in the game."
+    },
+    {
+      "id": "captive-overdue",
+      "flow": "captive",
+      "state": "",
+      "role": "normal",
+      "name": "Overdue",
+      "readOnField": "A date passing with nothing happening.",
+      "explains": "The day has come and gone unpaid. Every day past it is a house watching its lord sit in someone else's hall while its king does nothing, and the whole realm can see it too."
+    },
+    {
+      "id": "captive-attainted",
+      "flow": "captive",
+      "state": "",
+      "role": "terminal",
+      "name": "Abandoned",
+      "readOnField": "A house that will never fight for you again.",
+      "explains": "You left him. Whatever you saved in coin you have spent several times over — this is among the deepest grudges available, it spreads to everyone watching, and it is entirely your doing."
+    },
+    {
+      "id": "captive-died",
+      "flow": "captive",
+      "state": "",
+      "role": "terminal",
+      "name": "Died in Captivity",
+      "readOnField": "A short letter.",
+      "explains": "He did not survive it. The house inherits, the heir inherits a share of the grudge, and no ransom is owed by anyone."
+    },
+    {
+      "id": "seat-vacant",
+      "flow": "seat",
+      "state": "",
+      "role": "entry",
+      "name": "Vacant",
+      "readOnField": "An empty chair at a council table.",
+      "explains": "Nobody holds it, and the seat's whole effect is simply absent. The Marshalcy is the one that hurts: leave it empty and you direct two contingents at a time for the entire war."
+    },
+    {
+      "id": "seat-filled",
+      "flow": "seat",
+      "state": "",
+      "role": "normal",
+      "name": "Held",
+      "readOnField": "A man doing a job, well or badly.",
+      "explains": "Someone holds it, and how good they are at it is scaled by how much they like you. A brilliant officer who resents you is worth less than a competent one who does not."
+    },
+    {
+      "id": "seat-customary",
+      "flow": "seat",
+      "state": "",
+      "role": "normal",
+      "name": "Customary",
+      "readOnField": "A man who no longer thanks you for it.",
+      "explains": "He has held it long enough that it has started to feel like his rather than yours. Taking it back is now an injury rather than a decision."
+    },
+    {
+      "id": "seat-hereditary",
+      "flow": "seat",
+      "state": "",
+      "role": "normal",
+      "name": "Held by Right",
+      "readOnField": "A son who expects the chair his father sat in.",
+      "explains": "Long enough that the family considers it theirs by right. You can still take it back. It will be one of the most expensive things you ever do, and you did it to yourself by leaving him there."
+    },
+    {
+      "id": "seat-taken-back",
+      "flow": "seat",
+      "state": "",
+      "role": "normal",
+      "name": "Taken Back",
+      "readOnField": "A man riding home from court without saying goodbye.",
+      "explains": "You removed him. The grievance scales with how established he had become — free from a new appointment, ruinous from an hereditary one — and the seat is vacant again, doing nothing for anybody, until you fill it."
+    }
+  ]
+}

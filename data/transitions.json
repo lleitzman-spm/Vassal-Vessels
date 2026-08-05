@@ -1,0 +1,1055 @@
+{
+  "$schema": "vassal-vessels/transitions/1",
+  "explains": "A transition is an ARROW: a case leaving one place for another, because something happened and the conditions allowed it. Transitions are the verbs of the operational graph. Every one names the place it leaves, the place it arrives at, the event that fires it and the guards that had to hold — so a reader can trace any journey through any machine without opening a single source file. The lint refuses a transition whose places do not exist, and it refuses a machine with a place nothing can reach or a place nothing can leave.",
+  "fields": {
+    "id": "The transition's identifier.",
+    "name": "What to call the move in plain words — ideally the sentence a herald would say.",
+    "flow": "Which machine this arrow belongs to (data/flows.json).",
+    "from": "The place (or places) a case can be in for this arrow to fire. A list means the machine genuinely allows several origins, not that the author was unsure.",
+    "to": "The place the case arrives in. Always exactly one.",
+    "on": "The EVENT that fires it — the thing that happens. A transition with no event is a condition being re-checked, which is a different animal and is written as such.",
+    "guards": "The conditions that must hold (data/guards.json). An empty list means the arrow fires on the event alone, which is rare and worth noticing.",
+    "cost": "What the case pays to make this move — cohesion, fatigue, standing, willingness, coin. Free moves are marked so, because in this game most of them are not.",
+    "explains": "What this move means, and what it feels like when it happens to you."
+  },
+  "transitions": [
+    {
+      "id": "battle-join",
+      "flow": "battle",
+      "from": "battle-deploy",
+      "to": "battle-joined",
+      "name": "The lines start forward",
+      "on": "the first tick of the battle",
+      "guards": [],
+      "cost": "none",
+      "explains": "Deployment ends and the simulation begins. Nothing else in the game has this quality of a door closing behind you: every decision before this was reversible and none of them are now."
+    },
+    {
+      "id": "battle-breaks",
+      "flow": "battle",
+      "from": "battle-joined",
+      "to": "battle-pursuit",
+      "name": "An army comes apart",
+      "on": "the army check, every tick",
+      "guards": [
+        "army-breaks",
+        "banner-breaks-army"
+      ],
+      "cost": "the losing army takes a further morale blow on top",
+      "explains": "One side has stopped being an army. The battle phase ends and the pursuit begins, and the most important consequence is invisible unless you know to look for it: the command phase stops running. Every order you send from here is thrown into a hole."
+    },
+    {
+      "id": "battle-pursuit-ends",
+      "flow": "battle",
+      "from": "battle-pursuit",
+      "to": "battle-ended",
+      "name": "The chase burns out",
+      "on": "the pursuit clock",
+      "guards": [
+        "pursuit-spent"
+      ],
+      "cost": "none",
+      "explains": "Horses are blown, the light is going, and the runners have scattered into country nobody will follow them into. What was caught was caught."
+    },
+    {
+      "id": "battle-disengage",
+      "flow": "battle",
+      "from": "battle-joined",
+      "to": "battle-ended",
+      "name": "Both sides break contact",
+      "on": "no contact anywhere, sustained",
+      "guards": [
+        "nobody-left-fighting"
+      ],
+      "cost": "none",
+      "explains": "Somebody withdrew in good order and nobody chased. A perfectly respectable outcome that players routinely undervalue: you still have an army, and an army you still have next season is worth more than a field you held for an afternoon."
+    },
+    {
+      "id": "battle-timeout",
+      "flow": "battle",
+      "from": "battle-joined",
+      "to": "battle-ended",
+      "name": "The day runs out",
+      "on": "the tick ceiling",
+      "guards": [
+        "day-runs-out"
+      ],
+      "cost": "both armies keep their fatigue and their dead",
+      "explains": "A draw. Neither side broke, neither side left, and the light went. Both armies go home tired with nothing settled and every grudge that got them there still in place."
+    },
+    {
+      "id": "nerve-shaken",
+      "flow": "nerve",
+      "from": "nerve-steady",
+      "to": "nerve-shaken",
+      "name": "They begin to feel it",
+      "on": "the morale check, every tick",
+      "guards": [
+        "nerve-shakes"
+      ],
+      "cost": "the unit fights and moves slightly worse",
+      "explains": "The first step down. Casualties, a friend breaking nearby, arrows they cannot answer — the accumulation shows, and the line thickens as men drift back into it."
+    },
+    {
+      "id": "nerve-wavering",
+      "flow": "nerve",
+      "from": "nerve-shaken",
+      "to": "nerve-wavering",
+      "name": "The back ranks start to drift",
+      "on": "the morale check, every tick",
+      "guards": [
+        "nerve-wavers"
+      ],
+      "cost": "the unit is one bad moment from breaking",
+      "explains": "Your last warning. The men at the back have already decided and the men at the front have not noticed. If a captain is going to shout, this is when."
+    },
+    {
+      "id": "nerve-steadying",
+      "flow": "nerve",
+      "from": "nerve-wavering",
+      "to": "nerve-shaken",
+      "name": "They get a grip",
+      "on": "the morale check, every tick",
+      "guards": [
+        "nerve-shakes"
+      ],
+      "cost": "none",
+      "explains": "Back from the edge — a captain's exhortation, a threat removed, a friendly unit arriving. Note that it takes a real margin, not a single point: the unit must climb clear of wavering, not merely stop falling."
+    },
+    {
+      "id": "nerve-steady-again",
+      "flow": "nerve",
+      "from": "nerve-shaken",
+      "to": "nerve-steady",
+      "name": "They are themselves again",
+      "on": "the morale check, every tick",
+      "guards": [
+        "nerve-steadies"
+      ],
+      "cost": "none",
+      "explains": "Fully recovered. Rare in the middle of a fight and usually the result of getting out of contact for a while — which is an argument for rotating a line that you can only act on if you kept a reserve."
+    },
+    {
+      "id": "nerve-breaks",
+      "flow": "nerve",
+      "from": [
+        "nerve-steady",
+        "nerve-shaken",
+        "nerve-wavering"
+      ],
+      "to": "nerve-routing",
+      "name": "They break",
+      "on": "the morale check, every tick",
+      "guards": [
+        "nerve-breaks"
+      ],
+      "cost": "all cohesion, the current order, and any posture — thrown away at once",
+      "explains": "The unit stops being a unit. Note the origins: a STEADY unit can break outright without passing through the middle states, if enough happens at once — a flank charge into a fresh line does exactly that. This is the one arrow in the machine with no cushion on it at all."
+    },
+    {
+      "id": "nerve-rally",
+      "flow": "nerve",
+      "from": "nerve-routing",
+      "to": "nerve-rallying",
+      "name": "They turn and stand",
+      "on": "the rally check",
+      "guards": [
+        "rallies-left",
+        "rally-nerve-held",
+        "rally-enemy-clear",
+        "rally-someone-to-rally-to"
+      ],
+      "cost": "the unit's one and only second chance",
+      "explains": "Four conditions, all of which must hold at once, which is why rallying is uncommon and worth a great deal when it happens. The most controllable of the four is the last: a live captain near his men is the difference between a rout and a delay."
+    },
+    {
+      "id": "nerve-reformed",
+      "flow": "nerve",
+      "from": "nerve-rallying",
+      "to": "nerve-shaken",
+      "name": "They re-form",
+      "on": "the rally hold completing",
+      "guards": [
+        "rally-nerve-held"
+      ],
+      "cost": "the second chance is now spent",
+      "explains": "Back in the battle — as SHAKEN, never steady, and with nothing behind them. A rallied unit is a real asset and a fragile one, and the commander who forgets which is about to lose it permanently."
+    },
+    {
+      "id": "nerve-flees",
+      "flow": "nerve",
+      "from": "nerve-routing",
+      "to": "nerve-fled",
+      "name": "They are gone",
+      "on": "running long enough with no rally left",
+      "guards": [
+        "rallies-left"
+      ],
+      "cost": "the unit, for the rest of the day",
+      "explains": "Off the field. Most of these men are alive and will be counted alive in the aftermath — they are simply no use to you now. Losing a unit to flight rather than to death is much the better outcome next season and no comfort at all this afternoon."
+    },
+    {
+      "id": "nerve-destroyed",
+      "flow": "nerve",
+      "from": [
+        "nerve-steady",
+        "nerve-shaken",
+        "nerve-wavering",
+        "nerve-routing",
+        "nerve-rallying"
+      ],
+      "to": "nerve-destroyed",
+      "name": "They are destroyed where they stood",
+      "on": "the strength check, before anything else in the machine",
+      "guards": [
+        "unit-destroyed"
+      ],
+      "cost": "the unit, permanently",
+      "explains": "Checked first every tick, because a unit that no longer exists cannot be frightened. Reaching this from STEADY — killed in place without ever breaking — is the rarest and most honoured thing a unit can do, and the deed goes onto the record for the house to remember."
+    },
+    {
+      "id": "footing-brace",
+      "flow": "footing",
+      "from": "footing-none",
+      "to": "footing-braced",
+      "name": "Set!",
+      "on": "a brace order, or a standing plan firing on cavalry closing",
+      "guards": [],
+      "cost": "the unit must be stationary, and stays stationary",
+      "explains": "Butts in the earth, points level. The single most valuable second in the game and one you very often do not have — which is exactly what standing plans are for. A plan that braces automatically when horses come inside a named distance is worth more than any order you could send by courier."
+    },
+    {
+      "id": "footing-unbrace",
+      "flow": "footing",
+      "from": "footing-braced",
+      "to": "footing-none",
+      "name": "They come off the brace",
+      "on": "the unit moving, or being ordered elsewhere",
+      "guards": [],
+      "cost": "all refusal, immediately",
+      "explains": "Bracing is not a property, it is a posture, and it is gone the instant the unit steps. Every 'my spearmen got ridden down' story is this arrow firing one moment before the horses arrived."
+    },
+    {
+      "id": "footing-shoot",
+      "flow": "footing",
+      "from": "footing-none",
+      "to": "footing-shooting",
+      "name": "Loose!",
+      "on": "a shoot order, or a plan with a target in range",
+      "guards": [],
+      "cost": "ammunition, which does not come back",
+      "explains": "Begin shooting. Every arrow is a real object out of a finite quiver, and a unit that is shooting is not bracing — which archers rediscover the moment horsemen appear on their flank."
+    },
+    {
+      "id": "footing-cease",
+      "flow": "footing",
+      "from": "footing-shooting",
+      "to": "footing-none",
+      "name": "Hold!",
+      "on": "a cease order, running dry, or nothing left worth shooting at",
+      "guards": [],
+      "cost": "none",
+      "explains": "Stop shooting. Worth ordering deliberately rather than waiting for the quiver to empty, because ammunition spent on a target that was going to lose anyway is ammunition you do not have when the real threat arrives."
+    },
+    {
+      "id": "footing-plant",
+      "flow": "footing",
+      "from": "footing-none",
+      "to": "footing-staked",
+      "name": "Stakes in",
+      "on": "a plant-stakes order",
+      "guards": [],
+      "cost": "a long stretch of doing nothing else",
+      "explains": "Sharpened poles into the ground, angled at a horse's chest. Stakes refuse cavalry the way a braced line does, without getting tired and without pinning the men in place. The price is the time, and the time is the reason it usually does not happen."
+    },
+    {
+      "id": "footing-leave-stakes",
+      "flow": "footing",
+      "from": "footing-staked",
+      "to": "footing-none",
+      "name": "They leave the stakes",
+      "on": "the unit advancing off its position",
+      "guards": [],
+      "cost": "the stakes, which stay where they are",
+      "explains": "Stakes do not travel. Advancing archers abandon everything that was protecting them, which is why a shooting line that wins its duel and then walks forward so often ends the day worse than one that stayed put."
+    },
+    {
+      "id": "pace-move-off",
+      "flow": "pace",
+      "from": "pace-stop",
+      "to": "pace-walk",
+      "name": "They step off",
+      "on": "any movement order",
+      "guards": [],
+      "cost": "cohesion recovery stops",
+      "explains": "Moving at last. Cheap in every currency, and the pace a well-handled army spends most of its day at."
+    },
+    {
+      "id": "pace-press-on",
+      "flow": "pace",
+      "from": "pace-walk",
+      "to": "pace-advance",
+      "name": "They pick it up",
+      "on": "an advance order",
+      "guards": [],
+      "cost": "a little cohesion and fatigue",
+      "explains": "The working pace of a battle: fast enough to matter, slow enough that the line survives the trip."
+    },
+    {
+      "id": "pace-hurry",
+      "flow": "pace",
+      "from": "pace-advance",
+      "to": "pace-run",
+      "name": "They run",
+      "on": "an urgent order, or a plan firing",
+      "guards": [],
+      "cost": "real cohesion and real fatigue",
+      "explains": "Hurrying. The fit men pull ahead of the tired ones and you arrive as a worse-organised version of what you set out as — which is a genuine trade, not a mistake, when arriving late is the bigger risk."
+    },
+    {
+      "id": "pace-charge",
+      "flow": "pace",
+      "from": "pace-run",
+      "to": "pace-charge",
+      "name": "Charge!",
+      "on": "a charge order, inside charging distance",
+      "guards": [],
+      "cost": "the most expensive move on the table, whether it lands or not",
+      "explains": "The last hundred metres. Shock scales with the SQUARE of closing speed, so this is where battles are actually decided — and a charge that arrives at a braced line pays every one of those costs for nothing at all."
+    },
+    {
+      "id": "pace-halt",
+      "flow": "pace",
+      "from": [
+        "pace-walk",
+        "pace-advance",
+        "pace-run",
+        "pace-charge"
+      ],
+      "to": "pace-stop",
+      "name": "Halt",
+      "on": "a halt order, reaching the objective, or contact",
+      "guards": [],
+      "cost": "none — and standing still is where cohesion comes back",
+      "explains": "Stopping. Underrated as an order: a halted unit recovers its cohesion, and cohesion is what decides whether it can turn, hold and refuse."
+    },
+    {
+      "id": "pace-break-into-rout",
+      "flow": "pace",
+      "from": [
+        "pace-stop",
+        "pace-walk",
+        "pace-advance",
+        "pace-run",
+        "pace-charge"
+      ],
+      "to": "pace-rout",
+      "name": "They run the other way",
+      "on": "the unit's nerve giving out",
+      "guards": [
+        "nerve-breaks"
+      ],
+      "cost": "everything",
+      "explains": "The nerve machine reaching across and taking the pace machine with it. Note that it fires from ANY pace, including a charge — a unit can break in the act of attacking, and men who break while charging are the ones who die in the greatest numbers."
+    },
+    {
+      "id": "pace-rally-pace",
+      "flow": "pace",
+      "from": "pace-rout",
+      "to": "pace-stop",
+      "name": "The running stops",
+      "on": "the unit rallying",
+      "guards": [
+        "rally-nerve-held"
+      ],
+      "cost": "none",
+      "explains": "Tied to the nerve machine's rally. The men stop, out of breath, and start finding each other again."
+    },
+    {
+      "id": "heed-obey",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-obey",
+      "name": "\"At once.\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-obeys"
+      ],
+      "cost": "none",
+      "explains": "What you are buying with every settled grudge and every season of wages paid on time. It never stops being worth it and it never becomes free."
+    },
+    {
+      "id": "heed-his-way",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-obey-his-way",
+      "name": "\"I'll see it done.\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-his-way"
+      ],
+      "cost": "you do not choose the method",
+      "explains": "Compliance without conformity. He gets you the outcome by a route you did not pick — usually harmless, occasionally better than your idea, occasionally catastrophic in a way you will hear explained afterwards."
+    },
+    {
+      "id": "heed-drag",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-drag",
+      "name": "\"Presently.\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-drags-or-hedges"
+      ],
+      "cost": "the moment",
+      "explains": "The cautious face of unwillingness. Nothing you can accuse him of — just enough delay that the opportunity has closed by the time the order is carried out."
+    },
+    {
+      "id": "heed-hedge",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-hedge",
+      "name": "\"Some of us, then.\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-drags-or-hedges"
+      ],
+      "cost": "half the contingent stays home",
+      "explains": "The bolder face of the same unwillingness. He commits what he can afford to lose and keeps the rest, because he does not trust the order, or you, or the day."
+    },
+    {
+      "id": "heed-overreach",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-overreach",
+      "name": "\"Follow me!\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-overreaches-or-worse"
+      ],
+      "cost": "control",
+      "explains": "The dangerous one, and the one that surprises players. A captain who does not respect you and has blood up does not sit still — he takes the largest possible reading of your order and your right wing goes with him."
+    },
+    {
+      "id": "heed-hard-hedge",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-hard-hedge",
+      "name": "A gesture, and nothing more",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-overreaches-or-worse"
+      ],
+      "cost": "the contingent, in all but name",
+      "explains": "Hedging with contempt. Enough motion that he cannot be accused of refusing, and no commitment whatsoever. Functionally a defiance he can deny at the feast afterwards."
+    },
+    {
+      "id": "heed-defy",
+      "flow": "heed",
+      "from": "heed-weighing",
+      "to": "heed-defy",
+      "name": "\"No.\"",
+      "on": "the heed being computed, on arrival",
+      "guards": [
+        "heed-defies"
+      ],
+      "cost": "the contingent, and the watching army's opinion of you",
+      "explains": "Flat refusal in front of everyone. Nothing random put him here — and the herald names the largest cause out loud when it happens, which is the game telling you which of your decisions this was."
+    },
+    {
+      "id": "order-dispatch",
+      "flow": "order",
+      "from": "order-issued",
+      "to": "order-riding",
+      "name": "The courier goes",
+      "on": "you issuing the order",
+      "guards": [],
+      "cost": "one of your limited orders in flight",
+      "explains": "Away he goes. How many you may have out at once is set by your Marshal — the court's most direct hand on the battle's controls."
+    },
+    {
+      "id": "order-arrive",
+      "flow": "order",
+      "from": "order-riding",
+      "to": "order-arrived",
+      "name": "He reaches the banner",
+      "on": "the ride completing",
+      "guards": [
+        "courier-gets-through",
+        "horn-carries"
+      ],
+      "cost": "the time it took, which is the whole problem",
+      "explains": "It got there. The distance you sent it across has already been paid in seconds, and in a battle seconds are the currency that matters."
+    },
+    {
+      "id": "order-courier-killed",
+      "flow": "order",
+      "from": "order-riding",
+      "to": "order-lost",
+      "name": "He does not arrive",
+      "on": "the courier being caught",
+      "guards": [
+        "courier-gets-through"
+      ],
+      "cost": "the order, silently",
+      "explains": "Killed on the way, and nobody tells you. From where you stand, an order that never arrived looks exactly like an order that was defied — and that ambiguity is deliberate, because it was true."
+    },
+    {
+      "id": "order-accepted",
+      "flow": "order",
+      "from": "order-arrived",
+      "to": "order-active",
+      "name": "It becomes their job",
+      "on": "the heed resolving to any form of compliance",
+      "guards": [
+        "heed-obeys",
+        "heed-his-way",
+        "heed-drags-or-hedges"
+      ],
+      "cost": "whatever the interpretation cost you",
+      "explains": "Accepted in SOME form — which may not be the form you sent. From here it is the contingent's standing job until something ends it."
+    },
+    {
+      "id": "order-refused",
+      "flow": "order",
+      "from": "order-arrived",
+      "to": "order-abandoned",
+      "name": "It is refused",
+      "on": "the heed resolving to defiance",
+      "guards": [
+        "heed-defies"
+      ],
+      "cost": "the order, and a great deal of face",
+      "explains": "The captain will not do it. The contingent falls back on its standing charge and carries on with whatever it was already doing."
+    },
+    {
+      "id": "order-complete",
+      "flow": "order",
+      "from": "order-active",
+      "to": "order-done",
+      "name": "It is carried out",
+      "on": "the objective being met",
+      "guards": [],
+      "cost": "none",
+      "explains": "Done. The contingent reverts to its standing charge and waits for your next idea."
+    },
+    {
+      "id": "order-superseded",
+      "flow": "order",
+      "from": "order-active",
+      "to": "order-abandoned",
+      "name": "It stops mattering",
+      "on": "a newer order arriving, the target being gone, or the unit breaking",
+      "guards": [],
+      "cost": "none",
+      "explains": "Overtaken by events. Not a failure so much as a fact — and a reminder that an order you sent ninety seconds ago was aimed at a battle that no longer exists."
+    },
+    {
+      "id": "treachery-souring",
+      "flow": "treachery",
+      "from": "treachery-true",
+      "to": "treachery-grudging",
+      "name": "Something changes in them",
+      "on": "the treachery reading crossing its first line",
+      "guards": [
+        "treachery-acts"
+      ],
+      "cost": "nothing yet, which is the trap",
+      "explains": "Nothing has happened. The number moved, and the number is public if you go and look at it — the forecast will tell you before the battle. Almost nobody looks."
+    },
+    {
+      "id": "treachery-acting",
+      "flow": "treachery",
+      "from": "treachery-grudging",
+      "to": "treachery-acting",
+      "name": "They start working against you",
+      "on": "the treachery check, on its own clock",
+      "guards": [
+        "treachery-acts"
+      ],
+      "cost": "orders quietly failing, and a flank you thought was held",
+      "explains": "Not a betrayal you can point at. They are simply making sure you lose, which is cheaper and safer for them than switching sides and much harder to prove."
+    },
+    {
+      "id": "treachery-turns",
+      "flow": "treachery",
+      "from": "treachery-acting",
+      "to": "treachery-defected",
+      "name": "The banner turns",
+      "on": "the treachery check, with the day going badly",
+      "guards": [
+        "treachery-turns"
+      ],
+      "cost": "the contingent, and everything behind where it was standing",
+      "explains": "Note that this needs the Tide against you as well as the treachery high. A traitor is a coward with arithmetic: he does not turn while you are winning. The counter to a treacherous vassal is therefore not to fix him — it is to not be losing."
+    },
+    {
+      "id": "treachery-bought-back",
+      "flow": "treachery",
+      "from": [
+        "treachery-grudging",
+        "treachery-acting"
+      ],
+      "to": "treachery-true",
+      "name": "You settle with them",
+      "on": "amends, coin, a favour, or a grudge cooling",
+      "guards": [],
+      "cost": "whatever it took — and it is always cheaper than the alternative",
+      "explains": "The number is a READING, not a stored score, so the moment the records behind it change, it changes. This is the arrow the whole court half of the game exists to let you fire."
+    },
+    {
+      "id": "year-to-highsun",
+      "flow": "year",
+      "from": "year-seedtime",
+      "to": "year-highsun",
+      "name": "The roads dry",
+      "on": "ninety days passing",
+      "guards": [
+        "season-turns"
+      ],
+      "cost": "none",
+      "explains": "Into the campaigning season. Everything gets easier — and because everyone knows it, doing nothing now starts to cost you."
+    },
+    {
+      "id": "year-to-harvest",
+      "flow": "year",
+      "from": "year-highsun",
+      "to": "year-harvest",
+      "name": "The fields come in",
+      "on": "ninety days passing",
+      "guards": [
+        "season-turns"
+      ],
+      "cost": "an idle summer costs standing",
+      "explains": "Into autumn. Food is everywhere and the army can feed itself off the country — and every farmer you call up now will remember it for years."
+    },
+    {
+      "id": "year-to-wolfmoon",
+      "flow": "year",
+      "from": "year-harvest",
+      "to": "year-wolfmoon",
+      "name": "The cold comes",
+      "on": "ninety days passing",
+      "guards": [
+        "season-turns"
+      ],
+      "cost": "none",
+      "explains": "Into winter. Marching is slow and exhausting and there is nothing to forage, so the granary drains fast. This is how armies starve without meeting anybody."
+    },
+    {
+      "id": "year-to-seedtime",
+      "flow": "year",
+      "from": "year-wolfmoon",
+      "to": "year-seedtime",
+      "name": "The year turns",
+      "on": "ninety days passing",
+      "guards": [
+        "season-turns"
+      ],
+      "cost": "none",
+      "explains": "Round again — and with the service year, every vessel in the realm refills. The single most important date on the calendar, and the one a patient king plans his whole war around."
+    },
+    {
+      "id": "muster-proclaim",
+      "flow": "muster",
+      "from": "muster-unproclaimed",
+      "to": "muster-proclaimed",
+      "name": "You name your cause",
+      "on": "a proclamation going onto the record",
+      "guards": [],
+      "cost": "days at court",
+      "explains": "The cause you choose sets your legitimacy, and legitimacy is the largest single term in whether anybody comes. A war of defence writes itself. A war of ambition you will pay for in favours, one house at a time."
+    },
+    {
+      "id": "muster-summon",
+      "flow": "muster",
+      "from": "muster-proclaimed",
+      "to": "muster-summoned",
+      "name": "The call goes out",
+      "on": "a summons naming houses, a place and a day",
+      "guards": [],
+      "cost": "days at court, more for a whole realm",
+      "explains": "Out of your hands and into theirs. Everything the court has been doing for years is about to be scored in a single reading."
+    },
+    {
+      "id": "muster-answers",
+      "flow": "muster",
+      "from": "muster-summoned",
+      "to": "muster-answered",
+      "name": "The answers come back",
+      "on": "each house's willingness being read",
+      "guards": [
+        "vessel-runs-dry",
+        "called-past-the-vessel"
+      ],
+      "cost": "willingness, wherever a cup was dry",
+      "explains": "No dice anywhere. Every answer is computed from loyalty, cause, season, grudges, distance and how much service is left in the cup — all of it visible beforehand if you looked. Whoever is missing, you can name the day you lost them."
+    },
+    {
+      "id": "muster-gather",
+      "flow": "muster",
+      "from": "muster-answered",
+      "to": "muster-gathering",
+      "name": "Lords collect their men",
+      "on": "each house beginning to assemble",
+      "guards": [
+        "gathering-done"
+      ],
+      "cost": "days, before a single league is walked",
+      "explains": "Men have to come in off farms before anyone can march. A compact holding does it fast and a scattered one takes nearly twice as long, which is why land shape matters as much as land quantity."
+    },
+    {
+      "id": "muster-march",
+      "flow": "muster",
+      "from": "muster-gathering",
+      "to": "muster-marching",
+      "name": "They take the road",
+      "on": "a gathered contingent setting off",
+      "guards": [],
+      "cost": "fatigue, every day, all the way",
+      "explains": "The long middle. Nothing dramatic happens and the battle is being decided anyway, one tired league at a time."
+    },
+    {
+      "id": "muster-stand",
+      "flow": "muster",
+      "from": "muster-marching",
+      "to": "muster-stood",
+      "name": "The host stands",
+      "on": "arrival at the appointed place",
+      "guards": [
+        "host-arrives"
+      ],
+      "cost": "whatever the roads took",
+      "explains": "Everyone who is coming has come. This is the moment the court half of the game is scored — and the army is always smaller than the one you imagined, because it always is."
+    },
+    {
+      "id": "muster-fight",
+      "flow": "muster",
+      "from": "muster-stood",
+      "to": "muster-fought",
+      "name": "The battle is fought",
+      "on": "the host meeting another one",
+      "guards": [],
+      "cost": "men",
+      "explains": "The host is handed to the battle engine with all its politics welded into its numbers — resolve, obedience, treachery, fatigue — and comes back as an aftermath."
+    },
+    {
+      "id": "muster-absorb",
+      "flow": "muster",
+      "from": "muster-fought",
+      "to": "muster-absorbed",
+      "name": "It goes into the record",
+      "on": "the aftermath being absorbed",
+      "guards": [],
+      "cost": "none — and everything, later",
+      "explains": "The dead, the taken, the deeds and the debts all become ACTS on the chronicle. Nothing is stored as a summary; every future reading recomputes itself from these records, which is why a battle keeps mattering for years."
+    },
+    {
+      "id": "muster-call-off",
+      "flow": "muster",
+      "from": [
+        "muster-proclaimed",
+        "muster-summoned",
+        "muster-answered",
+        "muster-gathering",
+        "muster-marching",
+        "muster-stood"
+      ],
+      "to": "muster-abandoned",
+      "name": "You send them home",
+      "on": "abandoning the campaign",
+      "guards": [],
+      "cost": "every day already drawn from every vessel, and the goodwill",
+      "explains": "One of the more expensive ways to do nothing. The men still lost the days, the cups still drained, and everyone involved formed an opinion about your judgement."
+    },
+    {
+      "id": "vessel-draw",
+      "flow": "vessel",
+      "from": "vessel-full",
+      "to": "vessel-drawn",
+      "name": "The first day is served",
+      "on": "a house's men standing in your army for a day",
+      "guards": [],
+      "cost": "one day of the year's service",
+      "explains": "The cup starts to empty. Nobody minds yet — this is exactly what the grant was for — but from here both of you are counting."
+    },
+    {
+      "id": "vessel-empty",
+      "flow": "vessel",
+      "from": "vessel-drawn",
+      "to": "vessel-dry",
+      "name": "The cup runs out",
+      "on": "the last owed day being served",
+      "guards": [
+        "vessel-runs-dry"
+      ],
+      "cost": "none, yet",
+      "explains": "They owe you nothing more this year. Note what does NOT happen: no rule stops you calling them. The Vessel is not a fence, it is a price list."
+    },
+    {
+      "id": "vessel-overdraw",
+      "flow": "vessel",
+      "from": "vessel-dry",
+      "to": "vessel-beyond",
+      "name": "You call them anyway",
+      "on": "a summons to a dry house",
+      "guards": [
+        "called-past-the-vessel"
+      ],
+      "cost": "willingness now, and a grievance that compounds",
+      "explains": "The decision the whole strategic layer turns on. Once is a favour asked. Twice is presumption. Three times and you have made an enemy of a man whose only fault was always turning up."
+    },
+    {
+      "id": "vessel-refill",
+      "flow": "vessel",
+      "from": [
+        "vessel-drawn",
+        "vessel-dry",
+        "vessel-beyond"
+      ],
+      "to": "vessel-full",
+      "name": "The service year turns",
+      "on": "the year rolling over",
+      "guards": [
+        "season-turns"
+      ],
+      "cost": "none",
+      "explains": "Every cup in the realm fills again, used or not — so service you did not spend is service you lost. A king who understands this plans his wars around a date rather than around his temper."
+    },
+    {
+      "id": "grievance-word-spreads",
+      "flow": "grievance",
+      "from": "grievance-done",
+      "to": "grievance-known",
+      "name": "They find out",
+      "on": "word reaching the wronged house",
+      "guards": [],
+      "cost": "none — the cost starts now",
+      "explains": "The clock starts HERE, not on the day you did it. A distant house can carry a brand-new grudge about something years old, and a secret injustice genuinely costs nothing right up until it does not."
+    },
+    {
+      "id": "grievance-catches",
+      "flow": "grievance",
+      "from": "grievance-known",
+      "to": "grievance-burning",
+      "name": "It takes hold",
+      "on": "the grievance being read at full weight",
+      "guards": [],
+      "cost": "willingness, resolve, obedience and treachery, all at once",
+      "explains": "Now it is pulling on every number that decides whether an army turns up and does what it is told. One burning grievance is survivable. The trouble is that they are additive and you rarely have one."
+    },
+    {
+      "id": "grievance-cools",
+      "flow": "grievance",
+      "from": "grievance-burning",
+      "to": "grievance-cooling",
+      "name": "It cools",
+      "on": "enough years passing",
+      "guards": [
+        "grievance-cools"
+      ],
+      "cost": "none",
+      "explains": "Time takes the heat out. This is the lazy king's strategy and it half works — it stops any single grudge from dominating, and it never clears the board."
+    },
+    {
+      "id": "grievance-goes-cold",
+      "flow": "grievance",
+      "from": "grievance-cooling",
+      "to": "grievance-cold",
+      "name": "It goes cold",
+      "on": "the decay running its course",
+      "guards": [
+        "grievance-cools"
+      ],
+      "cost": "none",
+      "explains": "Down to its residue and no further. Eleven cold grievances make an army that does not quite work and gives you nothing to point at — which is how most bad reigns actually feel from the inside."
+    },
+    {
+      "id": "grievance-amends",
+      "flow": "grievance",
+      "from": [
+        "grievance-known",
+        "grievance-burning",
+        "grievance-cooling"
+      ],
+      "to": "grievance-amended",
+      "name": "You make it right",
+      "on": "an act of amends going onto the record",
+      "guards": [],
+      "cost": "coin, land, a judgement, or your pride in public",
+      "explains": "The real fix, and note how it works: the grudge is not deleted. The record of your amends is read ALONGSIDE the record of the wrong, which is both more honest and more durable than pretending it never happened."
+    },
+    {
+      "id": "grievance-inherited",
+      "flow": "grievance",
+      "from": [
+        "grievance-burning",
+        "grievance-cooling"
+      ],
+      "to": "grievance-inherited",
+      "name": "The son takes it up",
+      "on": "the wronged man dying",
+      "guards": [
+        "heir-takes-it-up"
+      ],
+      "cost": "a share of the weight, carried by someone new",
+      "explains": "Outliving your enemies does not work. A long reign quietly accumulates dislike from people who were children when you earned it — so make amends while the man who was wronged is alive to accept them."
+    },
+    {
+      "id": "captive-price",
+      "flow": "captive",
+      "from": "captive-taken",
+      "to": "captive-ransom-set",
+      "name": "A price is named",
+      "on": "the aftermath being built",
+      "guards": [
+        "capture-instead-of-kill",
+        "ransom-comes-due"
+      ],
+      "cost": "none to the captor",
+      "explains": "Scaled to the man's standing, with a due date fixed the moment he was taken. A great lord is a windfall; a levy sergeant is barely worth the rope."
+    },
+    {
+      "id": "captive-paid",
+      "flow": "captive",
+      "from": "captive-ransom-set",
+      "to": "captive-ransomed",
+      "name": "The ransom is paid",
+      "on": "payment before the due date",
+      "guards": [],
+      "cost": "coin — a great deal of it",
+      "explains": "He rides home. If you paid for your own man, he and his whole house remember it: this is one of the cheapest ways to buy real loyalty in the game, and it is never cheap."
+    },
+    {
+      "id": "captive-lapses",
+      "flow": "captive",
+      "from": "captive-ransom-set",
+      "to": "captive-overdue",
+      "name": "The date passes",
+      "on": "the due date arriving unpaid",
+      "guards": [
+        "ransom-comes-due"
+      ],
+      "cost": "the realm's opinion, daily",
+      "explains": "Nothing dramatic happens and everyone notices. A house watching its lord sit in another man's hall while its king does nothing is a house doing arithmetic about next season."
+    },
+    {
+      "id": "captive-late-paid",
+      "flow": "captive",
+      "from": "captive-overdue",
+      "to": "captive-ransomed",
+      "name": "You pay late",
+      "on": "payment after the due date",
+      "guards": [],
+      "cost": "coin, and some of the credit you would have had",
+      "explains": "Better than never by a wide margin. You get the man back and you do not get the gratitude you would have had for paying on time."
+    },
+    {
+      "id": "captive-abandoned",
+      "flow": "captive",
+      "from": "captive-overdue",
+      "to": "captive-attainted",
+      "name": "You leave him",
+      "on": "the debt being written off",
+      "guards": [],
+      "cost": "one of the deepest grudges available, spread to everyone watching",
+      "explains": "Whatever you saved in coin you have spent several times over. Do this once and watch what the next muster looks like — not just from his house, from everyone who imagined themselves in his position."
+    },
+    {
+      "id": "captive-dies",
+      "flow": "captive",
+      "from": [
+        "captive-taken",
+        "captive-ransom-set",
+        "captive-overdue"
+      ],
+      "to": "captive-died",
+      "name": "He dies in captivity",
+      "on": "death while held",
+      "guards": [],
+      "cost": "no ransom to anyone, and an heir with a grudge",
+      "explains": "Nobody gets paid. The house inherits, the heir inherits a share of the grievance, and if the ransom was overdue when it happened, everyone will draw their own conclusions about whose fault that was."
+    },
+    {
+      "id": "seat-invest",
+      "flow": "seat",
+      "from": "seat-vacant",
+      "to": "seat-filled",
+      "name": "You invest someone",
+      "on": "an investiture going onto the record",
+      "guards": [],
+      "cost": "days at court, a stipend, and every rival's opinion",
+      "explains": "The seat starts working — scaled by how much the holder likes you, so a brilliant officer who resents you is worth less than a competent one who does not. Everyone who wanted it and did not get it now has a number against your name."
+    },
+    {
+      "id": "seat-customary",
+      "flow": "seat",
+      "from": "seat-filled",
+      "to": "seat-customary",
+      "name": "It becomes customary",
+      "on": "enough years in the chair",
+      "guards": [
+        "seat-becomes-customary"
+      ],
+      "cost": "nothing today; a great deal if you ever want it back",
+      "explains": "No message, no ceremony, nothing to react to — the price of a decision you have not made yet quietly goes up. The most easily missed clock in the game."
+    },
+    {
+      "id": "seat-hereditary",
+      "flow": "seat",
+      "from": "seat-customary",
+      "to": "seat-hereditary",
+      "name": "His son expects it",
+      "on": "enough years again",
+      "guards": [
+        "seat-becomes-hereditary"
+      ],
+      "cost": "nothing today; ruinous later",
+      "explains": "The family now considers it theirs by right. You can still take it back, and it will be one of the most expensive things you ever do."
+    },
+    {
+      "id": "seat-strip",
+      "flow": "seat",
+      "from": [
+        "seat-filled",
+        "seat-customary",
+        "seat-hereditary"
+      ],
+      "to": "seat-taken-back",
+      "name": "You take it back",
+      "on": "removing the holder",
+      "guards": [
+        "seat-becomes-customary",
+        "seat-becomes-hereditary"
+      ],
+      "cost": "a grievance scaled by how established he had become — and from an hereditary seat, fear in every other house",
+      "explains": "Free from a fresh appointment and catastrophic from an established one. Stripping an hereditary office tells every other house exactly what their own grants are worth, and they will all price you accordingly."
+    },
+    {
+      "id": "seat-empties",
+      "flow": "seat",
+      "from": "seat-taken-back",
+      "to": "seat-vacant",
+      "name": "The chair stands empty",
+      "on": "the removal taking effect",
+      "guards": [],
+      "cost": "the seat's whole effect, until you fill it",
+      "explains": "And now nobody is doing the job. A vacant Marshalcy means you direct two contingents at a time — so the gap between taking a seat back and filling it is a real and often badly-judged risk."
+    },
+    {
+      "id": "seat-dies",
+      "flow": "seat",
+      "from": [
+        "seat-filled",
+        "seat-customary",
+        "seat-hereditary"
+      ],
+      "to": "seat-vacant",
+      "name": "The holder dies",
+      "on": "the holder's death",
+      "guards": [],
+      "cost": "the seat's effect, immediately",
+      "explains": "The one way a seat empties with no grievance attached. A long-held seat falling vacant by death is an opportunity and a trap: the family expects the son, and they will notice what you do next."
+    }
+  ]
+}

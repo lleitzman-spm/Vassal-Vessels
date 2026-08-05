@@ -107,6 +107,15 @@ export const TYPE_DIRS = {
   answer: 'answers',
   'troop-source': 'troop-sources',
   season: 'seasons',
+  // ── the operational graph ────────────────────────────────────────────────
+  // Deliberately placed AFTER the entity shelves and BEFORE the numbers: a reader
+  // needs the game's vocabulary before the machines that run on it will mean
+  // anything, and the machines are what make the numbers matter.
+  flow: 'flows',
+  place: 'places',
+  transition: 'transitions',
+  guard: 'guards',
+  token: 'tokens',
   constant: 'constants',
   module: 'modules',
   invariant: 'invariants',
@@ -309,6 +318,15 @@ export const DATA_SOURCES = [
   { file: 'answers.json', type: 'answer' },
   { file: 'troop-sources.json', type: 'troop-source' },
   { file: 'seasons.json', type: 'season' },
+  // The operational graph. Same generic shelf-of-items miner as everything above —
+  // these are not a special case, they are simply the game's VERBS rather than its
+  // nouns, and they earn their honesty from `REF_FIELDS` below plus the closure
+  // checks in `lint.mjs`.
+  { file: 'flows.json', type: 'flow' },
+  { file: 'places.json', type: 'place' },
+  { file: 'transitions.json', type: 'transition' },
+  { file: 'guards.json', type: 'guard' },
+  { file: 'tokens.json', type: 'token' },
 ];
 
 /** Read by their OWN special-cased miners, not the generic shelf-of-items scan above
@@ -354,6 +372,24 @@ const REF_FIELDS = {
     allowedFormations: { type: 'formation' },
     defaultQuirks: { type: 'quirk' },
   },
+
+  // ── the operational graph's wiring ──────────────────────────────────────
+  // This is the whole reason the operational graph can be trusted. A transition
+  // does not DESCRIBE going from one state to another in prose — it names two
+  // places by id, and if either id is not a real place the edge is never drawn and
+  // `lint.mjs` fails the build. The machines are therefore found, never invented,
+  // exactly like every other edge in the Codex.
+  flow: { entry: { type: 'place' }, terminals: { type: 'place' } },
+  place: { flow: { type: 'flow' } },
+  transition: { flow: { type: 'flow' }, from: { type: 'place' }, to: { type: 'place' }, guards: { type: 'guard' } },
+  // `cites` is the one reference field whose values are NOT bare ids: they are
+  // dotted paths into `data/constants.json` (`battle.morale.breakThreshold`). The
+  // `dotted` mode below drops the leaf and resolves the GROUP, because a constant
+  // node is one page per group — see `constantNodes`. This is the edge that makes
+  // the writ's claim literally true: the operational graph consumes the knowledge
+  // graph, and here is the wire.
+  guard: { flow: { type: 'flow' }, cites: { type: 'constant', dotted: true } },
+  token: { flow: { type: 'flow' }, cites: { type: 'constant', dotted: true } },
 };
 
 /** Every array-of-objects property in a data document is a shelf of items — this is
@@ -432,7 +468,7 @@ function dataNodesFor(source) {
     for (const [refKey, spec] of Object.entries(refFields)) {
       const v = item[refKey];
       const values = Array.isArray(v) ? v : v != null ? [v] : [];
-      if (values.length) refs.push({ field: refKey, type: spec.type, category: spec.category, values });
+      if (values.length) refs.push({ field: refKey, type: spec.type, category: spec.category, dotted: !!spec.dotted, values });
     }
     const node = makeNode({
       id,
@@ -463,7 +499,10 @@ function wireReferenceFields(nodes, byId) {
     for (const ref of n.extra && Array.isArray(n.extra.refs) ? n.extra.refs : []) {
       const cats = ref.category ? (Array.isArray(ref.category) ? ref.category : [ref.category]) : [];
       for (const rv of ref.values) {
-        const slug = slugify(String(rv));
+        // A dotted path names a LEAF number; the page belongs to its group, so drop
+        // the last segment. `battle.morale.breakThreshold` → `constant:battle-morale`.
+        const raw = ref.dotted ? String(rv).split('.').slice(0, -1).join('.') : String(rv);
+        const slug = slugify(raw);
         let target = null;
         for (const c of cats) {
           const cand = `${ref.type}:${slugify(c)}-${slug}`;
@@ -548,7 +587,9 @@ function constantNodes() {
       nodes.push(node);
     }
   }
-  return { nodes, present: true };
+  // `doc` rides along so the operational lint can resolve a guard's dotted
+  // `cites` path (`battle.morale.breakThreshold`) against the real number tree.
+  return { nodes, present: true, doc };
 }
 
 /** The seven trait axes a captain is made of — the "trait" node type, mined from
@@ -1256,6 +1297,7 @@ export function buildGraph() {
   return {
     nodes: kept,
     byId,
+    constantsDoc: constants.doc || null,
     missingData,
     brokenData,
     srcMissing,

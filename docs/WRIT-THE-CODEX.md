@@ -192,6 +192,73 @@ spearmen, click **Can Brace**, click through to the law that makes bracing matte
 click sideways to **Knights** (also braceable) and to the **Close Order** formation —
 every one of those is a found edge, never an authored one.
 
+## The operational graph — the game's verbs, not only its nouns
+
+Everything above this line describes the **knowledge graph**: entities and what is true
+about them. A spear, a season, a grudge, a seat. Queried, carrying no state. That is one
+half of a Codex and for a long time it was the only half we had — twenty-three shelves of
+nouns and not a single verb, which is how a manual ends up able to tell you what a Levy
+Spearman *is* and unable to tell you what *happens* when one breaks.
+
+The **operational graph** is the other half: places, transitions, guards and tokens — the
+part that EXECUTES. The two are not parallel filing systems. The relationship is exact and
+it is the reason both exist:
+
+> **The operational graph is a program and the knowledge graph is its data and its type
+> system. Flows do not *contain* knowledge, they *consume* it.**
+
+Five shelves carry it, mined by the same generic miner as every other data file — they are
+not a special case in the compiler, only in what they mean:
+
+| type | what it is | file |
+|---|---|---|
+| `flow` | a machine a case moves through, naming what it carries, where a case enters, and where it comes to rest | `data/flows.json` |
+| `place` | a state a case can sit in — most of them a literal value in the engine's own type declarations | `data/places.json` |
+| `transition` | an arrow: from, to, the event that fires it, and what it costs | `data/transitions.json` |
+| `guard` | the condition on an arrow, **citing the constants it actually reads, by dotted path** | `data/guards.json` |
+| `token` | a thing that carries state and is spent — and whether it is really STORED or recomputed | `data/tokens.json` |
+
+**`guards.cites` is the wire between the two graphs**, and it is the whole reason the
+operational half can be trusted. A guard does not say "when morale is low"; it says
+`battle.morale.breakThreshold`, `lint` resolves that path against the real number tree in
+`data/constants.json`, and the edge to the constant's page is drawn from the resolved
+identifier — found, never invented, exactly like every other road in the Codex.
+
+### The operational honesty law
+
+"No quote, no object" is the knowledge graph's law. It does not transfer, because a state
+machine's failure mode is not a fabricated claim — it is a shape that does not close. So
+the operational graph has its own three, all **fatal**:
+
+1. **Closure.** Every place must be reachable (it is the flow's entry, or an arrow arrives
+   at it) and escapable (it is a declared terminal, or an arrow leaves it). A place nothing
+   reaches is a rule written for a situation that cannot arise; a place nothing leaves that
+   was not *meant* to trap the case is a machine that swallows things. **This is the
+   operational form of an orphan** — and it is worth stating why it needs its own check at
+   all: a dangling link gets caught because it looks broken, and an unreachable state never
+   looks like anything. It reads perfectly. It is simply never true.
+2. **Numbers.** Every guard and every token must cite at least one constant, and every path
+   cited must really be a leaf in `data/constants.json`. A condition nobody can put a value
+   to is a wish, and a citation that resolves nowhere is worse than none, because it reads
+   as rigour.
+3. **Belonging.** An arrow may not cross machines, and a flow's declared entry and terminals
+   must be its own places. This is how two designs get quietly welded into one that nobody
+   has read end to end.
+
+All three were deliberately broken and re-run before being trusted — a check that has never
+failed is a check nobody has tested.
+
+### A flow page draws its machine
+
+Every other page in the Codex describes a thing. A flow page has to show a **shape**, and a
+list of fields is not a shape. So `renderFlowExtra` walks the flow's own places breadth-first
+from its entry and emits a plain-text diagram, a table of every state (with the literal value
+in the engine beside it, and what you would *see* on the field), and a table of every arrow
+with its guards and its cost. All of it resolved at compile time, all of it read back out of
+the graph rather than authored — which is why the picture cannot drift from the machine it
+describes. That is the acceptance test met directly: a twelve-year-old can trace a unit from
+**Steady** to **Destroyed** with a finger, before ever playing.
+
 ## Every table is resolved — no page needs a plugin
 
 Unchanged, and non-negotiable: `npm run codex:lint` fails fatally on any fenced

@@ -68,6 +68,7 @@ import {
   readText,
   walkFiles,
   normalizeWs,
+  slugify,
   stripCommentsAndStrings,
 } from './lib.mjs';
 
@@ -382,6 +383,154 @@ function checkResolvedTables(pages) {
   return { offenders };
 }
 
+// ── the operational graph ───────────────────────────────────────────────────
+//
+// THE KNOWLEDGE GRAPH'S HONESTY LAW IS "no quote, no object". THIS IS ITS
+// OPERATIONAL TWIN, and it is three questions a state machine can be asked that
+// prose never can:
+//
+//   1. CLOSURE.  Can a case actually get into every place, and out of every place
+//      that is not a declared terminal? A place nothing reaches is a state the
+//      game can never be in — a rule written for a situation that cannot arise.
+//      A place nothing leaves that was not MEANT to trap the case is worse: it is
+//      a machine that swallows things. Neither looks broken from the page. Both
+//      are exactly the operational form of an orphan, and orphans never look like
+//      anything.
+//
+//   2. NUMBERS.  Does every guard cite a constant that is really there? A guard is
+//      a condition, and a condition nobody can put a value to is a wish. This is
+//      the wire from the operational graph into the knowledge graph, and a wire
+//      that goes nowhere is worse than no wire, because it reads as rigour.
+//
+//   3. BELONGING.  Does every arrow stay inside its own machine, and does every
+//      flow's declared entry and terminal really belong to it? A transition that
+//      silently crosses from one machine into another is how two designs get
+//      quietly welded into one nobody has read end to end.
+//
+// All three are FATAL. The operational graph's entire claim on a reader's trust
+// is that it was checked rather than drawn.
+function checkOperational(graph) {
+  const nodes = graph.nodes;
+  const by = (t) => nodes.filter((n) => n.type === t);
+  const flows = by('flow');
+  const places = by('place');
+  const transitions = by('transition');
+  const guards = by('guard');
+  const tokens = by('token');
+  if (!flows.length) return { flows: 0, places: 0, transitions: 0, unreachable: 0, dead: 0, badCites: 0, strayArrows: 0 };
+
+  const item = (n) => (n.extra && n.extra.stats) || {};
+  const placeIds = new Set(places.map((p) => p.id));
+  const flowIds = new Set(flows.map((f) => f.id));
+  const guardIds = new Set(guards.map((g) => g.id));
+  const asList = (v) => (Array.isArray(v) ? v : v == null || v === '' ? [] : [v]);
+  const pid = (raw) => `place:${slugify(String(raw))}`;
+  const fid = (raw) => `flow:${slugify(String(raw))}`;
+  const gid = (raw) => `guard:${slugify(String(raw))}`;
+
+  // ── 1. closure, per flow ──────────────────────────────────────────────────
+  const into = new Map(); // place id → count of arrows arriving
+  const outOf = new Map(); // place id → count of arrows leaving
+  let strayArrows = 0;
+  for (const t of transitions) {
+    const s = item(t);
+    const flow = fid(s.flow);
+    const tos = asList(s.to).map(pid);
+    const froms = asList(s.from).map(pid);
+    for (const p of [...tos, ...froms]) {
+      if (!placeIds.has(p)) {
+        fatal('operational', `${t.id} names \`${p.replace(/^place:/, '')}\`, which is not a declared place`);
+      }
+    }
+    for (const p of tos) into.set(p, (into.get(p) || 0) + 1);
+    for (const p of froms) outOf.set(p, (outOf.get(p) || 0) + 1);
+    // 3. belonging — an arrow must stay inside its own machine.
+    for (const p of [...tos, ...froms]) {
+      const place = graph.byId.get(p);
+      if (!place) continue;
+      const placeFlow = fid(item(place).flow);
+      if (placeFlow !== flow) {
+        strayArrows++;
+        fatal(
+          'operational',
+          `${t.id} is in ${flow} but touches ${p}, which belongs to ${placeFlow} — an arrow may not cross machines`,
+        );
+      }
+    }
+    for (const g of asList(s.guards).map(gid)) {
+      if (!guardIds.has(g)) fatal('operational', `${t.id} names guard \`${g.replace(/^guard:/, '')}\`, which does not exist`);
+    }
+    if (!flowIds.has(flow)) fatal('operational', `${t.id} belongs to \`${s.flow}\`, which is not a declared flow`);
+  }
+
+  let unreachable = 0;
+  let dead = 0;
+  for (const f of flows) {
+    const s = item(f);
+    const entry = pid(s.entry);
+    const terminals = new Set(asList(s.terminals).map(pid));
+    if (!placeIds.has(entry)) fatal('operational', `${f.id} enters at \`${s.entry}\`, which is not a declared place`);
+    for (const t of terminals) {
+      if (!placeIds.has(t)) fatal('operational', `${f.id} names terminal \`${t.replace(/^place:/, '')}\`, which is not a declared place`);
+    }
+    const mine = places.filter((p) => fid(item(p).flow) === f.id);
+    if (!mine.length) {
+      fatal('operational', `${f.id} is a machine with no places — nothing can move through it`);
+      continue;
+    }
+    for (const p of mine) {
+      if (p.id !== entry && !(into.get(p.id) > 0)) {
+        unreachable++;
+        fatal('operational', `${p.id} is UNREACHABLE — it is not ${f.id}'s entry and no transition arrives at it`);
+      }
+      if (!terminals.has(p.id) && !(outOf.get(p.id) > 0)) {
+        dead++;
+        fatal('operational', `${p.id} is a DEAD END — it is not a declared terminal of ${f.id} and no transition leaves it`);
+      }
+      // A place declared terminal that nevertheless has a way out is a design that
+      // says one thing and does another; the page would tell a reader it is the end.
+      if (terminals.has(p.id) && outOf.get(p.id) > 0) {
+        fatal('operational', `${p.id} is declared a terminal of ${f.id} but a transition leaves it`);
+      }
+    }
+  }
+
+  // ── 2. every guard cites a number that is really there ────────────────────
+  const leafExists = (dotted) => {
+    let cur = graph.constantsDoc;
+    for (const seg of String(dotted).split('.')) {
+      if (!cur || typeof cur !== 'object' || !(seg in cur)) return false;
+      cur = cur[seg];
+    }
+    return cur !== null && typeof cur !== 'object';
+  };
+  let badCites = 0;
+  for (const n of [...guards, ...tokens]) {
+    const cites = asList(item(n).cites);
+    if (!cites.length) {
+      badCites++;
+      fatal('operational', `${n.id} cites no constant at all — a condition nobody can put a value to is a wish`);
+      continue;
+    }
+    for (const c of cites) {
+      if (!leafExists(c)) {
+        badCites++;
+        fatal('operational', `${n.id} cites \`${c}\`, which is not a real number in data/constants.json`);
+      }
+    }
+  }
+
+  return {
+    flows: flows.length,
+    places: places.length,
+    transitions: transitions.length,
+    unreachable,
+    dead,
+    badCites,
+    strayArrows,
+  };
+}
+
 function main() {
   const graph = buildGraph();
   const pages = loadCodexPages();
@@ -396,6 +545,7 @@ function main() {
   const standing = checkStanding(graph);
   const literals = checkLiterals(graph);
   const resolved = checkResolvedTables(pages);
+  const op = checkOperational(graph);
 
   for (const b of graph.brokenData) fatal('data', `unreadable: ${b}`);
   for (const u of graph.unresolvedLinks) {
@@ -429,6 +579,13 @@ function main() {
     `  standing drift   ${standing.claimsDone} proposed-but-claims-done, ${standing.unbacked} built-with-nothing-under-it, ${standing.noSuccessor} retired-with-no-successor`,
   );
   console.log(`  literals in guards ${literals.sites} site(s) across ${literals.files} file(s) — WARNING, informational until src/ has a shape`);
+  console.log(
+    op.flows === 0
+      ? '  operational      no flows declared — the operational graph is not built'
+      : `  operational      ${op.flows} machines, ${op.places} places, ${op.transitions} arrows  ·  ` +
+          `${op.unreachable} unreachable, ${op.dead} dead-end, ${op.strayArrows} crossing machines, ${op.badCites} guard(s) citing a number that is not there` +
+          (op.unreachable + op.dead + op.strayArrows + op.badCites === 0 ? '  — every machine is closed and every guard has a number' : ''),
+  );
 
   const groups = {};
   for (const f of findings.fatal) (groups[f.check] = groups[f.check] || []).push(f.msg);

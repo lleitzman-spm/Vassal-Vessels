@@ -149,7 +149,7 @@ This file is where the seams live, so that they are not lost.
 
 ## Seasons
 
-- [[Harvest]] — *this writ names "Harvest" literally*
+- [[Harvest (season)]] — *this writ names "Harvest" literally*
 
 ## Modules
 

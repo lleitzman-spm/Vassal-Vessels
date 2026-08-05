@@ -39,6 +39,9 @@ aliases:
 - The standing axis — unchanged in meaning, re-derived in mechanism
 - No quote, no object — aimed at JSON instead of prose
 - Links are found, never invented — and `data/*.json` gives the richest ones yet
+- The operational graph — the game's verbs, not only its nouns
+  - The operational honesty law
+  - A flow page draws its machine
 - Every table is resolved — no page needs a plugin
 - Tolerating a repo still being built, and saying so
 - What did NOT carry over from the Great Book, and why
@@ -57,6 +60,10 @@ aliases:
 ## Formations
 
 - [[Close Order]] — *this writ names "Close Order" literally*
+
+## Governing numbers
+
+- [[Battle: Morale]] — *this writ names `battle.morale` literally; this writ names `breakThreshold`*
 
 ## Traits
 

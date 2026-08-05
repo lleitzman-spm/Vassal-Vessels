@@ -80,6 +80,7 @@ Morale is the real health bar. Casualties are only the INPUT; collapse is the OU
 ### Writs that specify it
 
 - [[WRIT — THE BATTLE]] — *this writ names `battle.morale` literally; this writ names `ceilingFromResolveBase`; +7 more*
+- [[Writ of the Codex — the living manual, and the law that keeps it honest]] — *this writ names `battle.morale` literally; this writ names `breakThreshold`*
 
 ### Modules
 
@@ -87,6 +88,26 @@ Morale is the real health bar. Casualties are only the INPUT; collapse is the OU
 - [[src/battle/phase-morale.ts]] — *this module names `K.morale` literally*
 - [[src/battle/phase-move.ts]] — *this module names `K.morale` literally*
 - [[src/battle/setup.ts]] — *this module names `K.morale` literally*
+
+### guard
+
+- [[A captain, or home ground]] — *its `cites` names `battle.morale.rallyCaptainRadiusMm` by id; this page names `battle.morale` literally; +1 more*
+- [[About to go]] — *its `cites` names `battle.morale.hysteresisMilli` by id; its `cites` names `battle.morale.shakenThreshold` by id; +4 more*
+- [[Has a second chance left]] — *its `cites` names `battle.morale.ralliesAllowed` by id; this page names `battle.morale` literally; +1 more*
+- [[Nerve back, and held there]] — *its `cites` names `battle.morale.rallyHoldTicks` by id; its `cites` names `battle.morale.rallyThreshold` by id; +4 more*
+- [[Nerve comes back]] — *its `cites` names `battle.morale.hysteresisMilli` by id; its `cites` names `battle.morale.steadyThreshold` by id; +4 more*
+- [[Nerve gives out]] — *its `cites` names `battle.morale.breakThreshold` by id; its `cites` names `battle.morale.nonCombatantBreakThreshold` by id; +3 more*
+- [[Nerve starts to go]] — *its `cites` names `battle.morale.hysteresisMilli` by id; its `cites` names `battle.morale.shakenThreshold` by id; +6 more*
+- [[Nobody close enough to kill them]] — *its `cites` names `battle.morale.rallyEnemyClearMm` by id; this page names `battle.morale` literally; +2 more*
+- [[The banner falls at the wrong moment]] — *this page names `K.morale` literally; this page names `pBannerLost`*
+
+### token
+
+- [[Back Pay]] — *its `cites` names `battle.morale.floorUnpaidMercenary` by id; this page names `battle.morale` literally; +1 more*
+- [[Nerve]] — *its `cites` names `battle.morale.breakThreshold` by id; its `cites` names `battle.morale.pCasualtyPerKillScaled` by id; +9 more*
+- [[The Ceiling on Nerve]] — *its `cites` names `battle.morale.ceilingFromResolveBase` by id; its `cites` names `battle.morale.ceilingFromResolvePerPoint` by id; +5 more*
+- [[The Floor Under Nerve]] — *its `cites` names `battle.morale.floorPaid` by id; its `cites` names `battle.morale.floorUnpaidMercenary` by id; +3 more*
+- [[The Second Chance]] — *its `cites` names `battle.morale.ralliesAllowed` by id; this page names `battle.morale` literally; +1 more*
 
 ---
 

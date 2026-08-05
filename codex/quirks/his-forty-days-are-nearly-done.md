@@ -42,7 +42,7 @@ Feudal service is a fixed number of days a year and he is on day thirty-eight of
 
 ## Seasons
 
-- [[Harvest]] — *this page names "Harvest" literally*
+- [[Harvest (season)]] — *this page names "Harvest" literally*
 
 ## Backlinks
 

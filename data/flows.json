@@ -1,0 +1,190 @@
+{
+  "$schema": "vassal-vessels/flows/1",
+  "explains": "A flow is a MACHINE: a thing a case moves through. Everywhere else in data/ describes what a thing IS — a spear, a season, a grudge. This file and its four companions (places, transitions, guards, tokens) describe what HAPPENS, and in what order, and what has to be true before it can. If the rest of the Codex is the game's dictionary, this is its grammar. Read a flow top to bottom and you know how that part of the game actually runs, without reading a line of code.",
+  "fields": {
+    "id": "The flow's identifier. Referenced by every place and transition that belongs to it.",
+    "name": "What to call the machine in plain words.",
+    "carries": "WHAT MOVES through this machine — the case. A battle flow carries the battle; a nerve flow carries one unit. Naming the case is what stops a flow from quietly becoming a list of topics.",
+    "entry": "The place a case is in the moment it enters the machine. Exactly one per flow.",
+    "terminals": "The places a case can come to rest in and never leave. A flow with no terminal never ends, which is a bug in the design, not in the code.",
+    "sourcePath": "The file that IS this machine — where the states are actually assigned. The lint reads it off disk and requires the quote below to appear in it.",
+    "quote": "A verbatim line from sourcePath proving the machine is real and not a hopeful diagram. No quote, no object.",
+    "runsEvery": "How often the machine is stepped. 'tick' means twenty times a game-second; 'day' and 'season' are the court's clocks; 'event' means it only moves when something happens to it.",
+    "explains": "The plain-English account. A twelve-year-old should finish it knowing why this machine exists and what going wrong looks like."
+  },
+  "flows": [
+    {
+      "id": "battle",
+      "name": "The Day Itself",
+      "carries": "one battle",
+      "entry": "battle-deploy",
+      "terminals": [
+        "battle-ended"
+      ],
+      "runsEvery": "tick",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type BattlePhase = \"DEPLOY\" | \"BATTLE\" | \"PURSUIT\" | \"ENDED\";",
+      "explains": "The largest machine in the game and the shortest. A battle is laid out, fought, chased down, and over. What makes it worth naming as a machine is the PURSUIT phase: once an army breaks, the rules change underneath everyone — phase one stops running, nobody is listening to orders any more, and the killing gets much cheaper. A commander who does not understand that he has crossed into a different machine will keep issuing orders into a silence, and will not find out until the day is spent."
+    },
+    {
+      "id": "nerve",
+      "name": "A Unit's Nerve",
+      "carries": "one unit",
+      "entry": "nerve-steady",
+      "terminals": [
+        "nerve-fled",
+        "nerve-destroyed"
+      ],
+      "runsEvery": "tick",
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "function transition(state: BattleState, log: LogWriter, u: Unit): void {",
+      "explains": "The machine the whole battle is really about. Men do not fight until they are dead; they fight until they are frightened, and then they leave. A unit slides down through STEADY, SHAKEN and WAVERING as its nerve goes, and the slide is sticky in both directions — it takes a real change to move a unit up or down a step, so a line does not flicker between brave and terrified on a single lucky arrow. Below the breaking point there is no stickiness at all: breaking is breaking, and it happens the instant the number is reached. A broken unit may turn and stand ONCE. Twice-broken men are done for the day, and no amount of shouting brings them back."
+    },
+    {
+      "id": "footing",
+      "name": "A Unit's Footing",
+      "carries": "one unit",
+      "entry": "footing-none",
+      "terminals": [],
+      "runsEvery": "tick",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Posture = \"NONE\" | \"BRACED\" | \"SHOOTING\" | \"STAKED\";",
+      "explains": "What a unit is DOING with its weapons, as distinct from where it is standing. This is the smallest machine in the game and one of the most punishing, because bracing is the single thing that stops a horse and it is not free: it takes time to set, it only works to the front, and it is lost the moment the unit moves. Nearly every cavalry disaster in this game is a spear line that was caught in NONE, and nearly every cavalry disaster on the other side is a commander who charged one that was in BRACED."
+    },
+    {
+      "id": "pace",
+      "name": "A Unit's Pace",
+      "carries": "one unit",
+      "entry": "pace-stop",
+      "terminals": [],
+      "runsEvery": "tick",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type SpeedTier = \"STOP\" | \"WALK\" | \"ADVANCE\" | \"RUN\" | \"CHARGE\" | \"ROUT\";",
+      "explains": "How fast a unit is going, which decides three things at once: how quickly it arrives, how fast it tires, and — the one that decides battles — how hard it hits. Shock scales with the SQUARE of closing speed, so the difference between arriving at a run and arriving at a charge is not a little more damage, it is roughly double. ROUT is the odd one out: it is the fastest tier and nobody chooses it."
+    },
+    {
+      "id": "heed",
+      "name": "The Captain's Heed",
+      "carries": "one order, at the moment it reaches a captain",
+      "entry": "heed-weighing",
+      "terminals": [
+        "heed-obey",
+        "heed-obey-his-way",
+        "heed-drag",
+        "heed-hedge",
+        "heed-overreach",
+        "heed-hard-hedge",
+        "heed-defy"
+      ],
+      "runsEvery": "event",
+      "sourcePath": "src/battle/types.ts",
+      "quote": "export type Interpretation =",
+      "explains": "The hinge between the two halves of the game, and the reason the court exists. An order does not arrive and happen. It arrives and is JUDGED, by a man with his own opinion of you, and it comes out the other side as one of seven things. Only one of them is doing what you said. The other six each have a political cause you could have seen coming — a grudge you never settled, a seat you gave to his rival, a season of pay you never sent — which is why every disobedience in this game is heralded with its reason. You are never told 'the order failed'. You are told why."
+    },
+    {
+      "id": "order",
+      "name": "An Order's Journey",
+      "carries": "one improvised order",
+      "entry": "order-issued",
+      "terminals": [
+        "order-done",
+        "order-abandoned",
+        "order-lost"
+      ],
+      "runsEvery": "tick",
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "Orders are not instant and they are not guaranteed. An order is written, handed to a courier, and the courier RIDES — through the battle, at a real speed, and he can be killed on the way. If he arrives, the captain judges it (see the Heed). If it survives that, it becomes the contingent's active job until it is finished, replaced, or given up on. The whole machine exists so that 'I told them to wheel' and 'they wheeled' are different sentences separated by distance, time, danger and a man's opinion of you."
+    },
+    {
+      "id": "treachery",
+      "name": "Turning",
+      "carries": "one contingent",
+      "entry": "treachery-true",
+      "terminals": [
+        "treachery-defected"
+      ],
+      "runsEvery": "tick",
+      "sourcePath": "src/court/host.ts",
+      "quote": "export function computeTreachery(",
+      "explains": "The worst thing that can happen to you, and it is never a surprise if you were paying attention. A contingent whose treachery number is high enough will first stop pulling its weight, then act against you outright, and finally change sides — but only when the day is already going badly, because a traitor is a coward with arithmetic. Every point of that number came from something on the record: a grudge, a season of unpaid wages, a cousin on the other side. There is no dice roll anywhere in it. If you are betrayed, you could have read it that morning."
+    },
+    {
+      "id": "year",
+      "name": "The Year",
+      "carries": "the realm",
+      "entry": "year-seedtime",
+      "terminals": [],
+      "runsEvery": "season",
+      "sourcePath": "src/court/calendar.ts",
+      "quote": "export function seasonAt(index: number): SeasonId {",
+      "explains": "Four seasons of ninety days, turning forever. The year is a machine rather than a backdrop because WHEN you call your men is one of the sharpest decisions in the game: calling in seedtime costs the sowing and a sixth of the year's food, calling in harvest makes farmers hate you, and calling in wolfmoon means arriving tired on bad roads. There is no season that is good for everything. Highsun is the obvious one, which is exactly why an idle summer costs you standing — the host wanted to be led, and you did not lead it."
+    },
+    {
+      "id": "muster",
+      "name": "The Muster",
+      "carries": "one campaign",
+      "entry": "muster-unproclaimed",
+      "terminals": [
+        "muster-absorbed",
+        "muster-abandoned"
+      ],
+      "runsEvery": "day",
+      "sourcePath": "src/court/host.ts",
+      "quote": "export function readHost(c: Chronicle, campaignId: string, at: Stamp): Host {",
+      "explains": "The road from 'I want a war' to 'here is my army, such as it is'. You name a cause, you call your houses, each one decides for itself what to send, and then they have to physically GET there — over real leagues, at a real pace, arriving tired. Every step of it is a place where the army you imagined becomes smaller than the army you get. The gap between the two is the whole point of the court half of the game, and the muster is where you find out what all that politics was worth."
+    },
+    {
+      "id": "vessel",
+      "name": "A House's Vessel",
+      "carries": "one house's yearly service",
+      "entry": "vessel-full",
+      "terminals": [],
+      "runsEvery": "day",
+      "sourcePath": "src/court/vessel.ts",
+      "quote": "export function readVessel(",
+      "explains": "The game's name, and its central bargain. Every house owes you a fixed number of man-days a year — a cup of service, filled at the turn of the service year and drawn down every day its men are standing in your army. An empty cup is not a rule that stops you; it is a rule that COSTS you. Call a house whose vessel is dry and they can still come, but they will resent it, and the resentment compounds the second and third time. Manage twelve cups at once, across a war that does not care what month it is, and you have the whole strategic layer of the game."
+    },
+    {
+      "id": "grievance",
+      "name": "A Grievance",
+      "carries": "one wrong you did",
+      "entry": "grievance-done",
+      "terminals": [
+        "grievance-cold",
+        "grievance-amended",
+        "grievance-inherited"
+      ],
+      "runsEvery": "day",
+      "sourcePath": "src/court/grievances.ts",
+      "quote": "export function readGrievances(c: Chronicle, houseId: string, at: Stamp): Grievance[] {",
+      "explains": "How the past reaches forward and takes hold of your army. Every grudge in this game began as a specific thing you did on a specific day, and it is never stored as a number — it is COMPUTED from the record of the act, every time anyone asks. That matters more than it sounds: it means a grievance can be answered. Make amends and the record of the amends is read alongside the record of the wrong. It also means a grudge you never knew about does nothing at all until the wronged house finds out, and finding out is its own event with its own date."
+    },
+    {
+      "id": "captive",
+      "name": "A Captive",
+      "carries": "one captured man",
+      "entry": "captive-taken",
+      "terminals": [
+        "captive-ransomed",
+        "captive-attainted",
+        "captive-died"
+      ],
+      "runsEvery": "day",
+      "sourcePath": "src/court/absorb.ts",
+      "quote": "export function ransomDueBy(taken: Stamp): number {",
+      "explains": "What happens to the men who do not die and do not get away. Capture is the reason a won battle is worth more than a bloodbath: a lord taken alive is a ransom, and a ransom is coin you did not have to tax anyone for. It cuts both ways — your own men in someone else's hands are a bill with a date on it, and letting that date pass without paying is a grievance the whole realm will hear about. Sell out your own captured vassals once and watch what the next muster looks like."
+    },
+    {
+      "id": "seat",
+      "name": "A Seat at Court",
+      "carries": "one of the seven seats",
+      "entry": "seat-vacant",
+      "terminals": [],
+      "runsEvery": "season",
+      "sourcePath": "src/court/seats.ts",
+      "quote": "export function readSeat(",
+      "explains": "The court is seven jobs, and every one of them does something you can feel on the battlefield — most sharply the Marshal, who decides how many contingents you can direct at once. Leave the Marshalcy empty and you fight the entire war two orders at a time. What makes seats a machine rather than a list is TIME: a man who holds a seat long enough begins to think of it as his, and longer still and his son thinks so too. Taking back a seat that has become customary is one of the deepest grudges in the game, and you did it to yourself by leaving him there."
+    }
+  ]
+}

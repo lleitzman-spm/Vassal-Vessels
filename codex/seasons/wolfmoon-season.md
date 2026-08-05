@@ -1,7 +1,7 @@
 ---
 type: "season"
 id: "season:wolfmoon"
-title: "Wolfmoon"
+title: "Wolfmoon (season)"
 standing: "proposed"
 standing_source: "defaulted"
 source_path: "data/seasons.json"
@@ -12,7 +12,7 @@ aliases:
   - "season:wolfmoon"
 ---
 
-# Wolfmoon
+# Wolfmoon (season)
 
 > **STANDING — PROPOSED ⚠**  
 > NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
@@ -44,6 +44,14 @@ Men do not march in winter. Everyone knows it, which is precisely why marching i
 
 - [[VASSAL VESSELS — The Constitution]] — *this writ names "Wolfmoon" literally*
 - [[WRIT — THE COURT]] — *this writ names "Wolfmoon" literally*
+
+### flow
+
+- [[The Year]] — *this page names "Wolfmoon" literally*
+
+### place
+
+- [[Wolfmoon]] — *this page names "Wolfmoon" literally*
 
 ---
 

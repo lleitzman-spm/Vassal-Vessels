@@ -91,6 +91,7 @@ aliases:
 *These name this FILE by its path. That is a citation of the source, not a claim about any one idea inside it — do not read a path citation as agreement, dependence or implementation.*
 
 - [[OPEN QUESTIONS]]
+- [[The day runs out]]
 
 ---
 

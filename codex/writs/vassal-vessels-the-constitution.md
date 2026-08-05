@@ -132,10 +132,10 @@ This document is the canon. Where any other file, comment, or memory disagrees w
 
 ## Seasons
 
-- [[Harvest]] — *this writ names "Harvest" literally*
-- [[Highsun]] — *this writ names "Highsun" literally*
-- [[Seedtime]] — *this writ names "Seedtime" literally*
-- [[Wolfmoon]] — *this writ names "Wolfmoon" literally*
+- [[Harvest (season)]] — *this writ names "Harvest" literally*
+- [[Highsun (season)]] — *this writ names "Highsun" literally*
+- [[Seedtime (season)]] — *this writ names "Seedtime" literally*
+- [[Wolfmoon (season)]] — *this writ names "Wolfmoon" literally*
 
 ## Modules
 

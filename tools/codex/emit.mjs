@@ -388,8 +388,122 @@ function renderExtra(node, byId, link) {
     return out.join('\n');
   }
   if (node.type === 'rule') return ''; // the law's own text IS the page; nothing more to add
+  if (node.type === 'flow') return renderFlowExtra(node, byId, link);
   if (node.type === 'constant') return renderConstantExtra(node);
   return renderDataExtra(node); // every mined game-vocabulary kind, uniformly
+}
+
+/** A FLOW PAGE DRAWS ITS MACHINE. Every other page in the Codex describes a thing;
+ *  this one has to show a shape, and a list of fields is not a shape. The reader who
+ *  matters here is the twelve-year-old with the manual and no game to play yet — he
+ *  should be able to trace a unit from steady to destroyed with a finger.
+ *
+ *  Everything below is RESOLVED at compile time: the diagram is plain text and the
+ *  tables carry answers, so `codex/` opens in any editor, on any machine, with no
+ *  plugin and no build step (see "Every table is resolved" in the writ). Nothing here
+ *  is authored — the compiler reads the flow's own places and transitions back out of
+ *  the graph, which is why the picture cannot drift from the machine it describes. */
+function renderFlowExtra(node, byId, link) {
+  const e = node.extra || {};
+  const s = e.stats || {};
+  const out = [];
+  const all = [...byId.values()];
+  const mine = (t) => all.filter((n) => n.type === t && (n.extra?.stats?.flow ?? '') === node.id.replace(/^flow:/, ''));
+  const places = mine('place');
+  const arrows = mine('transition');
+  const asList = (v) => (Array.isArray(v) ? v : v == null || v === '' ? [] : [v]);
+  const placeById = new Map(places.map((p) => [p.id.replace(/^place:/, ''), p]));
+  const nameOf = (bare) => placeById.get(bare)?.page ?? bare;
+  const cell = (bare) => (placeById.has(bare) ? link(placeById.get(bare).page, node.id) : `\`${bare}\``);
+  const entry = String(s.entry ?? '');
+  const terminals = new Set(asList(s.terminals).map(String));
+
+  if (!places.length) return renderDataExtra(node);
+
+  // ── the diagram ──────────────────────────────────────────────────────────
+  // Walked breadth-first from the entry so the order on the page is the order a
+  // case actually meets the states, not the order they happen to sit in the file.
+  const outFrom = new Map();
+  for (const a of arrows) {
+    for (const f of asList(a.extra?.stats?.from).map(String)) {
+      if (!outFrom.has(f)) outFrom.set(f, []);
+      outFrom.get(f).push(a);
+    }
+  }
+  const order = [];
+  const seen = new Set();
+  const queue = [entry];
+  while (queue.length) {
+    const cur = queue.shift();
+    if (!cur || seen.has(cur) || !placeById.has(cur)) continue;
+    seen.add(cur);
+    order.push(cur);
+    for (const a of outFrom.get(cur) || []) {
+      const to = String(a.extra?.stats?.to ?? '');
+      if (!seen.has(to)) queue.push(to);
+    }
+  }
+  for (const p of places) {
+    const bare = p.id.replace(/^place:/, '');
+    if (!seen.has(bare)) order.push(bare); // never silently drop one; the lint says why
+  }
+
+  out.push('## The machine\n');
+  out.push(`*A \`${escapeCell(String(s.carries ?? 'case'))}\` moves through this, stepped every **${escapeCell(String(s.runsEvery ?? '—'))}**.*\n`);
+  out.push('```text');
+  for (const bare of order) {
+    const mark = bare === entry ? '▶' : terminals.has(bare) ? '■' : '·';
+    out.push(`${mark} ${nameOf(bare)}`);
+    const outs = outFrom.get(bare) || [];
+    if (!outs.length && terminals.has(bare)) out.push('      (rests here)');
+    for (const a of outs) {
+      const to = String(a.extra?.stats?.to ?? '');
+      const gs = asList(a.extra?.stats?.guards).length;
+      out.push(`   └─▶ ${nameOf(to)}   — ${a.page}${gs ? `  [${gs} guard${gs > 1 ? 's' : ''}]` : ''}`);
+    }
+  }
+  out.push('```\n');
+  out.push('*▶ where a case enters  ·  ■ where it comes to rest and never leaves  ·  · everywhere else*\n');
+
+  // ── the states ───────────────────────────────────────────────────────────
+  out.push('## Every state it can be in\n');
+  out.push('| state | in the engine | what you would see | role |', '|---|---|---|---|');
+  for (const bare of order) {
+    const p = placeById.get(bare);
+    if (!p) continue;
+    const st = p.extra?.stats?.state;
+    out.push(
+      `| ${cell(bare)} | ${st ? `\`${escapeCell(st)}\`` : '*no single named value in the tree yet*'} ` +
+        `| ${escapeCell(p.extra?.readOnField || '—')} ` +
+        `| ${bare === entry ? '**entry**' : terminals.has(bare) ? '**rests here**' : '—'} |`,
+    );
+  }
+  out.push('');
+
+  // ── the arrows ───────────────────────────────────────────────────────────
+  if (arrows.length) {
+    out.push('## Every way it can move\n');
+    out.push('| from | to | on | must be true | what it costs |', '|---|---|---|---|---|');
+    for (const bare of order) {
+      for (const a of outFrom.get(bare) || []) {
+        const st = a.extra?.stats || {};
+        const gs = asList(st.guards)
+          .map((g) => {
+            const gn = byId.get(`guard:${String(g)}`);
+            return gn ? link(gn.page, node.id) : `\`${g}\``;
+          })
+          .join('; ');
+        out.push(
+          `| ${cell(bare)} | ${cell(String(st.to ?? ''))} | ${escapeCell(String(st.on ?? '—'))} ` +
+            `| ${gs || '*nothing — it fires on the event alone*'} | ${escapeCell(String(st.cost ?? '—'))} |`,
+        );
+      }
+    }
+    out.push('');
+  }
+
+  out.push(renderDataExtra(node));
+  return out.join('\n');
 }
 
 function renderNode(node, byId, link) {

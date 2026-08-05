@@ -38,7 +38,7 @@ You called his farmers off the fields in the one season the whole year's food is
 
 ## Seasons
 
-- [[Harvest]] — *this page names "Harvest" literally*
+- [[Harvest (season)]] — *this page names "Harvest" literally*
 
 ## Backlinks
 

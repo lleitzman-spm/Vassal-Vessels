@@ -33,7 +33,10 @@ A hundred men eat one sack of grain a day. That single line decides whether you 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### token
+
+- [[Crowns]] — *its `cites` names `court.supply.provisionCrownsPerSack` by id; this page names `court.supply` literally; +1 more*
+- [[Grain]] — *its `cites` names `court.supply.hungerPerDayWithoutFood` by id; its `cites` names `court.supply.provisionCrownsPerSack` by id; +7 more*
 
 ---
 

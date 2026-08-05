@@ -41,7 +41,7 @@ The backbone of every army you will ever field, and the one that talks back. The
 
 ## Seasons
 
-- [[Harvest]] — *this page names "Harvest" literally*
+- [[Harvest (season)]] — *this page names "Harvest" literally*
 
 ## Backlinks
 

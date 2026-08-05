@@ -1,7 +1,7 @@
 ---
 type: "season"
 id: "season:highsun"
-title: "Highsun"
+title: "Highsun (season)"
 standing: "proposed"
 standing_source: "defaulted"
 source_path: "data/seasons.json"
@@ -12,7 +12,7 @@ aliases:
   - "season:highsun"
 ---
 
-# Highsun
+# Highsun (season)
 
 > **STANDING — PROPOSED ⚠**  
 > NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
@@ -43,6 +43,14 @@ The campaigning season. Dry roads, long days, food in the fields to forage, and 
 
 - [[VASSAL VESSELS — The Constitution]] — *this writ names "Highsun" literally*
 - [[WRIT — THE COURT]] — *this writ names "Highsun" literally*
+
+### flow
+
+- [[The Year]] — *this page names "Highsun" literally*
+
+### place
+
+- [[Highsun]] — *this page names "Highsun" literally*
 
 ---
 

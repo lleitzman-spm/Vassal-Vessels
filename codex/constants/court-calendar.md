@@ -32,7 +32,9 @@ The year has four seasons of ninety days. Everything in the court is counted in 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### guard
+
+- [[Ninety days pass]] — *its `cites` names `court.calendar.daysPerSeason` by id; its `cites` names `court.calendar.daysPerYear` by id; +5 more*
 
 ---
 

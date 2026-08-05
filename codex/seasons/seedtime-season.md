@@ -1,7 +1,7 @@
 ---
 type: "season"
 id: "season:seedtime"
-title: "Seedtime"
+title: "Seedtime (season)"
 standing: "proposed"
 standing_source: "defaulted"
 source_path: "data/seasons.json"
@@ -12,7 +12,7 @@ aliases:
   - "season:seedtime"
 ---
 
-# Seedtime
+# Seedtime (season)
 
 > **STANDING — PROPOSED ⚠**  
 > NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
@@ -44,6 +44,14 @@ The roads are mud and the barns are at their emptiest — last year's grain is n
 
 - [[VASSAL VESSELS — The Constitution]] — *this writ names "Seedtime" literally*
 - [[WRIT — THE COURT]] — *this writ names "Seedtime" literally*
+
+### flow
+
+- [[The Year]] — *this page names "Seedtime" literally*
+
+### place
+
+- [[Seedtime]] — *this page names "Seedtime" literally*
 
 ---
 

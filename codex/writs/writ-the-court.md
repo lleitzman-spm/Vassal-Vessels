@@ -103,10 +103,10 @@ The implementable specification of the realm layer: the records, the readings co
 
 ## Seasons
 
-- [[Harvest]] — *this writ names "Harvest" literally*
-- [[Highsun]] — *this writ names "Highsun" literally*
-- [[Seedtime]] — *this writ names "Seedtime" literally*
-- [[Wolfmoon]] — *this writ names "Wolfmoon" literally*
+- [[Harvest (season)]] — *this writ names "Harvest" literally*
+- [[Highsun (season)]] — *this writ names "Highsun" literally*
+- [[Seedtime (season)]] — *this writ names "Seedtime" literally*
+- [[Wolfmoon (season)]] — *this writ names "Wolfmoon" literally*
 
 ## Modules
 

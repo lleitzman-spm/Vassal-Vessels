@@ -40,7 +40,9 @@ Treachery is the chance he turns his coat. Holding his heir at your court takes 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### token
+
+- [[Back Pay]] — *its `cites` names `court.treacheryFormula.perUnpaidSeason` by id; this page names `court.treacheryFormula` literally; +1 more*
 
 ---
 

@@ -40,7 +40,10 @@ Foot walks eight leagues a day on a good summer road; horse twelve; a messenger 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### guard
+
+- [[The men are together]] — *its `cites` names `court.march.gatherDaysMax` by id; its `cites` names `court.march.gatherDaysMin` by id; +3 more*
+- [[They reach the field]] — *its `cites` names `court.march.leaguesPerDayFoot` by id; its `cites` names `court.march.leaguesPerDayHorse` by id; +9 more*
 
 ---
 

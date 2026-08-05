@@ -1,7 +1,7 @@
 ---
 type: "season"
 id: "season:harvest"
-title: "Harvest"
+title: "Harvest (season)"
 standing: "proposed"
 standing_source: "defaulted"
 source_path: "data/seasons.json"
@@ -12,7 +12,7 @@ aliases:
   - "season:harvest"
 ---
 
-# Harvest
+# Harvest (season)
 
 > **STANDING — PROPOSED ⚠**  
 > NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
@@ -58,6 +58,18 @@ The best-fed season and the worst political one. There is food everywhere for an
 ### Troop sources
 
 - [[The feudal levy]] — *this page names "Harvest" literally*
+
+### flow
+
+- [[The Year]] — *this page names "Harvest" literally*
+
+### place
+
+- [[Harvest]] — *this page names "Harvest" literally*
+
+### token
+
+- [[Grain]] — *this page names "Harvest" literally*
 
 ---
 

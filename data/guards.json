@@ -1,0 +1,504 @@
+{
+  "$schema": "vassal-vessels/guards/1",
+  "explains": "A guard is the CONDITION on an arrow: the thing that has to be true before a case can move from one place to the next. Guards are where the operational graph reaches into the knowledge graph and takes hold of it — every guard below names the actual constants it reads, by path, and `npm run codex:lint` fails if any of those paths is not really in data/constants.json. That check is the operational half of the Codex's honesty law: a knowledge claim needs a quote, and a guard needs a NUMBER. A condition nobody can put a value to is a wish.",
+  "fields": {
+    "id": "The guard's identifier. Transitions name guards; the lint refuses any that does not resolve.",
+    "name": "What to call the condition in plain words.",
+    "flow": "Which machine this guard belongs to (data/flows.json).",
+    "test": "The condition itself, written as close to arithmetic as plain words allow. This is the sentence a reader should be able to check against the numbers on the constant's own page.",
+    "cites": "The constant paths this guard actually reads, dotted, exactly as they appear in data/constants.json. THIS IS THE LOAD-BEARING FIELD — it is what makes a guard checkable rather than decorative, and the lint is fatal on a path that is not there.",
+    "sourcePath": "The file where this condition is really enforced.",
+    "quote": "A verbatim line from sourcePath. No quote, no object.",
+    "sharp": "True when the condition has NO hysteresis and no grace — it fires the instant it is met. Worth marking, because a sharp guard is a cliff and a soft one is a slope, and players need to know which they are standing on.",
+    "explains": "Why the condition is where it is, and what it feels like from inside the game."
+  },
+  "guards": [
+    {
+      "id": "nerve-breaks",
+      "flow": "nerve",
+      "name": "Nerve gives out",
+      "sharp": true,
+      "test": "morale < battle.morale.breakThreshold — or, for men who were never meant to fight, battle.morale.nonCombatantBreakThreshold",
+      "cites": [
+        "battle.morale.breakThreshold",
+        "battle.morale.nonCombatantBreakThreshold"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "// Breaking is breaking: no hysteresis on the way down.",
+      "explains": "The most important line in the game, and the only one in the nerve machine with no cushion on it. Everywhere else a unit has to move a good way past a threshold before its state changes, so lines do not flicker. Not here. The instant morale touches the breaking point the unit is running. That asymmetry is deliberate: getting frightened is sudden and getting brave is slow, which is true of people."
+    },
+    {
+      "id": "nerve-steadies",
+      "flow": "nerve",
+      "name": "Nerve comes back",
+      "sharp": false,
+      "test": "morale >= battle.morale.steadyThreshold + battle.morale.hysteresisMilli",
+      "cites": [
+        "battle.morale.steadyThreshold",
+        "battle.morale.hysteresisMilli"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "if (u.morale >= K.morale.steadyThreshold + h) setState(state, u, \"STEADY\");",
+      "explains": "To go back UP a step a unit must clear the threshold by a margin, not merely touch it. Without that margin a unit sitting exactly on the line would flip between states every tick and the herald would read like a stuck bell. The margin is the same size in both directions between the calm states — it is only the break that has none."
+    },
+    {
+      "id": "nerve-shakes",
+      "flow": "nerve",
+      "name": "Nerve starts to go",
+      "sharp": false,
+      "test": "morale < battle.morale.steadyThreshold - battle.morale.hysteresisMilli, and still at or above battle.morale.shakenThreshold + battle.morale.hysteresisMilli",
+      "cites": [
+        "battle.morale.steadyThreshold",
+        "battle.morale.shakenThreshold",
+        "battle.morale.hysteresisMilli"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "else if (u.morale < K.morale.steadyThreshold - h && u.morale >= K.morale.shakenThreshold + h) setState(state, u, \"SHAKEN\");",
+      "explains": "The first step down. Note the band: a unit must fall clear of steady AND stay clear of wavering to sit here, which is why shaken is a real state a unit can hold for a long time rather than a moment on the way past."
+    },
+    {
+      "id": "nerve-wavers",
+      "flow": "nerve",
+      "name": "About to go",
+      "sharp": false,
+      "test": "morale < battle.morale.shakenThreshold - battle.morale.hysteresisMilli",
+      "cites": [
+        "battle.morale.shakenThreshold",
+        "battle.morale.hysteresisMilli"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "else if (u.morale < K.morale.shakenThreshold - h) setState(state, u, \"WAVERING\");",
+      "explains": "The last warning you get. A wavering unit is still fighting and still yours, and it is the only state in which shouting at it — an exhortation from a captain — is both possible and worth the trouble."
+    },
+    {
+      "id": "rallies-left",
+      "flow": "nerve",
+      "name": "Has a second chance left",
+      "sharp": true,
+      "test": "ralliesUsed < battle.morale.ralliesAllowed",
+      "cites": [
+        "battle.morale.ralliesAllowed"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "// A unit rallies at most ONCE. Twice-broken men are done for the day.",
+      "explains": "One. That is the whole number. A unit that broke, was talked back into the line, and then broke again is finished for the day no matter what you do — and knowing that changes how you spend a rallied unit. It came back SHAKEN, it will break more easily than it did the first time, and there is nothing behind it."
+    },
+    {
+      "id": "rally-nerve-held",
+      "flow": "nerve",
+      "name": "Nerve back, and held there",
+      "sharp": false,
+      "test": "morale > battle.morale.rallyThreshold continuously for battle.morale.rallyHoldTicks ticks",
+      "cites": [
+        "battle.morale.rallyThreshold",
+        "battle.morale.rallyHoldTicks"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "const heldLongEnough = u.aboveRallySince >= 0 && state.tick - u.aboveRallySince >= K.morale.rallyHoldTicks;",
+      "explains": "Not a moment of courage — a sustained one. The men have to be above the line and STAY above it, and a single dip resets the clock to nothing. This is what stops a routing unit bouncing back the instant it gets one step of daylight."
+    },
+    {
+      "id": "rally-enemy-clear",
+      "flow": "nerve",
+      "name": "Nobody close enough to kill them",
+      "sharp": true,
+      "test": "no living enemy unit within battle.morale.rallyEnemyClearMm",
+      "cites": [
+        "battle.morale.rallyEnemyClearMm"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "if (distUnits(u, e) <= K.morale.rallyEnemyClearMm) {",
+      "explains": "You cannot re-form a broken unit with horsemen on top of it, which is precisely why pursuit is so devastating and why reining in your own cavalry hands the enemy his army back. Chase them and they stay broken. Let them go and they may be back in the line in a minute."
+    },
+    {
+      "id": "rally-someone-to-rally-to",
+      "flow": "nerve",
+      "name": "A captain, or home ground",
+      "sharp": true,
+      "test": "captain's banner alive and within battle.morale.rallyCaptainRadiusMm — or the unit has run all the way back to its own baseline",
+      "cites": [
+        "battle.morale.rallyCaptainRadiusMm"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "if (!captainNear && !atOwnBaseline) return;",
+      "explains": "Frightened men re-form around something. Either a captain they know is near enough to see, or the ground they started from. This is the clearest reason to keep a captain alive and behind his line rather than heroically in front of it: a dead captain does not just cost his contingent nerve, he costs it the ability to come back."
+    },
+    {
+      "id": "unit-destroyed",
+      "flow": "nerve",
+      "name": "Nothing left to break",
+      "sharp": true,
+      "test": "strength as a permille of muster strength < battle.army.destroyedStrengthPermille, or strength is zero",
+      "cites": [
+        "battle.army.destroyedStrengthPermille"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "if (u.strength <= 0 || idiv(u.strength * 1000, maxi(1, u.musterStrength)) < K.army.destroyedStrengthPermille) {",
+      "explains": "Checked before anything else in the machine, because a unit that no longer exists cannot be frightened. Units destroyed in place — as opposed to broken and run down — are what heralds write about, and the deed goes on the record for the house to remember."
+    },
+    {
+      "id": "army-breaks",
+      "flow": "battle",
+      "name": "The army breaks",
+      "sharp": false,
+      "test": "routed men exceed battle.army.breakRoutedFractionPermille of the army — or army morale sits under battle.army.breakArmyMoraleThreshold for battle.army.breakArmyMoraleTicks ticks",
+      "cites": [
+        "battle.army.breakRoutedFractionPermille",
+        "battle.army.breakArmyMoraleThreshold",
+        "battle.army.breakArmyMoraleTicks"
+      ],
+      "sourcePath": "src/battle/phase-army.ts",
+      "quote": "state.phase = \"PURSUIT\";",
+      "explains": "The moment a battle stops being a battle. Two roads lead here: enough units have physically broken, or the whole army has been miserable for long enough. The second one is the quiet killer — an army that is losing slowly and knows it will break without any single disaster you can point at."
+    },
+    {
+      "id": "banner-breaks-army",
+      "flow": "battle",
+      "name": "The banner falls at the wrong moment",
+      "sharp": true,
+      "test": "the army's banner is lost while army morale is under battle.army.breakOnBannerLostMoraleUnder",
+      "cites": [
+        "battle.army.breakOnBannerLostMoraleUnder",
+        "battle.army.onBreakMoraleHit"
+      ],
+      "sourcePath": "src/battle/phase-morale.ts",
+      "quote": "f.morale = clamp(f.morale + K.morale.pBannerLost, f.moraleFloor, f.moraleCeiling);",
+      "explains": "A banner going down is bad for everyone who can see it. If the army was already unhappy when it happened, that is the whole thing over — this single guard is why the banner is worth guarding and why sending it forward to inspire the line is a gamble rather than a free bonus."
+    },
+    {
+      "id": "pursuit-spent",
+      "flow": "battle",
+      "name": "The chase burns out",
+      "sharp": false,
+      "test": "the pursuit has run for between battle.pursuit.phaseTicksMin and battle.pursuit.phaseTicksMax ticks",
+      "cites": [
+        "battle.pursuit.phaseTicksMin",
+        "battle.pursuit.phaseTicksMax"
+      ],
+      "sourcePath": "src/battle/phase-army.ts",
+      "quote": "state.phase = \"ENDED\";",
+      "explains": "Chases end on their own. Horses tire, the light goes, the runners scatter into country nobody can follow them into. The length is not fixed — a battle whose pursuit ended early and one that ran long are meaningfully different days, and the difference lands in the ransom column."
+    },
+    {
+      "id": "nobody-left-fighting",
+      "flow": "battle",
+      "name": "Nothing is happening any more",
+      "sharp": true,
+      "test": "no contact anywhere for battle.army.retreatNoContactEndTicks ticks",
+      "cites": [
+        "battle.army.retreatNoContactEndTicks"
+      ],
+      "sourcePath": "src/battle/phase-army.ts",
+      "quote": "state.phase = \"ENDED\";",
+      "explains": "Both sides have disengaged and nobody is closing. Someone has withdrawn in good order, which is a legitimate and badly underrated outcome — you keep your army, and an army you still have next season is worth a great deal more than a field you held for an afternoon."
+    },
+    {
+      "id": "day-runs-out",
+      "flow": "battle",
+      "name": "The day runs out",
+      "sharp": true,
+      "test": "tick reaches battle.time.maxTicks",
+      "cites": [
+        "battle.time.maxTicks",
+        "battle.time.tickHz",
+        "battle.time.plannedBattleTicks"
+      ],
+      "sourcePath": "src/battle/engine.ts",
+      "quote": "state.phase = \"ENDED\";",
+      "explains": "The hard stop. A battle that has not decided itself by here is a draw, and both armies go home tired with nothing settled — which, historically, is what most battles that were going to happen and then did not look like."
+    },
+    {
+      "id": "heed-obeys",
+      "flow": "heed",
+      "name": "Heed high enough to simply obey",
+      "sharp": false,
+      "test": "heed >= battle.heed.obeyAt",
+      "cites": [
+        "battle.heed.obeyAt"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "The top band. Everything you did at court over the last several years is trying to push this one number up: settled grudges, paid wages, a seat given to the right man, a legitimate cause proclaimed. Get it here and orders simply work, which is a luxury you have to buy."
+    },
+    {
+      "id": "heed-his-way",
+      "flow": "heed",
+      "name": "Heed enough to comply, not to conform",
+      "sharp": false,
+      "test": "heed >= battle.heed.obeyHisWayAt and below battle.heed.obeyAt",
+      "cites": [
+        "battle.heed.obeyHisWayAt",
+        "battle.heed.obeyAt"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function applyInterpretation(",
+      "explains": "He is with you but he is not taking dictation. You get the outcome you asked for by a route you did not choose. Most of the time that costs you nothing; occasionally the route matters enormously and you find out at the worst moment."
+    },
+    {
+      "id": "heed-drags-or-hedges",
+      "flow": "heed",
+      "name": "Heed low enough to stall",
+      "sharp": false,
+      "test": "heed >= battle.heed.dragOrHedgeAt and below battle.heed.obeyHisWayAt; which of the two you get turns on the captain's temper at battle.heed.aggressionBranchAt",
+      "cites": [
+        "battle.heed.dragOrHedgeAt",
+        "battle.heed.obeyHisWayAt",
+        "battle.heed.aggressionBranchAt"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "The band where a captain is unwilling but not defiant — and his TEMPER decides how that comes out. A cautious man drags his feet; a bolder one commits half and holds the rest. Same unwillingness, two completely different problems on your left flank."
+    },
+    {
+      "id": "heed-overreaches-or-worse",
+      "flow": "heed",
+      "name": "Heed low enough to be a problem",
+      "sharp": false,
+      "test": "heed >= battle.heed.overreachOrHardHedgeAt and below battle.heed.dragOrHedgeAt; the temper branch at battle.heed.aggressionBranchAt again decides which",
+      "cites": [
+        "battle.heed.overreachOrHardHedgeAt",
+        "battle.heed.dragOrHedgeAt",
+        "battle.heed.aggressionBranchAt"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function applyInterpretation(",
+      "explains": "Actively unhelpful, in one of two directions. The aggressive version is the dangerous one and the counter-intuitive one: a captain who does not respect you and has blood up does not sit still, he goes much too far forward and takes your right wing with him."
+    },
+    {
+      "id": "heed-defies",
+      "flow": "heed",
+      "name": "Heed gone entirely",
+      "sharp": true,
+      "test": "heed < battle.heed.overreachOrHardHedgeAt",
+      "cites": [
+        "battle.heed.overreachOrHardHedgeAt"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "Flat refusal, in front of the whole army. Nothing random put him here — this is the bottom of a number built entirely from things on the record, and the herald names the largest of them out loud when it happens. It is the game telling you which decision this was, months late."
+    },
+    {
+      "id": "courier-gets-through",
+      "flow": "order",
+      "name": "The courier lives",
+      "sharp": false,
+      "test": "the rider crosses the distance at battle.speeds.courierRide without being caught; his danger scales by battle.speeds.courierDangerMulPermille through contested ground, and a recipient already fighting costs battle.speeds.courierRecipientEngagedExtraTicks more",
+      "cites": [
+        "battle.speeds.courierRide",
+        "battle.speeds.courierDangerMulPermille",
+        "battle.speeds.courierRecipientEngagedExtraTicks"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "Orders are carried by a man on a horse and the man can be killed. Two things follow that most players learn late: sending an order ACROSS the front is far more dangerous than sending it along your own line, and a captain who is already fighting takes longer to reach because somebody has to get his attention first."
+    },
+    {
+      "id": "horn-carries",
+      "flow": "order",
+      "name": "The horn is heard",
+      "sharp": true,
+      "test": "the recipient is within battle.command.signalRangeMm — reduced by battle.command.signalRangeMovingMulPermille if he is moving — and, when battle.command.signalRequiresLOS is set, can actually see the signal; then battle.command.signalDelayTicks pass",
+      "cites": [
+        "battle.command.signalRangeMm",
+        "battle.command.signalRangeMovingMulPermille",
+        "battle.command.signalRequiresLOS",
+        "battle.command.signalDelayTicks"
+      ],
+      "sourcePath": "src/battle/phase-command.ts",
+      "quote": "export function computeHeed(",
+      "explains": "The alternative to a courier: a signal that reaches everyone in range at once, instantly and cheaply, but says only one of a handful of pre-arranged things. This is why standing plans exist. Deciding before the battle what your horn will mean is how you give an order to five contingents in a second — and why an enemy who works out your horn is a real danger."
+    },
+    {
+      "id": "treachery-acts",
+      "flow": "treachery",
+      "name": "High enough to work against you",
+      "sharp": false,
+      "test": "treachery > battle.treachery.actsAboveTreachery, re-checked every battle.treachery.checkEveryTicks ticks",
+      "cites": [
+        "battle.treachery.actsAboveTreachery",
+        "battle.treachery.checkEveryTicks",
+        "battle.treachery.permillePerPointOver30"
+      ],
+      "sourcePath": "src/court/host.ts",
+      "quote": "export function computeTreachery(",
+      "explains": "The first stage, and the one you can still do something about. Nothing is announced. Orders go unheeded a little more often than luck explains, and a gap appears where a gap should not be. Every point of the number came from a record you can go and read."
+    },
+    {
+      "id": "treachery-turns",
+      "flow": "treachery",
+      "name": "High enough to change sides",
+      "sharp": false,
+      "test": "treachery > battle.treachery.defectsAboveTreachery AND the Tide is at or below battle.treachery.requiresTideAtOrBelow",
+      "cites": [
+        "battle.treachery.defectsAboveTreachery",
+        "battle.treachery.requiresTideAtOrBelow"
+      ],
+      "sourcePath": "src/court/host.ts",
+      "quote": "export function computeTreachery(",
+      "explains": "The second condition is the interesting one. A disloyal contingent does NOT turn while you are winning — it turns when the day has gone against you, because a traitor is a coward with arithmetic. Which means the way to survive a treacherous vassal is not to fix him, it is to not be losing. Win quickly and he stays bought."
+    },
+    {
+      "id": "capture-instead-of-kill",
+      "flow": "captive",
+      "name": "Taken alive rather than killed",
+      "sharp": false,
+      "test": "checked every battle.pursuit.captureCheckEveryTicks ticks at battle.pursuit.captureBasePermille, raised by battle.pursuit.captureMountedBonusPermille for horsemen and by battle.pursuit.captureRansomHungryBonusPermille for men who want the money, divided down by exhaustion at battle.pursuit.captureFatigueDivisor",
+      "cites": [
+        "battle.pursuit.captureCheckEveryTicks",
+        "battle.pursuit.captureBasePermille",
+        "battle.pursuit.captureMountedBonusPermille",
+        "battle.pursuit.captureRansomHungryBonusPermille",
+        "battle.pursuit.captureFatigueDivisor"
+      ],
+      "sourcePath": "src/battle/aftermath.ts",
+      "quote": "export function buildAftermath(",
+      "explains": "Why a pursuit is worth money and not just corpses. Horsemen catch people; poor horsemen catch people they can sell; tired horsemen catch nobody. This one guard is most of the argument for keeping cavalry in reserve until the enemy breaks."
+    },
+    {
+      "id": "ransom-comes-due",
+      "flow": "captive",
+      "name": "The bill has a date on it",
+      "sharp": true,
+      "test": "the price is battle.aftermath.ransomCrownsPerStandingPoint per point of the captive's standing, and the day it falls due is fixed when he is taken",
+      "cites": [
+        "battle.aftermath.ransomCrownsPerStandingPoint"
+      ],
+      "sourcePath": "src/court/absorb.ts",
+      "quote": "export function ransomDueBy(taken: Stamp): number {",
+      "explains": "Ransom scales with how important the man is, so capturing a great lord is a windfall and capturing a levy sergeant is barely worth the rope. The date is the sharp part: it does not drift, everyone can see it, and what you do when it arrives is one of the most-watched decisions you will make."
+    },
+    {
+      "id": "vessel-runs-dry",
+      "flow": "vessel",
+      "name": "The cup is empty",
+      "sharp": true,
+      "test": "days served this service year >= court.obligation.serviceDaysPerYear (or whatever the house's own enfeoffment record set instead)",
+      "cites": [
+        "court.obligation.serviceDaysPerYear"
+      ],
+      "sourcePath": "src/court/vessel.ts",
+      "quote": "export function readVessel(",
+      "explains": "The realm-wide default is a number in the constants, but every enfeoffment record may write its own — which is the whole design of the Vessel: the GRANT IS THE CONTRACT. A house that negotiated forty days owes forty, and you agreed to that on a specific day for a specific reason, and it is on the record."
+    },
+    {
+      "id": "called-past-the-vessel",
+      "flow": "vessel",
+      "name": "Called anyway",
+      "sharp": false,
+      "test": "summoned while dry: court.willingness.dryVesselFirst off willingness the first time, court.willingness.dryVesselSecond the second, court.willingness.dryVesselThird thereafter",
+      "cites": [
+        "court.willingness.dryVesselFirst",
+        "court.willingness.dryVesselSecond",
+        "court.willingness.dryVesselThird",
+        "court.obligation.beyondTheVesselGrievanceFirst",
+        "court.obligation.beyondTheVesselGrievanceFurther"
+      ],
+      "sourcePath": "src/court/answer.ts",
+      "quote": "export function readWillingness(",
+      "explains": "Three numbers, getting worse, and that escalation is the entire strategic tension of a long war. Going back to the same well once is a favour asked. Twice is presumption. Three times and you have made an enemy of a man who has done nothing but turn up whenever you called."
+    },
+    {
+      "id": "grievance-cools",
+      "flow": "grievance",
+      "name": "Time takes the heat out",
+      "sharp": false,
+      "test": "after court.loyalty.grievanceCoolAfterYears years, weight falls toward court.loyalty.grievanceCoolShare of what it was",
+      "cites": [
+        "court.loyalty.grievanceCoolAfterYears",
+        "court.loyalty.grievanceCoolShare"
+      ],
+      "sourcePath": "src/court/grievances.ts",
+      "quote": "export function readGrievances(c: Chronicle, houseId: string, at: Stamp): Grievance[] {",
+      "explains": "Grudges fade but never to nothing. The residue is the point: a king who has wronged eleven houses a little, long ago, and fixed none of it, has an army that does not quite work and no single thing to blame. Waiting is a strategy for one grievance and a disaster as a policy."
+    },
+    {
+      "id": "heir-takes-it-up",
+      "flow": "grievance",
+      "name": "The son picks it up",
+      "sharp": true,
+      "test": "on the wronged man's death his heir inherits court.loyalty.heirInheritsGrievanceShare of the weight",
+      "cites": [
+        "court.loyalty.heirInheritsGrievanceShare"
+      ],
+      "sourcePath": "src/court/grievances.ts",
+      "quote": "export function readGrievances(c: Chronicle, houseId: string, at: Stamp): Grievance[] {",
+      "explains": "Outliving your enemies does not work. A share of every grudge passes down, which means a long reign accumulates a quiet inheritance of dislike from people who were children when you earned it. Make amends while the man who was wronged is alive to accept them."
+    },
+    {
+      "id": "seat-becomes-customary",
+      "flow": "seat",
+      "name": "It starts to feel like his",
+      "sharp": true,
+      "test": "held continuously for court.seats.customaryAfterYears years; taking it back now costs court.seats.customaryGrievance",
+      "cites": [
+        "court.seats.customaryAfterYears",
+        "court.seats.customaryGrievance"
+      ],
+      "sourcePath": "src/court/seats.ts",
+      "quote": "export function readSeat(",
+      "explains": "Nothing happens on this day. No message, no ceremony — the cost of a decision you have not made yet quietly goes up. This is the most easily missed clock in the game, and the reason to look at your council table occasionally even when everything is fine."
+    },
+    {
+      "id": "seat-becomes-hereditary",
+      "flow": "seat",
+      "name": "His son expects it",
+      "sharp": true,
+      "test": "held continuously for court.seats.hereditaryAfterYears years; taking it back now costs court.seats.hereditaryGrievance, and court.seats.tyrannyGrievanceToAll reaches every other house watching",
+      "cites": [
+        "court.seats.hereditaryAfterYears",
+        "court.seats.hereditaryGrievance",
+        "court.seats.tyrannyGrievanceToAll"
+      ],
+      "sourcePath": "src/court/seats.ts",
+      "quote": "export function readSeat(",
+      "explains": "The end of the road, and note the last term: this one does not only anger the man you took it from, it frightens EVERYBODY. A king who strips an hereditary office has told every other house what their own grants are worth, and they will all price you accordingly at the next muster."
+    },
+    {
+      "id": "season-turns",
+      "flow": "year",
+      "name": "Ninety days pass",
+      "sharp": true,
+      "test": "day reaches court.calendar.daysPerSeason; four of them make court.calendar.daysPerYear",
+      "cites": [
+        "court.calendar.daysPerSeason",
+        "court.calendar.seasonsPerYear",
+        "court.calendar.daysPerYear"
+      ],
+      "sourcePath": "src/court/calendar.ts",
+      "quote": "export function seasonAt(index: number): SeasonId {",
+      "explains": "The clock everything else in the court hangs off. Vessels refill on the service year, grudges cool by the year, seats become customary by the year — so the calendar is not scenery, it is the rate at which every other machine in the court runs."
+    },
+    {
+      "id": "gathering-done",
+      "flow": "muster",
+      "name": "The men are together",
+      "sharp": false,
+      "test": "between court.march.gatherDaysMin and court.march.gatherDaysMax days, depending on how scattered the holding is",
+      "cites": [
+        "court.march.gatherDaysMin",
+        "court.march.gatherDaysMax"
+      ],
+      "sourcePath": "src/court/distance.ts",
+      "quote": "export function gatherDaysFor(holding: HoldingRecord): number {",
+      "explains": "Before anybody can march anywhere, a lord has to collect his men off their farms. A tight, well-run holding does it fast; a scattered one takes nearly twice as long — and every one of those days is spent before a single league is covered. Compact land is worth more than its acreage suggests."
+    },
+    {
+      "id": "host-arrives",
+      "flow": "muster",
+      "name": "They reach the field",
+      "sharp": false,
+      "test": "leagues covered at court.march.leaguesPerDayFoot (or court.march.leaguesPerDayHorse), scaled by the road at court.march.roadFactorHighway, roadFactorTrack or roadFactorPath, wearing men down by court.wear.dailyWearFoot each day",
+      "cites": [
+        "court.march.leaguesPerDayFoot",
+        "court.march.leaguesPerDayHorse",
+        "court.march.roadFactorHighway",
+        "court.march.roadFactorTrack",
+        "court.march.roadFactorPath",
+        "court.wear.dailyWearFoot"
+      ],
+      "sourcePath": "src/court/distance.ts",
+      "quote": "export function journey(",
+      "explains": "Distance is not a delay, it is a TAX. Men who walked a long way on bad roads arrive with fatigue already in their legs, and fatigue lowers the ceiling on how brave they can get. An army that marched hard to be there starts the battle less able to win it, and that is decided long before anyone draws anything."
+    }
+  ]
+}
