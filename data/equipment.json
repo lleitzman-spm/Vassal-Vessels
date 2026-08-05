@@ -8,7 +8,21 @@
     "fightingRanks": "Ranks that can use it at once in the clash.",
     "pressPenaltyPermille": "Crowd penalty once the press starts. 0 means the weapon is happy in a shoving match.",
     "shockOnly": "True if it only works at the moment of impact.",
-    "twoHanded": "True means no shield."
+    "twoHanded": "True means no shield.",
+    "armour": "How much protection it gives, on the armour scale. Armour reduces wounds rather than hits — you are struck just as often and hurt less often.",
+    "shield": "How much the shield adds, and only in the arc it is actually covering. A shield is worth a great deal to the front and nothing at all to the rear.",
+    "horseArmour": "Protection for the animal. Worth noting separately because a killed horse takes its rider out of the fight just as surely as a killed rider.",
+    "fatigueMulPermille": "How much faster this kit tires the man wearing it, in thousandths. Everything that makes armour good makes it heavy, and a tired man misses.",
+    "missileBonus": "Added to the chance of hitting at range. Distinct from the melee numbers because shooting well and fighting well are different skills.",
+    "rangeMm": "How far it will reach, in millimetres. The engine works in whole millimetres everywhere so that two runs of the same battle are identical to the byte.",
+    "shotsPer1000Ticks": "Rate of shooting, per fifty seconds of battle. A crossbow hits far harder than a bow and shoots far less often, and that trade is this number.",
+    "ammo": "How many shots the unit carries. It never refills. Archers who spend the battle shooting at whatever is nearest are empty when the thing that matters arrives.",
+    "flightSpeedMmPerTick": "How fast the missile travels. Arrows take real time to arrive, so a unit that has moved since the volley left may not be there when it lands.",
+    "spreadPermilleOfRange": "How much the shot scatters, as a thousandth of the distance shot. Accuracy falls off with range because the spread grows with it.",
+    "moraleMultiplierPermille": "How frightening it is to be under, beyond the men it actually kills. Some weapons do their real work on nerve rather than on bodies.",
+    "canShootMoving": "Whether it can be loosed on the move at all. A bow can be; a crossbow's winding cannot, which is most of the difference between them.",
+    "requiresStationary": "Whether the unit must be standing still to use it. The heaviest missile weapons pin the men carrying them in place, which is a real tactical cost.",
+    "misfirePermille": "How often it simply fails, in thousandths. Rare, and worth knowing about before you build a plan on it firing."
   },
   "weapons": [
     {

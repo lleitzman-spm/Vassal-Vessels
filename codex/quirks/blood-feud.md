@@ -27,7 +27,7 @@ The enemy across the field killed his people. He will fight them harder than you
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `captain` |
-| `targets` | *undocumented in the file's own `fields` block* | `an enemy house id` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `an enemy house id` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `kin of his killed by that house in an earlier battle — a slain record the court never settled` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `Against that house's contingents: +15 heed on any ATTACK order, +10 resolve, and REIN_IN is never heeded. His pursuers kill rather than capture — half the prisoners, and the ones he does take are worth watching.` |
 

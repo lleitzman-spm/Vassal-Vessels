@@ -12,8 +12,8 @@ writs, and a pile of hand-edited JSON is exactly the kind of document that drift
 number changes in `data/constants.json` and the sentence describing it in some other
 file quietly stops being true, and nobody notices until a reader — or a builder — acts
 on the stale one. The Codex is the fix: one generated, backlinked, searchable
-projection of everything `data/*.json`, `docs/KINGDOM.md` and (once it exists) the
-engine itself already know, with every claim carrying the source it came from and the
+projection of everything `data/*.json`, `docs/KINGDOM.md` and the engine itself
+already know, with every claim carrying the source it came from and the
 standing it holds.
 
 **The acceptance test, stated once and worth repeating everywhere:** a smart
@@ -41,7 +41,7 @@ source.
 | the implementable formulas | `docs/WRIT-THE-BATTLE.md` or `docs/WRIT-THE-COURT.md` |
 | a unit, a keyword, a weapon, a formation, an order… | the matching `data/*.json` file |
 | a governing number (a cap, a rate, a threshold) | `data/constants.json` — **never a literal in the code** |
-| what the engine actually does | the code under `src/`, once it exists; then re-compile |
+| what the engine actually does | the code under `src/`; then re-compile and the page follows |
 | this compiler itself | `tools/codex/` |
 
 Exactly one file inside the Codex is hand-written and safe to edit: **`00 START
@@ -75,11 +75,20 @@ files read a different way (below):
 | `holding` | `data/holdings.json` | `codex/holdings/` |
 | `grievance` | `data/grievances.json` | `codex/grievances/` |
 | `favour` | `data/favours.json` | `codex/favours/` |
+| `cause` | `data/causes.json` — why you say you are fighting; sets legitimacy | `codex/causes/` |
 | `answer` | `data/answers.json` | `codex/answers/` |
 | `troop-source` | `data/troop-sources.json` | `codex/troop-sources/` |
 | `season` | `data/seasons.json` | `codex/seasons/` |
+| `flow` | `data/flows.json` — a machine a case moves through | `codex/flows/` |
+| `place` | `data/places.json` — a state a case can sit in | `codex/places/` |
+| `transition` | `data/transitions.json` — an arrow, with its event and its cost | `codex/transitions/` |
+| `guard` | `data/guards.json` — the condition on an arrow, citing real numbers | `codex/guards/` |
+| `token` | `data/tokens.json` — what a case carries and spends | `codex/tokens/` |
 | `constant` | `data/constants.json` — one page per GROUP, not per number | `codex/constants/` |
-| `module` / `invariant` | `src/**` / `test/**`, once they exist | `codex/modules/`, `codex/invariants/` |
+| `module` / `invariant` | `src/**` / `test/**` | `codex/modules/`, `codex/invariants/` |
+
+The last five are the **operational graph** and are set out in their own section below;
+everything above them is the knowledge graph.
 
 A file not yet on disk is not an error — it is **reported as a gap** (the compiler's
 count says so; `npm run codex:lint` says so) and nothing is invented in its place. As

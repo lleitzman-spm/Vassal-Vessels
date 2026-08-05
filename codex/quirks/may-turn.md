@@ -27,7 +27,7 @@ At some point in this battle these men may stop being on your side. The court gu
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `contingent` |
-| `targets` | *undocumented in the file's own `fields` block* | `the enemy side id` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `the enemy side id` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `treachery above 60 — which is grievance you never settled, wages you never paid, or kin across the line` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `Enables the treachery check: every two seconds, if his side's Tide has sunk to -10 or worse, a seeded chance that the contingent leaves the field, or above treachery 60 changes sides outright.` |
 

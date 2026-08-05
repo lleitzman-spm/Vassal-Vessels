@@ -29,7 +29,7 @@ Money. It works, it is instant, it is capped at twelve points however much you s
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `1 per 50 crowns, capped at 12` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `2` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `a Pay record` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `a Pay record` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

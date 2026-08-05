@@ -29,7 +29,7 @@ The biggest thing you can give anybody: worth 25 the year you give it, settling 
 | `standing` | The part that never fades while the thing it rests on is still true. | `8` |
 | `fading` | The part that halves every half-life. | `17` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `4` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `an Enfeoff record` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `an Enfeoff record` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

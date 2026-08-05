@@ -26,7 +26,7 @@ Personal courage, and whether men fight harder because he is standing there. A v
 
 | field | meaning | value |
 |---|---|---|
-| `family` | *undocumented in the file's own `fields` block* | `competence` |
+| `family` | Which axis the trait sits on: `competence` is how GOOD he is, `temper` is what he is LIKE. The split is load-bearing — competence decides whether he can carry an order out, temper decides which way he bends it when he will not. | `competence` |
 
 ## Where it matters
 

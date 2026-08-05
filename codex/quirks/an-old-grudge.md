@@ -27,7 +27,7 @@ Somebody here wronged him, and it may well have been you. Twenty points of heed 
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `captain` |
-| `targets` | *undocumented in the file's own `fields` block* | `a captain id` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `a captain id` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `a grievance in the record book against another captain — or against the crown itself` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `Every word sent by or concerning the target lands 20 heed lower. If the target is the commander, every word you send this captain lands 20 lower, all day.` |
 

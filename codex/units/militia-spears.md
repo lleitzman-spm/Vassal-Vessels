@@ -2,10 +2,10 @@
 type: "unit"
 id: "unit:militia-spears"
 title: "Militia Spears"
-standing: "proposed"
-standing_source: "defaulted"
+standing: "built"
+standing_source: "derived"
 source_path: "data/units.json"
-source_line: 19
+source_line: 36
 origin: "mined"
 generator: "tools/codex/emit.mjs"
 aliases:
@@ -14,38 +14,38 @@ aliases:
 
 # Militia Spears
 
-> **STANDING — PROPOSED ⚠**  
-> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
-> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+> **STANDING — BUILT**  
+> Implemented in code and checkable against the tree — a module or a test stands under it.  
+> *Derived from the tree — the code is there to be read.*
 
 Shopkeepers and apprentices with spears, levied by a town's charter. There are a great many of them and they arrive faster than anyone. Braced and steady they will stop horses like any spear line — the spear does not know who holds it — but their nerve is thin, and a shaken militia brace is mostly decorative, because refusal is multiplied by morale and cohesion.
 
-*Verified verbatim against `data/units.json`:19 on every lint — no quote, no object.*
+*Verified verbatim against `data/units.json`:36 on every lint — no quote, no object.*
 
 ## The numbers
 
 | field | meaning | value |
 |---|---|---|
-| `class` | *undocumented in the file's own `fields` block* | `FOOT` |
+| `class` | What kind of thing it is — foot, horse, or something that does not fight. It decides which of the engine's speed and fatigue tables the unit is read against. | `FOOT` |
 | `raisedBy` | Which holding types (data/holdings.json) or bargains (data/obligations.json) raise this unit. | `town` |
-| `typicalMen` | *undocumented in the file's own `fields` block* | `120` |
+| `typicalMen` | How many men a unit of this sort usually musters. Real numbers vary with the holding that raised them and how the year has gone. | `120` |
 | `marchSpeed` | Leagues per day on a good summer road. | `7` |
 | `dailyWear` | Fatigue points gained per day on the march. | `5` |
 | `massPerManKg` | Man plus kit — or horse plus man plus kit. Only matters for shock. | `80` |
-| `armour` | *undocumented in the file's own `fields` block* | `padded` |
-| `shield` | *undocumented in the file's own `fields` block* | `round` |
-| `primaryWeapon` | *undocumented in the file's own `fields` block* | `spear` |
-| `sidearm` | *undocumented in the file's own `fields` block* | `long-knife` |
+| `armour` | What they are wearing (see the armour shelf in `data/equipment.json`). Armour reduces wounds rather than hits, and it costs fatigue every minute it is worn. | `padded` |
+| `shield` | What they are carrying (see the shields shelf in `data/equipment.json`). Worth a great deal to the front and nothing at all to the rear. | `round` |
+| `primaryWeapon` | What they fight with first (see `data/equipment.json`). Long weapons win the clash and lose the press — the whole Six Seconds inversion is here. | `spear` |
+| `sidearm` | What they fall back on once the press starts and there is no room for the long weapon. This is why spearmen have a bad time after six seconds. | `long-knife` |
 | `skill` | 0-100 individual fighting quality; feeds to-hit. | `20` |
 | `drillBase` | 0-100 formation quality; the Host's per-unit drill overrides it. | `30` |
 | `refusalBase` | 0-1000. How strongly this unit's set weapons make a charging horse refuse — ONLY when braced, only in the front arc. | `500` |
 | `refusalRangeMm` | How far ahead the refusal reaches. Longer weapons project further. | `6000` |
 | `turnMulPermille` | Multiplier on the base turn rate. | `950` |
 | `fatigueMulPermille` | How fast this unit tires, from armour weight and the work. | `1050` |
-| `defaultFormation` | *undocumented in the file's own `fields` block* | `close` |
-| `allowedFormations` | *undocumented in the file's own `fields` block* | `close`, `loose`, `column` |
-| `traits` | *undocumented in the file's own `fields` block* | `CanBrace` |
-| `defaultQuirks` | *undocumented in the file's own `fields` block* | `will-not-leave-the-province`, `holds-to-the-last-on-own-land` |
+| `defaultFormation` | The shape they take when nobody has said otherwise. | `close` |
+| `allowedFormations` | Every shape they can adopt at all. A unit that cannot form a shieldwall cannot be told to. | `close`, `loose`, `column` |
+| `traits` | The keywords that govern what this unit can do (see `data/keywords.json`). `CanBrace` is the one that decides most battles. | `CanBrace` |
+| `defaultQuirks` | Quirks these men carry by their nature rather than by their history (see `data/quirks.json`). | `will-not-leave-the-province`, `holds-to-the-last-on-own-land` |
 | `musterCost` | Coin per battle, for the court's arithmetic. Not a battle number. | `30` |
 
 ## What it beats, and what beats it
@@ -89,4 +89,4 @@ Shopkeepers and apprentices with spears, levied by a town's charter. There are a
 
 ---
 
-*Generated by `tools/codex/emit.mjs` from `data/units.json`:19. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*
+*Generated by `tools/codex/emit.mjs` from `data/units.json`:36. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*

@@ -18,7 +18,7 @@ aliases:
 > Implemented in code and checkable against the tree — a module or a test stands under it.  
 > *Derived from the tree — the code is there to be read.*
 
-942 lines · 22 exported symbols.
+946 lines · 22 exported symbols.
 
 ## What the file says of itself
 
@@ -36,8 +36,9 @@ aliases:
 
 ## Shape
 
-- **Lines:** 942
+- **Lines:** 946
 - **Exported symbols (22):** `ANSWERS`, `ActCostRow`, `AnswerBand`, `CAUSES`, `CHOSEN`, `COURT`, `CauseRow`, `FAVOURS`, `FavourRow`, `GRIEVANCES`, `GrievanceRow`, `HOLDING_TYPES`, `HoldingTypeRow`, `QUIRKS`, `SEASONS`, `SEASON_ORDER`, `SEAT`, `SEAT_IDS`, `SeasonRow`, `UNIT_TYPES`, `UNPRICED_ACTS`, `UnitTypeRow`
+- **Assets it pulls in (no page, so no road):** `data/causes.json`
 
 ## Governing numbers
 

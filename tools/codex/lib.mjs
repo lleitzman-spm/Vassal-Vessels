@@ -104,6 +104,7 @@ export const TYPE_DIRS = {
   holding: 'holdings',
   grievance: 'grievances',
   favour: 'favours',
+  cause: 'causes',
   answer: 'answers',
   'troop-source': 'troop-sources',
   season: 'seasons',
@@ -315,6 +316,7 @@ export const DATA_SOURCES = [
   { file: 'holdings.json', type: 'holding' },
   { file: 'grievances.json', type: 'grievance' },
   { file: 'favours.json', type: 'favour' },
+  { file: 'causes.json', type: 'cause' },
   { file: 'answers.json', type: 'answer' },
   { file: 'troop-sources.json', type: 'troop-source' },
   { file: 'seasons.json', type: 'season' },
@@ -627,7 +629,21 @@ function captainTraitNodes() {
         source_line: findItemLine(raw, item.id),
         quote: explains,
         origin: 'mined',
-        extra: { ...itemExtra(item), category: item.family, mined_from: rel },
+        // `family` is synthesised HERE, not read from the file, so `captains.json`
+        // has nowhere to document it and the page would forever read "undocumented
+        // in the file's own `fields` block" — a gap no author could ever close. A
+        // field this tool invents is a field this tool explains.
+        extra: {
+          ...itemExtra(item),
+          category: item.family,
+          mined_from: rel,
+          dataFields: {
+            family:
+              'Which axis the trait sits on: `competence` is how GOOD he is, `temper` is what he is LIKE. ' +
+              'The split is load-bearing — competence decides whether he can carry an order out, temper decides ' +
+              'which way he bends it when he will not.',
+          },
+        },
       }),
     );
   }
@@ -1163,14 +1179,59 @@ function stitch(nodes) {
  *  yet) and is promoted to `built` only when the tree itself backs the claim — a real
  *  module or a real test cites it. This is the whole reason the axis exists: nothing
  *  is ever hand-declared built, because there is no manifest here to declare it in. */
+/** Shelves the engine consumes by ID LOOKUP — it resolves whatever id the data hands
+ *  it (`catalog.ts`: `rows.find((r) => r.id === id)`), so EVERY item on the shelf is
+ *  genuinely reached the moment a module imports the file. Without this, a Levy
+ *  Spearman page carried "NOT BUILT — may NEVER be cited as evidence that the game
+ *  plays this way" while the engine was busily reading it every tick, because no
+ *  module names the string `spearmen` anywhere: the id travels in the DATA, which is
+ *  the entire point of the design.
+ *
+ *  WHAT IS DELIBERATELY ABSENT FROM THIS LIST MATTERS MORE THAN WHAT IS ON IT.
+ *  `orders.json` and `standing-plans.json` are NOT here, and must not be. They are
+ *  switched vocabularies — the engine matches each id against cases it implements one
+ *  by one, so an id can sit in the file, be imported, and do nothing whatsoever.
+ *  `ENVELOP`, `COMMIT_RESERVE` and `AIMED_VOLLEY` are exactly that today. Promoting a
+ *  whole shelf on the strength of an import would mint precisely the lie this axis
+ *  exists to prevent, and in the dangerous direction: a design dressed as a build. */
+const ID_LOOKUP_SHELVES = {
+  'units.json': 'catalog.ts resolves any unit typeId the data names',
+  'equipment.json': 'weapons, armour and shields are resolved into every unit type',
+  'formations.json': 'formation(id) resolves any formation the data names',
+  'keywords.json': "a unit's declared traits are resolved as keywords",
+  'terrain.json': 'ground is resolved by id when the field is generated',
+  'holdings.json': 'a holding is read by type when its muster roll is computed',
+  'grievances.json': 'every grievance row is read when a house is scored',
+  'favours.json': 'every favour row is read when a house is scored',
+  'answers.json': 'the answer band is resolved from computed willingness',
+  'causes.json': "CAUSES[proclaim.causeId] resolves whichever cause the proclamation names",
+  'obligations.json': 'obligations are read when the muster roll is computed',
+};
+
 function upgradeBuiltStanding(nodes) {
   const MINED_GAME_TYPES = new Set([...DATA_SOURCES.map((s) => s.type), 'constant', 'trait', 'example']);
+  // Which data files the tree actually pulls in. A file nothing imports backs nothing.
+  const importedFiles = new Set();
+  for (const n of nodes) {
+    if (n.type !== 'module') continue;
+    for (const a of (n.extra && n.extra.assets) || []) {
+      const m = String(a).match(/data\/[\w-]+\.json$/);
+      if (m) importedFiles.add(path.basename(m[0]));
+    }
+  }
   for (const n of nodes) {
     if (!MINED_GAME_TYPES.has(n.type) || n.standing !== 'proposed') continue;
     const near = [...n.edges.map((e) => e.to), ...n.backlinks.map((b) => b.from)];
     if (near.some((id) => id.startsWith('module:') || id.startsWith('invariant:'))) {
       n.standing = 'built';
       n.standing_source = 'derived';
+      continue;
+    }
+    const from = n.extra && n.extra.mined_from ? path.basename(n.extra.mined_from) : '';
+    if (ID_LOOKUP_SHELVES[from] && importedFiles.has(from)) {
+      n.standing = 'built';
+      n.standing_source = 'derived';
+      n.standing_why = ID_LOOKUP_SHELVES[from];
     }
   }
 }

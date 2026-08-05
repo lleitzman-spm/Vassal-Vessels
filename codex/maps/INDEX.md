@@ -5,7 +5,7 @@ title: "Map of the Codex"
 standing: "built"
 standing_source: "derived"
 source_path: "tools/codex/emit.mjs"
-generated: "2026-08-05T17:57:33.909Z"
+generated: "2026-08-05T18:06:45.836Z"
 generator: "tools/codex/emit.mjs"
 aliases:
   - "map:index"
@@ -45,19 +45,20 @@ aliases:
 | formation | 7 |
 | seat | 7 |
 | trait | 7 |
+| cause | 6 |
 | troop-source | 5 |
 | writ | 5 |
 | season | 4 |
 | example | 1 |
-| **all** | **710** |
+| **all** | **716** |
 
 | standing | pages |
 |---|---:|
-| proposed | 407 |
-| built | 291 |
+| built | 384 |
+| proposed | 320 |
 | canon | 12 |
 
-> **403 pages carry a DEFAULTED standing** — a design in `data/` with nothing in the tree behind it yet. That is the honest, expected state before the engine exists; watch this number fall as `src/` and `test/` are built.
+> **316 pages carry a DEFAULTED standing** — a design in `data/` that nothing in the tree reaches. Not a gap in the compiler: these are genuinely designs the engine does not yet act on, and the honest thing is to say so on every one of their faces rather than let them read like builds.
 
 ## PROPOSED — not built, and never evidence that the game plays this way ⚠
 
@@ -96,9 +97,6 @@ aliases:
 - [[An Old Grudge]] — `data/quirks.json`
 - [[Answers In]] — `data/places.json`
 - [[Answers to His Own Master]] — `data/quirks.json`
-- [[Arming Sword]] — `data/equipment.json`
-- [[Armour Piercer]] — `data/keywords.json`
-- [[Armour Wall]] — `data/keywords.json`
 - [[Arrived]] — `data/places.json`
 - [[Arrows]] — `data/tokens.json`
 - [[Attack]] — `data/orders.json`
@@ -113,18 +111,13 @@ aliases:
 - [[Blood Up]] — `data/tokens.json`
 - [[Blood-debt]] — `data/grievances.json`
 - [[Boastful]] — `data/quirks.json`
-- [[Bodyguard]] — `data/keywords.json`
-- [[Bombard Stone]] — `data/equipment.json`
 - [[Both sides break contact]] — `data/transitions.json`
-- [[Bowmen]] — `data/units.json`
 - [[Breaks Early]] — `data/quirks.json`
 - [[Brothers Sworn]] — `data/quirks.json`
-- [[Buckler]] — `data/equipment.json`
 - [[Burning]] — `data/places.json`
 - [[Called at harvest]] — `data/grievances.json`
 - [[Called Off]] — `data/places.json`
 - [[Called past his forty days]] — `data/grievances.json`
-- [[Can Brace]] — `data/keywords.json`
 - [[Carried Out]] — `data/places.json`
 - [[Castle]] — `data/holdings.json`
 - [[Castle-guard]] — `data/obligations.json`
@@ -139,7 +132,6 @@ aliases:
 - [[Close Ranks]] — `data/orders.json`
 - [[Cohesion]] — `data/tokens.json`
 - [[Cold]] — `data/places.json`
-- [[Column of March]] — `data/formations.json`
 - [[Comes in full]] — `data/answers.json`
 - [[Comes late and short]] — `data/answers.json`
 - [[Comes near full]] — `data/answers.json`
@@ -148,7 +140,6 @@ aliases:
 - [[Command]] — `data/captains.json`
 - [[Commit the Reserve]] — `data/orders.json`
 - [[Cooling]] — `data/places.json`
-- [[Couched Lance]] — `data/equipment.json`
 - [[Court: Battle Joins]] — `data/constants.json`
 - [[Court: Calendar]] — `data/constants.json`
 - [[Court: Coin]] — `data/constants.json`
@@ -162,15 +153,10 @@ aliases:
 - [[Court: Treachery Formula]] — `data/constants.json`
 - [[Court: Wear]] — `data/constants.json`
 - [[Court: Willingness]] — `data/constants.json`
-- [[Crag]] — `data/terrain.json`
 - [[Craven]] — `data/quirks.json`
-- [[Crossbow]] — `data/equipment.json`
-- [[Crossbowmen]] — `data/units.json`
 - [[Crowns]] — `data/tokens.json`
 - [[Customary]] — `data/places.json`
 - [[Days in the Cup]] — `data/tokens.json`
-- [[Deep Block]] — `data/keywords.json`
-- [[Deep Water]] — `data/terrain.json`
 - [[Denied the place of honour]] — `data/grievances.json`
 - [[Died in Captivity]] — `data/places.json`
 - [[Done]] — `data/places.json`
@@ -183,30 +169,19 @@ aliases:
 - [[ENEMY_WITHIN]] — `data/standing-plans.json`
 - [[ENGAGED_FOR_TICKS]] — `data/standing-plans.json`
 - [[Envelop]] — `data/orders.json`
-- [[Evade]] — `data/keywords.json`
 - [[Exhort]] — `data/orders.json`
 - [[Experience]] — `data/tokens.json`
 - [[Fall Back]] — `data/orders.json`
 - [[Fatigue]] — `data/tokens.json`
 - [[Feign Withdrawal]] — `data/orders.json`
-- [[Feigner]] — `data/keywords.json`
 - [[Feudal service]] — `data/obligations.json`
 - [[Fighting For Their Own Roofs]] — `data/quirks.json`
 - [[Fights For Wages]] — `data/quirks.json`
-- [[Firm Turf]] — `data/terrain.json`
 - [[First to Plunder]] — `data/quirks.json`
-- [[Fleet]] — `data/keywords.json`
-- [[Ford]] — `data/terrain.json`
 - [[Foreigners hired over him]] — `data/grievances.json`
-- [[Foresters]] — `data/units.json`
 - [[Fought]] — `data/places.json`
-- [[Fragile]] — `data/keywords.json`
-- [[Free Company Horse]] — `data/units.json`
-- [[Free Company Pikes]] — `data/units.json`
-- [[Free Company Swords]] — `data/units.json`
 - [[FRIEND_ROUTS_WITHIN]] — `data/standing-plans.json`
 - [[Full]] — `data/places.json`
-- [[Full Harness]] — `data/equipment.json`
 - [[Gathering]] — `data/places.json`
 - [[Given the place of honour]] — `data/favours.json`
 - [[Grain]] — `data/tokens.json`
@@ -214,14 +189,11 @@ aliases:
 - [[Grudging]] — `data/places.json`
 - [[Guard]] — `data/orders.json`
 - [[Halt]] — `data/transitions.json`
-- [[Harness and Barding]] — `data/equipment.json`
 - [[Harvest]] — `data/places.json`
 - [[Harvest (season)]] — `data/seasons.json`
-- [[Hauberk of Mail]] — `data/equipment.json`
 - [[He dies in captivity]] — `data/transitions.json`
 - [[He does not arrive]] — `data/transitions.json`
 - [[He reaches the banner]] — `data/transitions.json`
-- [[Heater Shield]] — `data/equipment.json`
 - [[Held]] — `data/places.json`
 - [[Held by Right]] — `data/places.json`
 - [[Highsun]] — `data/places.json`
@@ -235,21 +207,15 @@ aliases:
 - [[Hold the Rein]] — `data/orders.json`
 - [[Hold Your Arrows]] — `data/orders.json`
 - [[Hold!]] — `data/transitions.json`
-- [[Holy]] — `data/keywords.json`
-- [[Homespun]] — `data/equipment.json`
 - [[HORN_SOUNDED]] — `data/standing-plans.json`
 - [[Horse-run]] — `data/holdings.json`
-- [[Household Guard]] — `data/units.json`
 - [[Houses Summoned]] — `data/places.json`
 - [[Hungry]] — `data/quirks.json`
 - [[Hungry for Ransom]] — `data/quirks.json`
-- [[Hunting Bow]] — `data/equipment.json`
-- [[Immobile]] — `data/keywords.json`
 - [[In Force]] — `data/places.json`
 - [[In Reserve]] — `data/orders.json`
 - [[Inherited]] — `data/places.json`
 - [[Iron Oath]] — `data/quirks.json`
-- [[Irreplaceable]] — `data/keywords.json`
 - [[Issued]] — `data/places.json`
 - [[It becomes customary]] — `data/transitions.json`
 - [[It becomes their job]] — `data/transitions.json`
@@ -260,10 +226,45 @@ aliases:
 - [[It is refused]] — `data/transitions.json`
 - [[It stops mattering]] — `data/transitions.json`
 - [[It takes hold]] — `data/transitions.json`
-- [[Javelin]] — `data/equipment.json`
 - [[Judgement given in his favour]] — `data/favours.json`
 - [[Justice denied]] — `data/grievances.json`
-- *…and 207 more.*
+- [[Kin left in captivity]] — `data/grievances.json`
+- [[Known]] — `data/places.json`
+- [[Left to die]] — `data/grievances.json`
+- [[Loose at Will]] — `data/orders.json`
+- [[Loose!]] — `data/transitions.json`
+- [[Lords collect their men]] — `data/transitions.json`
+- [[Manor]] — `data/holdings.json`
+- [[March]] — `data/orders.json`
+- [[March-fort]] — `data/holdings.json`
+- [[Marched Through the Night]] — `data/quirks.json`
+- [[Marriage into the crown's house]] — `data/favours.json`
+- [[May Turn]] — `data/quirks.json`
+- [[Men Standing]] — `data/tokens.json`
+- [[Mine]] — `data/holdings.json`
+- [[MORALE_BELOW]] — `data/standing-plans.json`
+- [[Move the Banner]] — `data/orders.json`
+- [[Mud-Wise]] — `data/quirks.json`
+- [[Nerve]] — `data/tokens.json`
+- [[Never Arrived]] — `data/places.json`
+- [[No War Yet]] — `data/places.json`
+- [[On the Road]] — `data/places.json`
+- [[OPEN QUESTIONS]] — `docs/OPEN-QUESTIONS.md`
+- [[Open Ranks]] — `data/orders.json`
+- [[Orders You Can Have Out]] — `data/tokens.json`
+- [[Overdue]] — `data/places.json`
+- [[Passed over for a seat]] — `data/grievances.json`
+- [[Plant Stakes]] — `data/orders.json`
+- [[Port]] — `data/holdings.json`
+- [[Pride]] — `data/captains.json`
+- [[Pursue to the Stream]] — `data/orders.json`
+- [[Ransom paid for his kin]] — `data/favours.json`
+- [[Ransom Set]] — `data/places.json`
+- [[Ransomed Home]] — `data/places.json`
+- [[Refuses]] — `data/answers.json`
+- [[Ride Them Down]] — `data/orders.json`
+- [[Riding]] — `data/places.json`
+- *…and 120 more.*
 
 ## CONTESTED — two designs disagreed, nobody has ruled
 
@@ -293,7 +294,7 @@ aliases:
 | [[The Host of Aldmarch]] | example | proposed | 38 |
 | [[src/battle/phase-command.ts]] | module | built | 35 |
 | [[src/battle/setup.ts]] | module | built | 35 |
-| [[Knights]] | unit | proposed | 33 |
+| [[Knights]] | unit | built | 33 |
 | [[src/battle/engine.ts]] | module | built | 31 |
 | [[The Captain's Heed]] | flow | built | 31 |
 | [[The Muster]] | flow | built | 31 |
@@ -333,6 +334,7 @@ aliases:
 - `codex/holdings/` — 9 holding pages
 - `codex/grievances/` — 17 grievance pages
 - `codex/favours/` — 12 favour pages
+- `codex/causes/` — 6 cause pages
 - `codex/answers/` — 10 answer pages
 - `codex/troop-sources/` — 5 troop-source pages
 - `codex/seasons/` — 4 season pages
@@ -348,4 +350,4 @@ aliases:
 
 ---
 
-*Generated by `tools/codex/emit.mjs` at 2026-08-05T17:57:33.909Z. This is the ONLY page carrying a build time — the rest hold no clock, so `git diff codex/` shows what actually changed. Re-compile with `npm run codex`; check it with `npm run codex:lint`; ask it a question with `npm run codex:trace -- "<subject>"` — the `--` is npm's, not ours, and without it npm swallows the subject.*
+*Generated by `tools/codex/emit.mjs` at 2026-08-05T18:06:45.836Z. This is the ONLY page carrying a build time — the rest hold no clock, so `git diff codex/` shows what actually changed. Re-compile with `npm run codex`; check it with `npm run codex:lint`; ask it a question with `npm run codex:trace -- "<subject>"` — the `--` is npm's, not ours, and without it npm swallows the subject.*

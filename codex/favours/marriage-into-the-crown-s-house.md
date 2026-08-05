@@ -29,7 +29,7 @@ Blood is the only bond in this game that does not wear off. It also creates inhe
 | `standing` | The part that never fades while the thing it rests on is still true. | `20` |
 | `fading` | The part that halves every half-life. | `0` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `0` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `a Wed record joining his house to yours` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `a Wed record joining his house to yours` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

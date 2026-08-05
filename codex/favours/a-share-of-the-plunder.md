@@ -29,7 +29,7 @@ Giving the men who fought a fair cut of what was taken. Cheap, obvious, and forg
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `2 per 100 crowns of his share, capped at 15` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `2` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `distributing plunder after a battle` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `distributing plunder after a battle` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

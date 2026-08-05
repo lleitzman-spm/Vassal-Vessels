@@ -24,6 +24,7 @@
 //    the writ also named, HAS landed — as `court.actDays` in the constants — and
 //    is transcribed above with the rest.)
 
+import causesJson from '../../data/causes.json';
 import type { SeasonId } from '../core/primitives.js';
 import type { AnswerKind, ReachBand, TroopKind, WeightBand } from './contract.js';
 
@@ -812,10 +813,18 @@ export const QUIRKS: Record<string, string> = {
   'newly-raised': 'These men have never done this before.',
 };
 
-// ── The causes of a war (standing in for `data/causes.json`) ───────────────
+// ── The causes of a war ────────────────────────────────────────────────────
 //
 // Legitimacy is what the realm thinks of the war, and it rides into every man's
 // resolve. A blessed cause is worth ten times the Chaplain's effect on top.
+//
+// These sat as a hand-written table here for a while, under a comment admitting
+// it was "standing in for `data/causes.json`". That was a law 6 violation with a
+// note attached: a number that is not in `data/` does not exist, and a playtest
+// must be able to tune exactly one file. It was also invisible — game content
+// living in TypeScript gets no page in the Codex, so the single largest term in
+// whether anybody answers your summons could not be read by anyone learning the
+// game. The file exists now and this reads it.
 
 export interface CauseRow {
   id: string;
@@ -824,14 +833,9 @@ export interface CauseRow {
   explains: string;
 }
 
-export const CAUSES: Record<string, CauseRow> = {
-  'defence-of-the-realm': { id: 'defence-of-the-realm', name: 'the defence of the realm', legitimacy: 85, explains: 'Somebody has crossed the border. Nobody argues with this one.' },
-  'sworn-oath': { id: 'sworn-oath', name: 'a sworn oath', legitimacy: 70, explains: 'You swore to come if he called, in front of witnesses, and he has called.' },
-  'a-just-claim': { id: 'a-just-claim', name: 'a just claim', legitimacy: 60, explains: 'The land is yours by descent and a court would probably agree.' },
-  'a-border-quarrel': { id: 'a-border-quarrel', name: 'a border quarrel', legitimacy: 45, explains: 'Two villages and a ford. Half the realm thinks it is beneath you.' },
-  'a-slight-avenged': { id: 'a-slight-avenged', name: 'a slight avenged', legitimacy: 35, explains: 'He insulted you. That is the whole of it.' },
-  conquest: { id: 'conquest', name: 'conquest', legitimacy: 20, explains: 'It is not yours and you would like it to be. Men know the difference.' },
-};
+export const CAUSES: Record<string, CauseRow> = Object.fromEntries(
+  (causesJson.causes as CauseRow[]).map((c) => [c.id, c]),
+);
 
 // ── What an act costs ─────────────────────────────────────────────────────
 //

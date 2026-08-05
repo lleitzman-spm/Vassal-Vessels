@@ -383,6 +383,46 @@ function checkResolvedTables(pages) {
   return { offenders };
 }
 
+/** EVERY NUMBER ON EVERY PAGE MUST SAY WHAT IT MEANS.
+ *
+ *  The acceptance test is a twelve-year-old reading the Codex cover to cover and
+ *  understanding the game before ever playing it. A table cell reading
+ *  "*undocumented in the file's own `fields` block*" is that test failing in
+ *  public: the manual printing a number and admitting it does not know what the
+ *  number is for. There were 722 of them across 177 pages, which is not an
+ *  oversight anybody could have seen — no single page looked wrong, and a reader
+ *  hitting one simply concludes the Codex is thin and stops trusting it.
+ *
+ *  FATAL, deliberately. This is the knowledge graph's equivalent of the closure
+ *  check on the operational side: cheap to satisfy when a field is added, and
+ *  impossible to satisfy retroactively once a hundred have piled up. A field the
+ *  COMPILER synthesises rather than reads (`family`, on a trait) is documented by
+ *  the miner that invents it — a field this tool invents is a field it explains. */
+function checkFieldDocs(graph) {
+  let undocumented = 0;
+  const byFile = {};
+  for (const n of graph.nodes) {
+    const e = n.extra || {};
+    const stats = e.stats;
+    if (!stats || !e.mined_from) continue;
+    const docs = e.dataFields || {};
+    for (const k of Object.keys(stats)) {
+      if (docs[k]) continue;
+      undocumented++;
+      const where = `${e.mined_from} → \`${k}\``;
+      (byFile[where] = byFile[where] || []).push(n.id);
+    }
+  }
+  for (const [where, ids] of Object.entries(byFile)) {
+    fatal(
+      'fields',
+      `${where} appears on ${ids.length} page(s) with no entry in the file's own \`fields\` block — ` +
+        `the manual is printing a number it cannot explain (e.g. ${ids[0]})`,
+    );
+  }
+  return { undocumented, fields: Object.keys(byFile).length };
+}
+
 // ── the operational graph ───────────────────────────────────────────────────
 //
 // THE KNOWLEDGE GRAPH'S HONESTY LAW IS "no quote, no object". THIS IS ITS
@@ -546,6 +586,7 @@ function main() {
   const literals = checkLiterals(graph);
   const resolved = checkResolvedTables(pages);
   const op = checkOperational(graph);
+  const fields = checkFieldDocs(graph);
 
   for (const b of graph.brokenData) fatal('data', `unreadable: ${b}`);
   for (const u of graph.unresolvedLinks) {
@@ -579,6 +620,11 @@ function main() {
     `  standing drift   ${standing.claimsDone} proposed-but-claims-done, ${standing.unbacked} built-with-nothing-under-it, ${standing.noSuccessor} retired-with-no-successor`,
   );
   console.log(`  literals in guards ${literals.sites} site(s) across ${literals.files} file(s) — WARNING, informational until src/ has a shape`);
+  console.log(
+    fields.undocumented === 0
+      ? '  field meanings   every number on every page says what it is for'
+      : `  field meanings   ${fields.undocumented} cell(s) across ${fields.fields} field(s) with no explanation — see FATAL below`,
+  );
   console.log(
     op.flows === 0
       ? '  operational      no flows declared — the operational graph is not built'

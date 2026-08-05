@@ -647,7 +647,7 @@ function renderIndex(nodes, byId, link, graph, indexPage) {
   const defaulted = nodes.filter((n) => n.standing_source === 'defaulted');
   if (defaulted.length) {
     out.push(
-      `> **${defaulted.length} page${defaulted.length === 1 ? '' : 's'} carry a DEFAULTED standing** — a design in \`data/\` with nothing in the tree behind it yet. That is the honest, expected state before the engine exists; watch this number fall as \`src/\` and \`test/\` are built.\n`,
+      `> **${defaulted.length} page${defaulted.length === 1 ? '' : 's'} carry a DEFAULTED standing** — a design in \`data/\` that nothing in the tree reaches. Not a gap in the compiler: these are genuinely designs the engine does not yet act on, and the honest thing is to say so on every one of their faces rather than let them read like builds.\n`,
     );
   }
 
@@ -767,9 +767,15 @@ Every page renders its standing on its face. \`canon\` is the constitution and w
 until amended. \`built\` is in the tree and checkable — a module or a test stands under
 it. **\`proposed\` is a design in \`data/\` with no engine reading it yet, and may NEVER
 be cited as evidence that the game plays this way.** \`contested\` means two designs
-disagreed and nobody has ruled. Most of the Codex is \`proposed\` right now, honestly,
-because the engine has not been built yet — watch that change as \`src/\` and \`test/\`
-fill in.
+disagreed and nobody has ruled.
+
+Standing is never hand-declared — there is no manifest to declare it in. It is derived:
+from the constitution (\`canon\`), from a module or test naming the thing (\`built\`), and
+from the shelves the engine resolves BY ID, where importing the file genuinely reaches
+every row on it. What that last rule deliberately leaves out is the useful part. Orders
+and standing-plan triggers are matched case by case, so an id can sit in \`data/\`, be
+imported, and do nothing at all — \`ENVELOP\` and \`ENEMY_ENTERS_ZONE\` are exactly that
+today, and they say \`proposed\` for a reason.
 
 → [[Map of the Codex]]
 

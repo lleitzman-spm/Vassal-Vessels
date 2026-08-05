@@ -27,7 +27,7 @@ These two houses have a quarrel older than your war. Put them side by side and n
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `contingent` |
-| `targets` | *undocumented in the file's own `fields` block* | `a contingent id` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `a contingent id` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `a rivalry between two captains — most often two men who both wanted the same seat` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `No courage passes between these two contingents in either direction, however steady one of them is. Any SUPPORT order toward the target is refused outright, whatever the obedience.` |
 

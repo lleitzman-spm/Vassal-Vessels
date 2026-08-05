@@ -27,7 +27,7 @@ His wife is their lord's sister. He will fight — he came, after all — but he
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `contingent` |
-| `targets` | *undocumented in the file's own `fields` block* | `a house id on the other side` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `a house id on the other side` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `a marriage or blood tie across the battle line` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `Against units of that house: melee output multiplied by 600 per mille, and CHARGE orders toward them take an extra 30 difficulty.` |
 

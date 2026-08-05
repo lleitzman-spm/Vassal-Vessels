@@ -1,18 +1,18 @@
 {
   "$schema": "vassal-vessels/favours/1",
   "explains": "Every way you can make a house like you, and — the important part — how fast it wears off. Kindness LEAKS. A grudge sits there forever until you settle it, but a favour has a half-life: worth half as much after so many years, and half of that again after so many more. You cannot buy a vassal once. You rent him.",
+  "fields": {
+    "standing": "The part that never fades while the thing it rests on is still true.",
+    "fading": "The part that halves every half-life.",
+    "halfLifeYears": "How long the fading part takes to become half of itself.",
+    "causedBy": "The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly."
+  },
   "howFavourWorks": {
     "halfLife": "A favour worth 20 with a half-life of four years is worth 20 today, 10 in four years, 5 in eight, and a rounding error by the time his son inherits.",
     "standingPart": "Some favours have a part that does NOT fade while the thing is still true. Land is worth 8 for as long as he holds it, on top of a fading 17 — so a grant is worth 25 the year you make it and 8 forever after.",
     "isRead": "Never stored. Folded fresh out of the record list every time anybody asks, exactly like a grudge.",
     "theLesson": "Generosity is a subscription, not a purchase. This is why a court needs constant attention, and why 'I made him a lord ten years ago' is not an argument anybody at court will accept."
   },
-  "fields": {
-    "standing": "The part that never fades while the thing it rests on is still true.",
-    "fading": "The part that halves every half-life.",
-    "halfLifeYears": "How long the fading part takes to become half of itself."
-  },
-
   "favours": [
     {
       "id": "enfeoffment",
@@ -123,6 +123,5 @@
       "explains": "Fifteen days and real money for four points of goodwill, a public look at which of your captains are actually any good — their true competence becomes visible — and a small chance that somebody's best knight breaks a leg for nothing at all."
     }
   ],
-
   "theArithmeticOfBeingLiked": "Fifty is where every house starts: neither friend nor enemy. Everything on this list is added on and leaks away; everything in data/grievances.json is taken off and stays. A court left alone drifts down, never up. That asymmetry is the reason there is a game here at all."
 }

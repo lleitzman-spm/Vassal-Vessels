@@ -1,0 +1,56 @@
+{
+  "$schema": "vassal-vessels/causes/1",
+  "explains": "Why you say you are fighting. This is not flavour text — the cause you proclaim sets your LEGITIMACY, and legitimacy is the single largest term in whether anybody actually comes when you call. It rides into every man's resolve on the field as well, so a war the realm believes in is fought by braver men. You may fight for any reason you like. You may not choose what the realm thinks of it.",
+  "fields": {
+    "id": "The cause's identifier, named by the proclamation record that starts a war.",
+    "name": "How it is written in the proclamation and read out at market crosses.",
+    "legitimacy": "What the realm thinks of it, 0 to 100. Feeds willingness at every house and resolve in every man who marches. The whole spread from conquest to defence of the realm is worth more than any favour you can buy.",
+    "theCatch": "The part that bites later. Every cause on this list is cheap in one currency and expensive in another, and the expensive one usually arrives a season after the cheap one.",
+    "explains": "What proclaiming it actually means, in plain words."
+  },
+
+  "causes": [
+    {
+      "id": "defence-of-the-realm",
+      "name": "the defence of the realm",
+      "legitimacy": 85,
+      "theCatch": "You do not get to choose the season, the ground or the day. A defensive war is the most legitimate and the least convenient, and an enemy who picks his moment has taken that convenience from you on purpose.",
+      "explains": "Somebody has crossed the border. Nobody argues with this one. Houses that would grumble at anything else turn out in full, men defending their own homes fight harder than they ever will abroad, and even a lord with a standing grudge against you will generally come — because the alternative is his own fields burning."
+    },
+    {
+      "id": "sworn-oath",
+      "name": "a sworn oath",
+      "legitimacy": 70,
+      "theCatch": "The oath was public, so refusing it is public too — and every house watching learns exactly what your word is worth when keeping it is expensive.",
+      "explains": "You swore to come if he called, in front of witnesses, and he has called. Nearly as good as defending your own ground, and it costs you nothing at the time you swear it, which is precisely why kings swear too many of these and find out later that three of them have come due in the same season."
+    },
+    {
+      "id": "a-just-claim",
+      "name": "a just claim",
+      "legitimacy": 60,
+      "theCatch": "A claim strong enough to fight over is usually strong enough for somebody else to have a version of, and wars of claim have a way of outliving the men who started them.",
+      "explains": "The land is yours by descent and a court would probably agree. Respectable, defensible at any feast, and comfortably above the line where houses start finding reasons to send half of what they owe. The workhorse cause of an ambitious reign that still wants to be able to look at itself."
+    },
+    {
+      "id": "a-border-quarrel",
+      "name": "a border quarrel",
+      "legitimacy": 45,
+      "theCatch": "Middling legitimacy is the worst place to be: high enough that you talk yourself into the war, low enough that the muster comes back thin and you fight it shorthanded.",
+      "explains": "Two villages and a ford. Half the realm thinks it is beneath you, and they are largely right. Men will come, but they will come grudgingly, in smaller numbers, and they will not die for a ford."
+    },
+    {
+      "id": "a-slight-avenged",
+      "name": "a slight avenged",
+      "legitimacy": 35,
+      "theCatch": "Your vassals are watching a man spend their sons on his pride, and they will remember the arithmetic the next three times you call.",
+      "explains": "He insulted you. That is the whole of it. Everybody can see that is the whole of it. Below this line you are relying entirely on personal loyalty and favours owed, because the cause itself is buying you nothing at all."
+    },
+    {
+      "id": "conquest",
+      "name": "conquest",
+      "legitimacy": 20,
+      "theCatch": "Naked ambition is the only cause that has to be paid for ENTIRELY in advance — in favours, coin and settled grudges — because nothing about the war itself will help you raise it.",
+      "explains": "It is not yours and you would like it to be. Men know the difference. This is the cause that tells you honestly what your court is worth: if you have spent years settling grudges, paying on time and granting seats well, you can raise an army for naked ambition. If you have not, you will discover it here."
+    }
+  ]
+}

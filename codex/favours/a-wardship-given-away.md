@@ -29,7 +29,7 @@ You let him draw the income and the soldiers of a child's estate until the child
 | `standing` | The part that never fades while the thing it rests on is still true. | `20` |
 | `fading` | The part that halves every half-life. | `0` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `0` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `granting the wardship of a child's lands to him` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `granting the wardship of a child's lands to him` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

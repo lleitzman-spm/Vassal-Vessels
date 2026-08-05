@@ -12,14 +12,33 @@
     "refusalRangeMm": "How far ahead the refusal reaches. Longer weapons project further.",
     "turnMulPermille": "Multiplier on the base turn rate.",
     "fatigueMulPermille": "How fast this unit tires, from armour weight and the work.",
-    "musterCost": "Coin per battle, for the court's arithmetic. Not a battle number."
+    "musterCost": "Coin per battle, for the court's arithmetic. Not a battle number.",
+    "class": "What kind of thing it is — foot, horse, or something that does not fight. It decides which of the engine's speed and fatigue tables the unit is read against.",
+    "typicalMen": "How many men a unit of this sort usually musters. Real numbers vary with the holding that raised them and how the year has gone.",
+    "armour": "What they are wearing (see the armour shelf in `data/equipment.json`). Armour reduces wounds rather than hits, and it costs fatigue every minute it is worn.",
+    "shield": "What they are carrying (see the shields shelf in `data/equipment.json`). Worth a great deal to the front and nothing at all to the rear.",
+    "primaryWeapon": "What they fight with first (see `data/equipment.json`). Long weapons win the clash and lose the press — the whole Six Seconds inversion is here.",
+    "sidearm": "What they fall back on once the press starts and there is no room for the long weapon. This is why spearmen have a bad time after six seconds.",
+    "missileWeapon": "What they shoot with, if anything (see the missile weapons shelf in `data/equipment.json`).",
+    "defaultFormation": "The shape they take when nobody has said otherwise.",
+    "allowedFormations": "Every shape they can adopt at all. A unit that cannot form a shieldwall cannot be told to.",
+    "traits": "The keywords that govern what this unit can do (see `data/keywords.json`). `CanBrace` is the one that decides most battles.",
+    "defaultQuirks": "Quirks these men carry by their nature rather than by their history (see `data/quirks.json`).",
+    "chargeSpeedMmPerTick": "How fast they close in the last stretch, overriding the general table. Shock scales with the SQUARE of this, so it is worth far more than it looks.",
+    "speedMulPermille": "A multiplier on this unit's movement, in thousandths, where it differs from its class.",
+    "arrivalReadyTicks": "How long after arriving on the field before they are fit to fight. Men who have just marched on are not yet an asset.",
+    "steadyRadiusMm": "How far this unit's steadiness reaches to hold neighbours together. The quiet reason a household guard is worth more than its own numbers.",
+    "signalRadiusMm": "How far signals carry from this unit — the banner and the horn reaching the men who need to hear them.",
+    "moraleCeilingCap": "A hard ceiling on how brave these men can ever get, whatever the court did for them. Fragile men can never be more than two-thirds brave, however well the day is going."
   },
   "units": [
     {
       "id": "militia-spears",
       "name": "Militia Spears",
       "class": "FOOT",
-      "raisedBy": ["town"],
+      "raisedBy": [
+        "town"
+      ],
       "typicalMen": 120,
       "marchSpeed": 7,
       "dailyWear": 5,
@@ -35,9 +54,18 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1050,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose", "column"],
-      "traits": ["CanBrace"],
-      "defaultQuirks": ["will-not-leave-the-province", "holds-to-the-last-on-own-land"],
+      "allowedFormations": [
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "CanBrace"
+      ],
+      "defaultQuirks": [
+        "will-not-leave-the-province",
+        "holds-to-the-last-on-own-land"
+      ],
       "musterCost": 30,
       "role": "Numbers, quickly, because towns sit on the roads. A crowd in the open field; astonishing behind their own wall.",
       "counteredBy": "Almost any professional soldier, once their line frays. They will not pursue anybody anywhere.",
@@ -48,7 +76,9 @@
       "id": "spearmen",
       "name": "Levy Spearmen",
       "class": "FOOT",
-      "raisedBy": ["manor"],
+      "raisedBy": [
+        "manor"
+      ],
       "typicalMen": 60,
       "marchSpeed": 8,
       "dailyWear": 3,
@@ -64,8 +94,15 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1080,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose", "shieldwall", "column"],
-      "traits": ["CanBrace"],
+      "allowedFormations": [
+        "close",
+        "loose",
+        "shieldwall",
+        "column"
+      ],
+      "traits": [
+        "CanBrace"
+      ],
       "musterCost": 55,
       "role": "The backbone of every army you will ever field. Braced, they stop horses. Unbraced, they are men with sticks.",
       "counteredBy": "Swordsmen once the press starts — their knives are poor. Arrows, because a padded jack is not much. Anything that catches them before they brace.",
@@ -76,7 +113,9 @@
       "id": "bowmen",
       "name": "Bowmen",
       "class": "MISSILE",
-      "raisedBy": ["manor"],
+      "raisedBy": [
+        "manor"
+      ],
       "typicalMen": 40,
       "marchSpeed": 8,
       "dailyWear": 3,
@@ -93,8 +132,15 @@
       "turnMulPermille": 1100,
       "fatigueMulPermille": 1060,
       "defaultFormation": "loose",
-      "allowedFormations": ["loose", "close", "screen"],
-      "traits": ["Stakes", "MaulFinisher"],
+      "allowedFormations": [
+        "loose",
+        "close",
+        "screen"
+      ],
+      "traits": [
+        "Stakes",
+        "MaulFinisher"
+      ],
       "musterCost": 130,
       "role": "Break the enemy's WILL at two hundred paces, then let somebody else break their bodies.",
       "counteredBy": "Cavalry that reaches them. Full harness (98 wounds in a thousand). Running out of arrows — they carry thirty-two.",
@@ -105,7 +151,9 @@
       "id": "foresters",
       "name": "Foresters",
       "class": "MISSILE",
-      "raisedBy": ["weald"],
+      "raisedBy": [
+        "weald"
+      ],
       "typicalMen": 60,
       "marchSpeed": 9,
       "dailyWear": 2,
@@ -123,9 +171,19 @@
       "fatigueMulPermille": 900,
       "speedMulPermille": 1150,
       "defaultFormation": "screen",
-      "allowedFormations": ["screen", "loose", "column"],
-      "traits": ["Evade", "FastFoot", "Nimble"],
-      "defaultQuirks": ["will-not-stand-in-line"],
+      "allowedFormations": [
+        "screen",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "Evade",
+        "FastFoot",
+        "Nimble"
+      ],
+      "defaultQuirks": [
+        "will-not-stand-in-line"
+      ],
       "musterCost": 45,
       "role": "The best value in the game — in the trees. The worst — in a line.",
       "counteredBy": "Cavalry in the open, absolutely and always. Being cornered against anything.",
@@ -136,7 +194,9 @@
       "id": "pick-men",
       "name": "Pick-men",
       "class": "FOOT",
-      "raisedBy": ["mine"],
+      "raisedBy": [
+        "mine"
+      ],
       "typicalMen": 40,
       "marchSpeed": 8,
       "dailyWear": 4,
@@ -153,9 +213,17 @@
       "fatigueMulPermille": 1000,
       "moraleCeilingCap": 600000,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose", "column"],
-      "traits": ["Fragile"],
-      "defaultQuirks": ["breaks-early"],
+      "allowedFormations": [
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "Fragile"
+      ],
+      "defaultQuirks": [
+        "breaks-early"
+      ],
       "musterCost": 20,
       "role": "What a rich mine gives you instead of soldiers.",
       "counteredBy": "Everything — and above all anything that frightens them, because they will be the first thing on your side to run.",
@@ -166,7 +234,9 @@
       "id": "men-at-arms",
       "name": "Men-at-Arms",
       "class": "FOOT",
-      "raisedBy": ["castle"],
+      "raisedBy": [
+        "castle"
+      ],
       "typicalMen": 40,
       "marchSpeed": 7,
       "dailyWear": 3,
@@ -182,8 +252,15 @@
       "turnMulPermille": 850,
       "fatigueMulPermille": 1560,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose", "column"],
-      "traits": ["CanBrace", "ArmourWall"],
+      "allowedFormations": [
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "CanBrace",
+        "ArmourWall"
+      ],
       "musterCost": 420,
       "role": "The grinder. Put them where the fight will be longest and let them win it slowly.",
       "counteredBy": "Their own wind — harness burns half again the fatigue of anyone else, and a blown man in armour cannot lift his arms. Mud. Crossbows and mauls. And being made to chase skirmishers, which is the actual historical answer.",
@@ -194,7 +271,10 @@
       "id": "crossbowmen",
       "name": "Crossbowmen",
       "class": "MISSILE",
-      "raisedBy": ["castle", "town"],
+      "raisedBy": [
+        "castle",
+        "town"
+      ],
       "typicalMen": 30,
       "marchSpeed": 7,
       "dailyWear": 3,
@@ -211,8 +291,14 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1280,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose"],
-      "traits": ["Pavise", "ArmourPiercer"],
+      "allowedFormations": [
+        "close",
+        "loose"
+      ],
+      "traits": [
+        "Pavise",
+        "ArmourPiercer"
+      ],
       "musterCost": 190,
       "role": "The answer to armour. Twenty-four bolts that go through anything.",
       "counteredBy": "Everything fast. They shoot a third as often as a war bow and are useless the moment they must move.",
@@ -223,7 +309,9 @@
       "id": "marines",
       "name": "Marines",
       "class": "FOOT",
-      "raisedBy": ["port"],
+      "raisedBy": [
+        "port"
+      ],
       "typicalMen": 50,
       "marchSpeed": 8,
       "dailyWear": 3,
@@ -239,8 +327,16 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1260,
       "defaultFormation": "shieldwall",
-      "allowedFormations": ["close", "shieldwall", "loose", "column"],
-      "traits": ["CanBrace", "ShieldWall"],
+      "allowedFormations": [
+        "close",
+        "shieldwall",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "CanBrace",
+        "ShieldWall"
+      ],
       "musterCost": 180,
       "role": "The line that does not move — and does not die when the press comes. Spear at reach, sword in the crush.",
       "counteredBy": "Being flanked; the kite shield covers one direction. Poleaxes and mauls through the mail. Being made to chase anybody.",
@@ -251,7 +347,9 @@
       "id": "knights",
       "name": "Knights",
       "class": "HORSE",
-      "raisedBy": ["horse-run"],
+      "raisedBy": [
+        "horse-run"
+      ],
       "typicalMen": 40,
       "marchSpeed": 12,
       "dailyWear": 2,
@@ -269,9 +367,22 @@
       "chargeSpeedMmPerTick": 450,
       "arrivalReadyTicks": 400,
       "defaultFormation": "wedge",
-      "allowedFormations": ["wedge", "close", "loose", "column"],
-      "traits": ["Mounted", "Shock", "Proud", "Ransomable"],
-      "defaultQuirks": ["charges-without-orders", "first-to-plunder"],
+      "allowedFormations": [
+        "wedge",
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "Mounted",
+        "Shock",
+        "Proud",
+        "Ransomable"
+      ],
+      "defaultQuirks": [
+        "charges-without-orders",
+        "first-to-plunder"
+      ],
       "musterCost": 600,
       "role": "One enormous hammer blow, delivered to the right place at the right speed. Then reform, then again.",
       "counteredBy": "Braced points, absolutely. Mud, which halves charge speed and so quarters shock. Charging from too close, which is your fault. And archers, because a horse is a very large target.",
@@ -282,7 +393,9 @@
       "id": "march-riders",
       "name": "March Riders",
       "class": "HORSE",
-      "raisedBy": ["march-fort"],
+      "raisedBy": [
+        "march-fort"
+      ],
       "typicalMen": 50,
       "marchSpeed": 14,
       "dailyWear": 2,
@@ -301,9 +414,22 @@
       "chargeSpeedMmPerTick": 420,
       "arrivalReadyTicks": 200,
       "defaultFormation": "loose",
-      "allowedFormations": ["loose", "close", "screen", "column"],
-      "traits": ["Mounted", "ShootOnMove", "Feigner", "Nimble", "Pursuer"],
-      "defaultQuirks": ["veterans-know-the-ground"],
+      "allowedFormations": [
+        "loose",
+        "close",
+        "screen",
+        "column"
+      ],
+      "traits": [
+        "Mounted",
+        "ShootOnMove",
+        "Feigner",
+        "Nimble",
+        "Pursuer"
+      ],
+      "defaultQuirks": [
+        "veterans-know-the-ground"
+      ],
       "musterCost": 160,
       "role": "Get round the side. Sting and be gone. Chase the broken. Pretend to run away.",
       "counteredBy": "Anything that catches them and can hit them — their armour is light and their ponies bare.",
@@ -314,7 +440,9 @@
       "id": "household-guard",
       "name": "Household Guard",
       "class": "FOOT",
-      "raisedBy": ["household"],
+      "raisedBy": [
+        "household"
+      ],
       "typicalMen": 150,
       "marchSpeed": 8,
       "dailyWear": 2,
@@ -330,8 +458,16 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1400,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "shieldwall", "loose", "column"],
-      "traits": ["CanBrace", "ShieldWall"],
+      "allowedFormations": [
+        "close",
+        "shieldwall",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "CanBrace",
+        "ShieldWall"
+      ],
       "musterCost": 0,
       "role": "The steadiest men on any field you will fight on, and the only ones who do exactly what they are told the first time.",
       "counteredBy": "Nothing in particular and numbers in general. There are never enough of them, because every crown they cost is a crown not settling a grudge.",
@@ -342,7 +478,9 @@
       "id": "sworn-brothers",
       "name": "Sworn Brothers",
       "class": "FOOT",
-      "raisedBy": ["abbey"],
+      "raisedBy": [
+        "abbey"
+      ],
       "typicalMen": 60,
       "marchSpeed": 8,
       "dailyWear": 2,
@@ -358,9 +496,19 @@
       "turnMulPermille": 950,
       "fatigueMulPermille": 1380,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "shieldwall", "loose", "column"],
-      "traits": ["CanBrace"],
-      "defaultQuirks": ["answers-to-the-grandmaster", "will-not-flee"],
+      "allowedFormations": [
+        "close",
+        "shieldwall",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "CanBrace"
+      ],
+      "defaultQuirks": [
+        "answers-to-the-grandmaster",
+        "will-not-flee"
+      ],
       "musterCost": 0,
       "role": "Sixty men who will not run away from anything, ever, for free — and are not entirely yours.",
       "counteredBy": "Their own certainty. A unit that cannot retreat is a unit that can be destroyed in place, and their obedience can never rise above 55.",
@@ -371,7 +519,9 @@
       "id": "company-swords",
       "name": "Free Company Swords",
       "class": "FOOT",
-      "raisedBy": ["contract"],
+      "raisedBy": [
+        "contract"
+      ],
       "typicalMen": 100,
       "marchSpeed": 9,
       "dailyWear": 2,
@@ -387,9 +537,19 @@
       "turnMulPermille": 1050,
       "fatigueMulPermille": 1240,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "loose", "column"],
-      "traits": ["PressFighter", "Mercenary"],
-      "defaultQuirks": ["flees-early-if-unpaid", "first-to-plunder"],
+      "allowedFormations": [
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "PressFighter",
+        "Mercenary"
+      ],
+      "defaultQuirks": [
+        "flees-early-if-unpaid",
+        "first-to-plunder"
+      ],
       "musterCost": 200,
       "role": "Get inside the points and win the press. This unit exists to punish spears and pikes.",
       "counteredBy": "The first six seconds of anything with reach. Cavalry, always. Arrows in the open.",
@@ -400,7 +560,9 @@
       "id": "company-pikes",
       "name": "Free Company Pikes",
       "class": "FOOT",
-      "raisedBy": ["contract"],
+      "raisedBy": [
+        "contract"
+      ],
       "typicalMen": 200,
       "marchSpeed": 8,
       "dailyWear": 3,
@@ -416,9 +578,19 @@
       "turnMulPermille": 500,
       "fatigueMulPermille": 1140,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "ring", "column"],
-      "traits": ["CanBrace", "DeepBlock", "Mercenary"],
-      "defaultQuirks": ["flees-early-if-unpaid"],
+      "allowedFormations": [
+        "close",
+        "ring",
+        "column"
+      ],
+      "traits": [
+        "CanBrace",
+        "DeepBlock",
+        "Mercenary"
+      ],
+      "defaultQuirks": [
+        "flees-early-if-unpaid"
+      ],
       "musterCost": 210,
       "role": "A wall that horses cannot cross. Nothing else in the game stops a charge as completely.",
       "counteredBy": "Its own flanks — brace is front-arc only and it turns at half speed, so a quarter-wheel takes eight and a half seconds. Arrows, because it is dense and unshielded. And swordsmen who get inside the points.",
@@ -429,7 +601,9 @@
       "id": "company-horse",
       "name": "Free Company Horse",
       "class": "HORSE",
-      "raisedBy": ["contract"],
+      "raisedBy": [
+        "contract"
+      ],
       "typicalMen": 70,
       "marchSpeed": 13,
       "dailyWear": 2,
@@ -447,9 +621,22 @@
       "chargeSpeedMmPerTick": 380,
       "arrivalReadyTicks": 320,
       "defaultFormation": "close",
-      "allowedFormations": ["wedge", "close", "loose", "column"],
-      "traits": ["Mounted", "Shock", "Mercenary", "UnpaidLeave"],
-      "defaultQuirks": ["flees-early-if-unpaid", "first-to-plunder"],
+      "allowedFormations": [
+        "wedge",
+        "close",
+        "loose",
+        "column"
+      ],
+      "traits": [
+        "Mounted",
+        "Shock",
+        "Mercenary",
+        "UnpaidLeave"
+      ],
+      "defaultQuirks": [
+        "flees-early-if-unpaid",
+        "first-to-plunder"
+      ],
       "musterCost": 300,
       "role": "Knights you can rent. Two-thirds of the punch at half the price and none of the pride — as long as the pay chest is full.",
       "counteredBy": "The same physics that beats knights, only sooner — and an empty treasury, which beats them completely.",
@@ -460,7 +647,9 @@
       "id": "crown-banner",
       "name": "The Crown Banner",
       "class": "COMMAND",
-      "raisedBy": ["household"],
+      "raisedBy": [
+        "household"
+      ],
       "typicalMen": 40,
       "marchSpeed": 8,
       "dailyWear": 2,
@@ -478,8 +667,16 @@
       "signalRadiusMm": 260000,
       "steadyRadiusMm": 100000,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "column"],
-      "traits": ["Standard", "SignalSource", "Bodyguard", "Irreplaceable"],
+      "allowedFormations": [
+        "close",
+        "column"
+      ],
+      "traits": [
+        "Standard",
+        "SignalSource",
+        "Bodyguard",
+        "Irreplaceable"
+      ],
       "musterCost": 0,
       "role": "The commander's voice, made of cloth and forty picked men. There is no other body on the field that is you.",
       "counteredBy": "Being taken. That is the whole point of it existing.",
@@ -490,7 +687,9 @@
       "id": "relic-bearers",
       "name": "Relic Bearers",
       "class": "COMMAND",
-      "raisedBy": ["abbey"],
+      "raisedBy": [
+        "abbey"
+      ],
       "typicalMen": 25,
       "marchSpeed": 8,
       "dailyWear": 2,
@@ -507,8 +706,16 @@
       "fatigueMulPermille": 1000,
       "steadyRadiusMm": 120000,
       "defaultFormation": "close",
-      "allowedFormations": ["close", "column"],
-      "traits": ["Standard", "Holy", "NonCombatant", "Irreplaceable"],
+      "allowedFormations": [
+        "close",
+        "column"
+      ],
+      "traits": [
+        "Standard",
+        "Holy",
+        "NonCombatant",
+        "Irreplaceable"
+      ],
       "musterCost": 0,
       "role": "A courage engine that cannot defend itself.",
       "counteredBy": "One troop of light horse that nobody was watching.",
@@ -519,7 +726,10 @@
       "id": "bombard",
       "name": "The Bombard",
       "class": "ENGINE",
-      "raisedBy": ["contract", "port"],
+      "raisedBy": [
+        "contract",
+        "port"
+      ],
       "typicalMen": 12,
       "marchSpeed": 5,
       "dailyWear": 4,
@@ -537,8 +747,14 @@
       "fatigueMulPermille": 1000,
       "speedMulPermille": 150,
       "defaultFormation": "close",
-      "allowedFormations": ["close"],
-      "traits": ["Immobile", "Terrify", "Misfires"],
+      "allowedFormations": [
+        "close"
+      ],
+      "traits": [
+        "Immobile",
+        "Terrify",
+        "Misfires"
+      ],
       "musterCost": 500,
       "role": "Terror at three hundred paces, twice a minute.",
       "counteredBy": "Walking twenty paces to the left. Also its own gunpowder.",

@@ -29,7 +29,7 @@ Power, income and standing all at once — worth 25 the year you grant it. The c
 | `standing` | The part that never fades while the thing it rests on is still true. | `15` |
 | `fading` | The part that halves every half-life. | `10` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `3` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `an Invest record` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `an Invest record` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

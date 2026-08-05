@@ -6,9 +6,9 @@
     "grainPerSeason": "Sacks into the granary every season. A hundred men eat one sack a day.",
     "garrison": "Men who must stay standing on the walls and can never march. A Constable takes a quarter of them off.",
     "musterRoll": "The named units this land raises, and how many men each is at full strength. Rows in data/units.json.",
-    "seasonalTrap": "What happens if you call these men away in the wrong season."
+    "seasonalTrap": "What happens if you call these men away in the wrong season.",
+    "requiresCharter": "Whether the holding needs a granted charter before it produces anything. A charter is a decision on the record, with a date, like everything else here."
   },
-
   "holdingTypes": [
     {
       "id": "manor",
@@ -17,10 +17,21 @@
       "grainPerSeason": 40,
       "garrison": 0,
       "musterRoll": [
-        { "unitTypeId": "spearmen", "men": 60 },
-        { "unitTypeId": "bowmen", "men": 20 }
+        {
+          "unitTypeId": "spearmen",
+          "men": 60
+        },
+        {
+          "unitTypeId": "bowmen",
+          "men": 20
+        }
       ],
-      "seasonalTrap": { "season": "harvest", "yieldPenaltyNextYear": 0.4, "rollPenaltyNextYear": 0.2, "grievance": "harvest-taken" },
+      "seasonalTrap": {
+        "season": "harvest",
+        "yieldPenaltyNextYear": 0.4,
+        "rollPenaltyNextYear": 0.2,
+        "grievance": "harvest-taken"
+      },
       "explains": "Farmland with a lord's house on it. It feeds your realm and it raises the ordinary spearmen who will make up most of every army you ever field. Call them away in autumn and the crops rot in the field: next year the manor earns you forty per cent less and raises a fifth fewer men, and its lord carries a grudge about it. That is the single most common way players hurt themselves, and the game shows you the season before you send the letter."
     },
     {
@@ -30,8 +41,14 @@
       "grainPerSeason": 10,
       "garrison": 25,
       "musterRoll": [
-        { "unitTypeId": "men-at-arms", "men": 40 },
-        { "unitTypeId": "crossbowmen", "men": 30 }
+        {
+          "unitTypeId": "men-at-arms",
+          "men": 40
+        },
+        {
+          "unitTypeId": "crossbowmen",
+          "men": 30
+        }
       ],
       "explains": "Stone walls and professional soldiers — much better men than a manor raises. But twenty-five of them must stay on the walls or the castle is not a castle, and a Constable gets you about six of those back."
     },
@@ -43,8 +60,14 @@
       "garrison": 30,
       "requiresCharter": true,
       "musterRoll": [
-        { "unitTypeId": "militia-spears", "men": 120 },
-        { "unitTypeId": "crossbowmen", "men": 40 }
+        {
+          "unitTypeId": "militia-spears",
+          "men": 120
+        },
+        {
+          "unitTypeId": "crossbowmen",
+          "men": 40
+        }
       ],
       "explains": "Money and bodies. A town is the second-richest thing you can hold and it raises more men than anything else in the realm — but only if you sign a Charter giving away a fifth of its taxes forever, and only twice in three years before it riots. Its crossbowmen are the same trade as a castle's, from the town guild rather than the castle guard: cheaper men, the same weapon, and the muster's arithmetic knows the difference even though the weapon sheet does not."
     },
@@ -54,8 +77,18 @@
       "coinPerSeason": 180,
       "grainPerSeason": 30,
       "garrison": 10,
-      "musterRoll": [{ "unitTypeId": "marines", "men": 50 }],
-      "special": { "mercenaryHireDaysSaved": 6, "mayContract": ["bombard"] },
+      "musterRoll": [
+        {
+          "unitTypeId": "marines",
+          "men": 50
+        }
+      ],
+      "special": {
+        "mercenaryHireDaysSaved": 6,
+        "mayContract": [
+          "bombard"
+        ]
+      },
       "explains": "The richest land in the realm, and companies of mercenaries land here looking for work — hiring costs six fewer days if you hold a port, which against a forty-one-day deadline is an enormous amount. Its own soldiers are hard men used to boarding actions in confined spaces, which turns out to be excellent training for the press."
     },
     {
@@ -65,10 +98,21 @@
       "grainPerSeason": 60,
       "garrison": 0,
       "musterRoll": [
-        { "unitTypeId": "sworn-brothers", "men": 60, "requiresBlessedCause": true },
-        { "unitTypeId": "relic-bearers", "men": 25, "requiresBlessedCause": true }
+        {
+          "unitTypeId": "sworn-brothers",
+          "men": 60,
+          "requiresBlessedCause": true
+        },
+        {
+          "unitTypeId": "relic-bearers",
+          "men": 25,
+          "requiresBlessedCause": true
+        }
       ],
-      "special": { "legitimacy": 3, "hostsOrderChapter": true },
+      "special": {
+        "legitimacy": 3,
+        "hostsOrderChapter": true
+      },
       "explains": "Monks. They grow a great deal of food, they make your wars look holier, and they house the chapter of the Sworn Order — sixty of the best foot soldiers in the game, free, who come only if your Chaplain has blessed the war. The same blessing brings out the relic and the men who carry it. An abbey with no Chaplain to bless anything is a very good farm."
     },
     {
@@ -77,7 +121,12 @@
       "coinPerSeason": 10,
       "grainPerSeason": 5,
       "garrison": 40,
-      "musterRoll": [{ "unitTypeId": "march-riders", "men": 50 }],
+      "musterRoll": [
+        {
+          "unitTypeId": "march-riders",
+          "men": 50
+        }
+      ],
       "explains": "A tower on the frontier with fifty light horsemen who have been raiding and being raided since they could walk. Forty of those fifty must stay, because the frontier is hot. This is why the lord with the best cavalry in your realm brings you ten riders — and why the Constable's seat, which nobody wants and nobody fights over, quietly decides your cavalry arm."
     },
     {
@@ -86,7 +135,12 @@
       "coinPerSeason": 30,
       "grainPerSeason": 15,
       "garrison": 0,
-      "musterRoll": [{ "unitTypeId": "knights", "men": 40 }],
+      "musterRoll": [
+        {
+          "unitTypeId": "knights",
+          "men": 40
+        }
+      ],
       "explains": "Open grazing country where warhorses are bred. The ONLY place outside your own Household that heavy cavalry comes from. Lose your horse-runs and your cavalry arm does not shrink — it ends, and no amount of money brings it back inside a war."
     },
     {
@@ -95,8 +149,15 @@
       "coinPerSeason": 200,
       "grainPerSeason": 0,
       "garrison": 0,
-      "musterRoll": [{ "unitTypeId": "pick-men", "men": 40 }],
-      "special": { "unrestProne": true },
+      "musterRoll": [
+        {
+          "unitTypeId": "pick-men",
+          "men": 40
+        }
+      ],
+      "special": {
+        "unrestProne": true
+      },
       "explains": "The richest single thing in the realm. It grows nothing and it raises forty men with picks who are strong, angry and no use whatsoever in a battle line. Miners riot more than anybody else, so a mine is money with a temper."
     },
     {
@@ -105,21 +166,40 @@
       "coinPerSeason": 25,
       "grainPerSeason": 30,
       "garrison": 0,
-      "musterRoll": [{ "unitTypeId": "foresters", "men": 60 }],
+      "musterRoll": [
+        {
+          "unitTypeId": "foresters",
+          "men": 60
+        }
+      ],
       "explains": "Deep woodland full of people who live by hunting. Sixty superb archers who will not stand in a battle line and know perfectly well that you know it. Put them in the trees and they are the most cost-effective troops in the game; put them in the line and you have wasted them and insulted them at the same time."
     }
   ],
-
   "states": {
     "explains": "A holding is always in exactly one of four states, and the state is never written down anywhere. It is READ off the record book every time anybody asks. That is the oldest law in this project and it is why removing a record really does undo the thing.",
     "list": [
-      { "id": "held", "name": "Held", "explains": "A grown heir holds it by grant. It yields, it musters, it owes." },
-      { "id": "wardship", "name": "In wardship", "explains": "The heir is a child. Whoever holds the wardship draws the land's income AND its levy. Giving a wardship away is one of the richest gifts in the game; keeping it is money and soldiers now and a slow grudge later." },
-      { "id": "vacant", "name": "Vacant", "explains": "Nobody holds it. The crown takes the income and the men directly — and there is nobody to be loyal, nobody to be angry, and nobody to defend it while you are elsewhere." },
-      { "id": "contested", "name": "Contested", "explains": "Two grants name the same land and both houses believe it is theirs. This is a civil war with the date left blank." }
+      {
+        "id": "held",
+        "name": "Held",
+        "explains": "A grown heir holds it by grant. It yields, it musters, it owes."
+      },
+      {
+        "id": "wardship",
+        "name": "In wardship",
+        "explains": "The heir is a child. Whoever holds the wardship draws the land's income AND its levy. Giving a wardship away is one of the richest gifts in the game; keeping it is money and soldiers now and a slow grudge later."
+      },
+      {
+        "id": "vacant",
+        "name": "Vacant",
+        "explains": "Nobody holds it. The crown takes the income and the men directly — and there is nobody to be loyal, nobody to be angry, and nobody to defend it while you are elsewhere."
+      },
+      {
+        "id": "contested",
+        "name": "Contested",
+        "explains": "Two grants name the same land and both houses believe it is theirs. This is a civil war with the date left blank."
+      }
     ]
   },
-
   "regeneration": {
     "k": "court.regeneration",
     "explains": "A holding replaces six men a year, however large it is. Additive on purpose: being small should not also mean recovering slowly. It is one of the ladders out of a losing streak, and it is deliberately a slow one — a wing destroyed in a bad summer is not back next summer."

@@ -2,8 +2,8 @@
 type: "keyword"
 id: "keyword:maulfinisher"
 title: "Maul"
-standing: "proposed"
-standing_source: "defaulted"
+standing: "built"
+standing_source: "derived"
 source_path: "data/keywords.json"
 source_line: 68
 origin: "mined"
@@ -14,9 +14,9 @@ aliases:
 
 # Maul
 
-> **STANDING — PROPOSED ⚠**  
-> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
-> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+> **STANDING — BUILT**  
+> Implemented in code and checkable against the tree — a module or a test stands under it.  
+> *Derived from the tree — the code is there to be read.*
 
 The stake-hammer doubles as the tool that opens tired men in plate. Not a bonus — just what a five-pound lead head does.
 

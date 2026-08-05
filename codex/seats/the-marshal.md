@@ -26,7 +26,7 @@ The Marshal is the man who actually leads the army, because you never do: you ar
 
 | field | meaning | value |
 |---|---|---|
-| `forTheMuster` | *undocumented in the file's own `fields` block* | `Commands the host, and sets how many contingents you can give an order to at once.` |
+| `forTheMuster` | What this seat does for the army you raise — stated separately from the seat's general effect because this is the part a player feels on the field. The Marshalcy is the sharpest: leave it empty and you direct two contingents at a time for the whole war. | `Commands the host, and sets how many contingents you can give an order to at once.` |
 | `vacantCosts` | What it costs you to leave the chair empty. Every one of these is paid quietly, every season, forever. | `You must name a commander for every single campaign instead — and naming one captain over another is a fresh insult, every war, forever.` |
 | `claimants` | Who wants it, and how badly they take being passed over. | `Warriors with big reputations. They want this one badly, and passing them over is the sharpest grudge in the game.` |
 

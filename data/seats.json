@@ -1,6 +1,12 @@
 {
   "$schema": "vassal-vessels/seats/1",
   "explains": "The seven offices of the court. Every one of them does three things at once: it gives you a second pair of hands on the calendar, it pulls a lever on the muster, and it makes somebody angry — either the men you passed over, or the men still waiting while the chair sits empty. There is no free option, and 'I will decide later' is itself one of the options, with its own price.",
+  "fields": {
+    "base": "The office's own power on each lever it pulls, before competence and loyalty are applied.",
+    "vacantCosts": "What it costs you to leave the chair empty. Every one of these is paid quietly, every season, forever.",
+    "claimants": "Who wants it, and how badly they take being passed over.",
+    "forTheMuster": "What this seat does for the army you raise — stated separately from the seat's general effect because this is the part a player feels on the field. The Marshalcy is the sharpest: leave it empty and you direct two contingents at a time for the whole war."
+  },
   "howASeatWorks": {
     "effect": "base x (competence / 100) x (0.5 + loyalty / 200)",
     "k": "court.seats",
@@ -9,18 +15,16 @@
     "tenure": "Held eight years, an office becomes customary and taking it back is a serious insult. Held sixteen, everyone treats it as that house's property and taking it back reads as tyranny to every other house at once. You rented time and paid in sovereignty.",
     "vacant": "A vacant seat still does its job at half effect, because the crown does it — badly, and with the crown's own days."
   },
-  "fields": {
-    "base": "The office's own power on each lever it pulls, before competence and loyalty are applied.",
-    "vacantCosts": "What it costs you to leave the chair empty. Every one of these is paid quietly, every season, forever.",
-    "claimants": "Who wants it, and how badly they take being passed over."
-  },
-
   "seats": [
     {
       "id": "marshal",
       "name": "The Marshal",
       "forTheMuster": "Commands the host, and sets how many contingents you can give an order to at once.",
-      "base": { "orderCapacity": 4, "authority": 40, "obedienceToAll": 10 },
+      "base": {
+        "orderCapacity": 4,
+        "authority": 40,
+        "obedienceToAll": 10
+      },
       "numbers": {
         "orderCapacity": "4, plus 1 for every 25 points of competence above 50, to a maximum of 6",
         "authority": "40 + 40 x effect + standing / 5, and +10 if he is the crown's own blood",
@@ -34,7 +38,11 @@
       "id": "chancellor",
       "name": "The Chancellor",
       "forTheMuster": "The letters. Summonses ride faster and land harder.",
-      "base": { "courierSpeed": 25, "willingness": 8, "negotiationDays": 30 },
+      "base": {
+        "courierSpeed": 25,
+        "willingness": 8,
+        "negotiationDays": 30
+      },
       "numbers": {
         "summonsSpeed": "courier days multiplied by (1 - 0.25 x effect)",
         "willingness": "+8 on every summons, to every house",
@@ -49,7 +57,11 @@
       "id": "steward",
       "name": "The Steward",
       "forTheMuster": "The coffer and the granary — money for companies, food for the march.",
-      "base": { "revenue": 25, "provisioning": 30, "scutageCrownsPerManOwed": 3 },
+      "base": {
+        "revenue": 25,
+        "provisioning": 30,
+        "scutageCrownsPerManOwed": 3
+      },
       "numbers": {
         "revenue": "+25 per cent",
         "provisioning": "30 per cent off the cost of grain",
@@ -64,7 +76,10 @@
       "id": "constable",
       "name": "The Constable",
       "forTheMuster": "The roads and the castle garrisons. Turns walls back into soldiers.",
-      "base": { "garrisonRelief": 25, "fatigueRelief": 30 },
+      "base": {
+        "garrisonRelief": 25,
+        "fatigueRelief": 30
+      },
       "numbers": {
         "garrisonRequirement": "25 per cent lower at every castle and fort",
         "fatigueOnArrival": "multiplied by (1 - 0.3 x effect)",
@@ -78,7 +93,9 @@
       "id": "justiciar",
       "name": "The Justiciar",
       "forTheMuster": "Settles grudges without giving away land.",
-      "base": { "settlement": 10 },
+      "base": {
+        "settlement": 10
+      },
       "numbers": {
         "settlement": "6 + 10 x effect grievance points per judgement",
         "cost": "twenty of the Justiciar's days and forty crowns",
@@ -92,7 +109,9 @@
       "id": "spymaster",
       "name": "The Spymaster",
       "forTheMuster": "Turns hidden things visible — before you send the letter, not after.",
-      "base": { "reveals": 100 },
+      "base": {
+        "reveals": 100
+      },
       "numbers": {
         "reveals": "exact willingness terms, exact grievance weights, factions, and the treachery number",
         "vacant": "you see bands — 'Cool', 'Sullen' — and never numbers, and treachery is hidden entirely"
@@ -105,7 +124,9 @@
       "id": "chaplain",
       "name": "The Chaplain",
       "forTheMuster": "Blesses the cause. The only key to the Sworn Order.",
-      "base": { "legitimacy": 10 },
+      "base": {
+        "legitimacy": 10
+      },
       "numbers": {
         "legitimacy": "+10 x effect, and the cause may be blessed at all",
         "swornOrder": "an unblessed war means the Order does not come",
@@ -116,6 +137,5 @@
       "claimants": "The abbeys. A pious house passed over for this one becomes a very self-righteous enemy."
     }
   ],
-
   "theHardTruth": "There are seven seats and there are always more claimants than seats, so granting one always makes enemies and leaving one empty always makes enemies more slowly. You are not choosing between a good outcome and a bad one. You are choosing which of your lords is angry with you, and how soon."
 }

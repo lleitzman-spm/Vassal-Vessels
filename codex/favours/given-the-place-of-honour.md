@@ -29,7 +29,7 @@ The front of the line is where reputations are made. Promising it costs nothing;
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `8` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `3` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `an Aftermath confirming a promised van was given` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `an Aftermath confirming a promised van was given` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

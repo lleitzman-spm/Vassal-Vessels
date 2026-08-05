@@ -27,7 +27,7 @@ The one quirk that gives you something for nothing — and it comes with a bill,
 | field | meaning | value |
 |---|---|---|
 | `appliesTo` | captain, contingent or unit — where the court hangs it and where the battle reads it. | `captain` |
-| `targets` | *undocumented in the file's own `fields` block* | `a captain id` |
+| `targets` | Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it. | `a captain id` |
 | `from` | What in the record book produces it. Every quirk is a consequence of something you did or failed to do. | `an oath of brotherhood in the record book, or close kin serving in the same host` |
 | `battleEffect` | What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing. | `SUPPORT orders toward his brother's contingent land 25 heed higher and are executed at RUN pace. If the brother's contingent breaks while this captain was held elsewhere by an order of yours, a deed is recorded and the court takes it as a grievance against the crown.` |
 

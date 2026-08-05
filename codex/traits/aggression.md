@@ -26,7 +26,7 @@ Push or shrink. At 50 and above a middling heed makes him DRAG or OVERREACH — 
 
 | field | meaning | value |
 |---|---|---|
-| `family` | *undocumented in the file's own `fields` block* | `temper` |
+| `family` | Which axis the trait sits on: `competence` is how GOOD he is, `temper` is what he is LIKE. The split is load-bearing — competence decides whether he can carry an order out, temper decides which way he bends it when he will not. | `temper` |
 
 ## Where it matters
 

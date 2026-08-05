@@ -2,10 +2,10 @@
 type: "unit"
 id: "unit:company-horse"
 title: "Free Company Horse"
-standing: "proposed"
-standing_source: "defaulted"
+standing: "built"
+standing_source: "derived"
 source_path: "data/units.json"
-source_line: 429
+source_line: 601
 origin: "mined"
 generator: "tools/codex/emit.mjs"
 aliases:
@@ -14,40 +14,40 @@ aliases:
 
 # Free Company Horse
 
-> **STANDING — PROPOSED ⚠**  
-> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
-> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+> **STANDING — BUILT**  
+> Implemented in code and checkable against the tree — a module or a test stands under it.  
+> *Derived from the tree — the code is there to be read.*
 
 Professional horsemen who serve the purse. At 380 a tick their shock is about seven-tenths of a knight's — the square again — and their horses are unarmoured, which shows badly under arrows. They carry the game's most brutal wire between treasury and field: with arrears unpaid, every couple of seconds there is a small chance they simply ride off the field. Not a morale penalty. They go home.
 
-*Verified verbatim against `data/units.json`:429 on every lint — no quote, no object.*
+*Verified verbatim against `data/units.json`:601 on every lint — no quote, no object.*
 
 ## The numbers
 
 | field | meaning | value |
 |---|---|---|
-| `class` | *undocumented in the file's own `fields` block* | `HORSE` |
+| `class` | What kind of thing it is — foot, horse, or something that does not fight. It decides which of the engine's speed and fatigue tables the unit is read against. | `HORSE` |
 | `raisedBy` | Which holding types (data/holdings.json) or bargains (data/obligations.json) raise this unit. | `contract` |
-| `typicalMen` | *undocumented in the file's own `fields` block* | `70` |
+| `typicalMen` | How many men a unit of this sort usually musters. Real numbers vary with the holding that raised them and how the year has gone. | `70` |
 | `marchSpeed` | Leagues per day on a good summer road. | `13` |
 | `dailyWear` | Fatigue points gained per day on the march. | `2` |
 | `massPerManKg` | Man plus kit — or horse plus man plus kit. Only matters for shock. | `560` |
-| `armour` | *undocumented in the file's own `fields` block* | `mail-and-plates` |
-| `shield` | *undocumented in the file's own `fields` block* | `kite` |
-| `primaryWeapon` | *undocumented in the file's own `fields` block* | `lance` |
-| `sidearm` | *undocumented in the file's own `fields` block* | `sword` |
+| `armour` | What they are wearing (see the armour shelf in `data/equipment.json`). Armour reduces wounds rather than hits, and it costs fatigue every minute it is worn. | `mail-and-plates` |
+| `shield` | What they are carrying (see the shields shelf in `data/equipment.json`). Worth a great deal to the front and nothing at all to the rear. | `kite` |
+| `primaryWeapon` | What they fight with first (see `data/equipment.json`). Long weapons win the clash and lose the press — the whole Six Seconds inversion is here. | `lance` |
+| `sidearm` | What they fall back on once the press starts and there is no room for the long weapon. This is why spearmen have a bad time after six seconds. | `sword` |
 | `skill` | 0-100 individual fighting quality; feeds to-hit. | `58` |
 | `drillBase` | 0-100 formation quality; the Host's per-unit drill overrides it. | `54` |
 | `refusalBase` | 0-1000. How strongly this unit's set weapons make a charging horse refuse — ONLY when braced, only in the front arc. | `0` |
 | `refusalRangeMm` | How far ahead the refusal reaches. Longer weapons project further. | `0` |
 | `turnMulPermille` | Multiplier on the base turn rate. | `1600` |
 | `fatigueMulPermille` | How fast this unit tires, from armour weight and the work. | `1300` |
-| `chargeSpeedMmPerTick` | *undocumented in the file's own `fields` block* | `380` |
-| `arrivalReadyTicks` | *undocumented in the file's own `fields` block* | `320` |
-| `defaultFormation` | *undocumented in the file's own `fields` block* | `close` |
-| `allowedFormations` | *undocumented in the file's own `fields` block* | `wedge`, `close`, `loose`, `column` |
-| `traits` | *undocumented in the file's own `fields` block* | `Mounted`, `Shock`, `Mercenary`, `UnpaidLeave` |
-| `defaultQuirks` | *undocumented in the file's own `fields` block* | `flees-early-if-unpaid`, `first-to-plunder` |
+| `chargeSpeedMmPerTick` | How fast they close in the last stretch, overriding the general table. Shock scales with the SQUARE of this, so it is worth far more than it looks. | `380` |
+| `arrivalReadyTicks` | How long after arriving on the field before they are fit to fight. Men who have just marched on are not yet an asset. | `320` |
+| `defaultFormation` | The shape they take when nobody has said otherwise. | `close` |
+| `allowedFormations` | Every shape they can adopt at all. A unit that cannot form a shieldwall cannot be told to. | `wedge`, `close`, `loose`, `column` |
+| `traits` | The keywords that govern what this unit can do (see `data/keywords.json`). `CanBrace` is the one that decides most battles. | `Mounted`, `Shock`, `Mercenary`, `UnpaidLeave` |
+| `defaultQuirks` | Quirks these men carry by their nature rather than by their history (see `data/quirks.json`). | `flees-early-if-unpaid`, `first-to-plunder` |
 | `musterCost` | Coin per battle, for the court's arithmetic. Not a battle number. | `300` |
 
 ## What it beats, and what beats it
@@ -97,4 +97,4 @@ Professional horsemen who serve the purse. At 380 a tick their shock is about se
 
 ---
 
-*Generated by `tools/codex/emit.mjs` from `data/units.json`:429. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*
+*Generated by `tools/codex/emit.mjs` from `data/units.json`:601. **Never edit this page** — it is a view, not an artifact. Fix the source and re-compile (`npm run codex`).*

@@ -1,6 +1,13 @@
 {
   "$schema": "vassal-vessels/quirks/1",
   "explains": "A quirk is a named, documented behaviour that the court hands to the battle. This is the joint between the two halves of the game, and it is deliberately loose. The court knows WHY a lord's knights will charge before the horn — it has no business telling a battle engine how a charge works. So it sends a name, a strength, an explanation, and sometimes a target, and the battle does with it whatever its own model allows.\n\nThis file is the whole vocabulary, and for each quirk it also states exactly what THIS canon's battle engine does with it, so nobody has to guess and no two engines have to agree.",
+  "fields": {
+    "appliesTo": "captain, contingent or unit — where the court hangs it and where the battle reads it.",
+    "from": "What in the record book produces it. Every quirk is a consequence of something you did or failed to do.",
+    "battleEffect": "What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing.",
+    "readOnField": "How a watcher can tell it is happening — required of every mechanic (law 6).",
+    "targets": "Who or what the quirk is pointed at — a rival house, a particular captain, a kind of enemy. A quirk with a target is a grudge with a name on it."
+  },
   "contractWithTheBattle": {
     "implementWhatYouCan": "A battle engine implements the quirks it can express and IGNORES the rest. Ignoring is legal and expected, not a failure.",
     "neverCrash": "Never throw on an unknown quirk id. New ones will appear in later versions of the contract.",
@@ -8,13 +15,6 @@
     "intensity": "Every quirk carries a strength from 0 to 100. Twenty is a tendency; ninety is a certainty. Where the effect below is a chance, intensity scales it; where it is a flat number, intensity above 60 applies it whole and below 30 applies half.",
     "target": "Some quirks point at somebody — another captain, a contingent, a house, a side. A quirk with a target and no target found is simply inert."
   },
-  "fields": {
-    "appliesTo": "captain, contingent or unit — where the court hangs it and where the battle reads it.",
-    "from": "What in the record book produces it. Every quirk is a consequence of something you did or failed to do.",
-    "battleEffect": "What this canon's engine does, exactly, in the engine's own units. Another engine may do something else, or nothing.",
-    "readOnField": "How a watcher can tell it is happening — required of every mechanic (law 6)."
-  },
-
   "quirks": [
     {
       "id": "old-grudge",

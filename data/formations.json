@@ -1,6 +1,27 @@
 {
   "$schema": "vassal-vessels/formations/1",
   "explains": "A formation is the shape a unit stands in, and shape is not decoration — it is arithmetic. Two things come straight out of it: FRONTAGE, how many men can physically reach the enemy; and DENSITY, how many men stand in a square metre, which is the only thing arrows care about. Every formation is a bet — strong against one thing because it chose to be weak against another — and the commander's craft is making the enemy's bets wrong.",
+  "fields": {
+    "manWidthMm": "How much frontage each man takes. Together with the rank depth this is what turns a number of men into a shape on the ground with a real width and a real flank.",
+    "rankDepthMm": "How much depth each rank takes. Deep formations are narrow, which is exactly the trade: hard to break through, easy to walk around.",
+    "speedMulPermille": "Movement speed in thousandths. A tight formation moves slowly because keeping the line is what is slowing it down.",
+    "roadSpeedMulPermille": "Movement speed along a road, in thousandths. Column is transport, not a fighting shape, and this is why you use it.",
+    "cohesionCapPermille": "The highest cohesion this formation permits, in thousandths. Loose order cannot be neat — that is what makes it loose.",
+    "changeTicks": "How long the unit takes to change into this formation. Time spent changing is time spent being neither one thing nor the other, and it is when units get caught.",
+    "missileDensityPermille": "How good a target the formation makes, in thousandths. Packed men are easier to hit, which is the standing argument against close order under archery.",
+    "shockDeliveredMulPermille": "How much of a charge's force this formation delivers. Concentrated shapes hit harder because the weight arrives in one place.",
+    "shockReceivedMulPermille": "How much of an incoming charge lands. A shape built to absorb shock spreads the blow over more men.",
+    "shockResistBonus": "Flat resistance to being shocked, on top of the multiplier. Some shapes simply do not come apart when hit.",
+    "shockConcentrationMulPermille": "How much the formation focuses its charge onto a narrow point rather than spreading it along a face.",
+    "frontShieldMulPermille": "How much more the shields are worth to the front in this formation — a shieldwall is shields overlapping, and this is that.",
+    "frontageMulPermille": "How much wider or narrower the shape stands than its men would naturally occupy.",
+    "refusalMulPermille": "How much this formation multiplies the refusal a braced unit projects. A neat line refuses horses; a ragged one does not.",
+    "allArcBrace": "Whether bracing works in every direction rather than only to the front. Rare, expensive to form, and the answer to being surrounded.",
+    "targetRanksDefault": "How many ranks are engaged and fighting by default. Men in the ranks behind these are present but not swinging.",
+    "targetFiles": "How many files across are engaged. With the rank count, this decides how many men are actually in the fight rather than merely in the unit.",
+    "requires": "What a unit must have or be to adopt this shape at all. Not every formation is available to everybody.",
+    "shape": "The geometric arrangement, named. A description for the reader, not a number the engine reads."
+  },
   "geometry": {
     "frontageMm": "files x manWidthMm",
     "depthMm": "ranks x rankDepthMm",
@@ -53,7 +74,9 @@
       "frontShieldMulPermille": 1250,
       "cohesionCapPermille": 1000,
       "changeTicks": 60,
-      "requires": ["ShieldWall"],
+      "requires": [
+        "ShieldWall"
+      ],
       "explains": "Tighter than close order, shields overlapping so each man is partly covered by his neighbour's. Front shield up by a quarter, shock resistance up, speed down to a crawl — and it is the densest arrow target on the field. The trap: overlap only works while the line HOLDS. Below 300,000 cohesion the shield bonus halves, because the wall has stopped being a wall.",
       "readOnField": "Shields visibly overlapping, and the whole thing moving at a crawl."
     },
@@ -68,7 +91,9 @@
       "shockConcentrationMulPermille": 1700,
       "cohesionCapPermille": 900,
       "changeTicks": 100,
-      "requires": ["Mounted"],
+      "requires": [
+        "Mounted"
+      ],
       "explains": "Cavalry in a blunt arrowhead: half the frontage, so half as many men can fight — but the shock of the charge is concentrated into the point and multiplied by 1.7. A wedge is a chisel: it punches a hole in one specific place. Once the charge is spent, the same narrow front means very few of your riders can actually swing at anybody — and if the point stops on braced points, the whole wedge piles up behind it.",
       "readOnField": "A visible point at the front of the horsemen, and the hole it makes."
     },
@@ -99,7 +124,10 @@
       "refusalMulPermille": 900,
       "cohesionCapPermille": 1000,
       "changeTicks": 200,
-      "requires": ["CanBrace", "DeepBlock"],
+      "requires": [
+        "CanBrace",
+        "DeepBlock"
+      ],
       "explains": "A ring of pikemen, points outward all the way round. It solves the pike block's one fatal weakness — that bracing is front-arc only — by having no flanks and no rear at all. Cavalry cannot touch it from any direction. And it cannot move. At all. Ever. So it becomes the densest, most obliging arrow target that has ever existed, standing perfectly still. The correct answer to being surrounded by horsemen, and the worst possible answer to anything else.",
       "readOnField": "A hedgehog. Beautiful, motionless, and doomed if the enemy has bows."
     },

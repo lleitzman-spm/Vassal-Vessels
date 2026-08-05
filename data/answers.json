@@ -1,27 +1,85 @@
 {
   "$schema": "vassal-vessels/answers/1",
   "explains": "You send a letter. This is what comes back. THE MUSTER NEVER ROLLS DICE: which answer you get is pure arithmetic, and if you can read the numbers you can predict exactly what will stand in the field. The only thing you may not know is a grudge nobody has told you about — and that is what the Spymaster is for.",
+  "fields": {
+    "willingnessAtLeast": "The lowest willingness that still lands in this band. Willingness is computed, never rolled — so a house's answer is knowable before you send the letter.",
+    "willingnessBelow": "The ceiling of the band: below this number, and above the band beneath it, this is the answer you get.",
+    "fraction": "What share of the men he owes actually arrive. 1.0 is everything; the bands below it are where an army quietly becomes smaller than the one on your list.",
+    "lateDays": "How many days after the appointed one they turn up. Latecomers are not absent — they walk onto the field mid-battle, which is sometimes a rescue and sometimes a waste.",
+    "resolveBonus": "Added to the resolve of the men he sends. A lord who comes gladly brings men who fight harder, and it stacks on top of everything the court already gave them.",
+    "captainCommandPenalty": "Taken off the captain's command when he sends a deputy instead of coming himself. The men are there; the man who could make them listen is not.",
+    "crownsPerManOwed": "What he pays in scutage per man not sent — the legal way to buy out of service. It is honest, it is expensive, and taken year after year it quietly decays the custom that he owes you men at all.",
+    "condition": "The extra thing that must be true for this answer to be possible at all, beyond the willingness band.",
+    "treachery": "Added to the contingent's treachery if he comes on these terms. A man who answers resentfully has already told you something.",
+    "precedentToOthers": "What every OTHER house takes from watching this answer go unpunished. Refusals are contagious, and this is the field that says so."
+  },
   "nineRungsTenNames": "There are nine rungs on this ladder and ten names on it, because 'sends coin' and 'sends a token' are the same rung: which one you get depends on whether he can actually afford the coin.",
-
   "willingness": {
     "k": "court.willingness",
     "explains": "Add these up. That is his willingness, and the table below turns willingness into an answer. Every term names the records it came from, so a player who asks 'why did this house send sixty-eight and not ninety?' gets seven lines and can click through to the seven decisions that made them.",
     "terms": [
-      { "term": "loyalty", "value": "0 to 100", "explains": "What he thinks of you: fifty, plus every kindness (fading), minus every grudge (which does not)." },
-      { "term": "the cause", "value": "(legitimacy - 50) x 0.4, between -20 and +20", "explains": "A war everyone agrees is right is worth twenty points with every house at once — the widest lever in the game, and it belongs to the Chaplain." },
-      { "term": "defending home", "value": "+25 within twenty leagues, +12 within fifty", "explains": "When the enemy is near HIS land, even a lord who hates you turns up. The single most important reason a losing realm can still fight back." },
-      { "term": "his heir is your ward", "value": "+20", "explains": "You have his son. He comes." },
-      { "term": "a Chancellor", "value": "+8", "explains": "A properly sealed summons out of a real chancery is harder to ignore than a note." },
-      { "term": "kinship", "value": "+15 blood, +8 marriage", "explains": "Family." },
-      { "term": "a dry vessel", "value": "-15, then -25, then -35", "explains": "You already used his forty days this year, and he can count as well as you can." },
-      { "term": "the season", "value": "0 summer, -8 seedtime, -15 harvest on farmland, -20 winter", "explains": "Summer is when wars happen. Everything else costs you." },
-      { "term": "faction", "value": "-5 per ally of his already refusing", "explains": "Angry lords stiffen each other's spines. You cannot see a faction without a Spymaster." },
-      { "term": "war weariness", "value": "-3 per battle in the last two years, capped at -12", "explains": "He has been fighting for you a great deal." },
-      { "term": "foreigners preferred", "value": "-4 per campaign he was left out of, capped at -16", "explains": "You hired mercenaries and left him at home, and he noticed. This is the one grudge shown as its own line here instead of being folded into loyalty, so that it is counted exactly once." },
-      { "term": "a distant muster", "value": "-5 beyond sixty leagues", "explains": "It is a very long way and he is not certain it is his business." }
+      {
+        "term": "loyalty",
+        "value": "0 to 100",
+        "explains": "What he thinks of you: fifty, plus every kindness (fading), minus every grudge (which does not)."
+      },
+      {
+        "term": "the cause",
+        "value": "(legitimacy - 50) x 0.4, between -20 and +20",
+        "explains": "A war everyone agrees is right is worth twenty points with every house at once — the widest lever in the game, and it belongs to the Chaplain."
+      },
+      {
+        "term": "defending home",
+        "value": "+25 within twenty leagues, +12 within fifty",
+        "explains": "When the enemy is near HIS land, even a lord who hates you turns up. The single most important reason a losing realm can still fight back."
+      },
+      {
+        "term": "his heir is your ward",
+        "value": "+20",
+        "explains": "You have his son. He comes."
+      },
+      {
+        "term": "a Chancellor",
+        "value": "+8",
+        "explains": "A properly sealed summons out of a real chancery is harder to ignore than a note."
+      },
+      {
+        "term": "kinship",
+        "value": "+15 blood, +8 marriage",
+        "explains": "Family."
+      },
+      {
+        "term": "a dry vessel",
+        "value": "-15, then -25, then -35",
+        "explains": "You already used his forty days this year, and he can count as well as you can."
+      },
+      {
+        "term": "the season",
+        "value": "0 summer, -8 seedtime, -15 harvest on farmland, -20 winter",
+        "explains": "Summer is when wars happen. Everything else costs you."
+      },
+      {
+        "term": "faction",
+        "value": "-5 per ally of his already refusing",
+        "explains": "Angry lords stiffen each other's spines. You cannot see a faction without a Spymaster."
+      },
+      {
+        "term": "war weariness",
+        "value": "-3 per battle in the last two years, capped at -12",
+        "explains": "He has been fighting for you a great deal."
+      },
+      {
+        "term": "foreigners preferred",
+        "value": "-4 per campaign he was left out of, capped at -16",
+        "explains": "You hired mercenaries and left him at home, and he noticed. This is the one grudge shown as its own line here instead of being folded into loyalty, so that it is counted exactly once."
+      },
+      {
+        "term": "a distant muster",
+        "value": "-5 beyond sixty leagues",
+        "explains": "It is a very long way and he is not certain it is his business."
+      }
     ]
   },
-
   "answers": [
     {
       "id": "more-than-owed",
@@ -107,13 +165,11 @@
       "explains": "He accepts the summons. He marches. He stands in your line with all his men, and at some point in the battle he stops being on your side. You could have read this before you sent the letter — with a Spymaster you would have seen the exact number — so when it happens it is not the game being unfair. It is the game reminding you what you chose."
     }
   ],
-
   "whichMenHeSends": {
     "name": "Best first when willing, worst last when not",
     "explains": "A house almost always has more men than it owes, so WHICH men it hands over is a second, quieter answer sitting underneath the first. If the answer is 'comes in full' or better, the quota is filled from the BEST troops downward — he is showing off, or earning something. If it is 'comes short' or worse, it is filled from the CHEAPEST upward and the good ones stay at home.\n\nSo 'comes at three-quarters' never means everything is a bit smaller. It means his fifty marines are still standing on the quay and you got his farmers. This one rule carries an enormous amount of the game's feeling, and it is why the same number of missing men can be a shrug or an insult.",
     "cap": "A house can never send more than it can actually raise: sends = the smaller of (owed x fraction) and (men it can actually march).",
     "readOnTheScreen": "The forecast lists the units he will send and the units he will keep, by name, before you send the letter."
   },
-
   "andThenTheAbsences": "Every house, company, town or order that was called and did not stand becomes an Absence in the Host — named, with its answer, the numbers owed and sent, the plain reason, and the records that caused it. An absence is a FINDING, never a silently smaller number. Half the emotional payload of a muster is in that list, and the other half is in the list of who did come."
 }

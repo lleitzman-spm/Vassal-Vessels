@@ -2,8 +2,8 @@
 type: "keyword"
 id: "keyword:shock"
 title: "Shock"
-standing: "proposed"
-standing_source: "defaulted"
+standing: "built"
+standing_source: "derived"
 source_path: "data/keywords.json"
 source_line: 32
 origin: "mined"
@@ -14,9 +14,9 @@ aliases:
 
 # Shock
 
-> **STANDING — PROPOSED ⚠**  
-> NOT BUILT. A design in `data/` with no engine reading it yet. This page may NEVER be cited as evidence that the game plays this way.  
-> *NOT backed by anything in the tree yet; this is the compiler's default for a design in `data/` with no engine behind it.*
+> **STANDING — BUILT**  
+> Implemented in code and checkable against the tree — a module or a test stands under it.  
+> *Derived from the tree — the code is there to be read.*
 
 Exists to hit things very hard, once. The important half is the second sentence: charging home wrecks your OWN order, so shock troops are a piston — charge, strike, wheel out, reform, charge — and every stroke costs a rider out and a rider back.
 

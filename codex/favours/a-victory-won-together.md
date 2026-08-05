@@ -29,7 +29,7 @@ Nothing makes people like you like winning. This is the free favour, and it is w
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `6` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `2` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `an Aftermath with a victory where his contingent was present` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `an Aftermath with a victory where his contingent was present` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

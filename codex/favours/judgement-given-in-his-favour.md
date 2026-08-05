@@ -29,7 +29,7 @@ You heard his complaint and ruled for him. Cheap in money, expensive in days, an
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `10` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `4` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `an Amends record with the judgement method` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `an Amends record with the judgement method` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

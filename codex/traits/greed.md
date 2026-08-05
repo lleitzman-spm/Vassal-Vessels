@@ -26,7 +26,7 @@ How much he wants the money. When the enemy breaks, a greedy captain fails 'hold
 
 | field | meaning | value |
 |---|---|---|
-| `family` | *undocumented in the file's own `fields` block* | `temper` |
+| `family` | Which axis the trait sits on: `competence` is how GOOD he is, `temper` is what he is LIKE. The split is load-bearing — competence decides whether he can carry an order out, temper decides which way he bends it when he will not. | `temper` |
 
 ## Where it matters
 

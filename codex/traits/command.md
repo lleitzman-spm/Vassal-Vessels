@@ -26,7 +26,7 @@ How well he handles men. Craft steadies the hand: a skilled captain carries out 
 
 | field | meaning | value |
 |---|---|---|
-| `family` | *undocumented in the file's own `fields` block* | `competence` |
+| `family` | Which axis the trait sits on: `competence` is how GOOD he is, `temper` is what he is LIKE. The split is load-bearing — competence decides whether he can carry an order out, temper decides which way he bends it when he will not. | `competence` |
 
 ## Where it matters
 

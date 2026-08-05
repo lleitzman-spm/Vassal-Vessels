@@ -29,7 +29,7 @@ Twelve days and some money for three points of goodwill with everyone invited. N
 | `standing` | The part that never fades while the thing it rests on is still true. | `0` |
 | `fading` | The part that halves every half-life. | `3` |
 | `halfLifeYears` | How long the fading part takes to become half of itself. | `1` |
-| `causedBy` | *undocumented in the file's own `fields` block* | `a Feast record` |
+| `causedBy` | The act on the record that creates this favour. Like every grievance, a favour is COMPUTED from a record rather than stored as a score — which is why it can be pointed at, and why it decays honestly. | `a Feast record` |
 
 *Shelf: `favours` in `data/favours.json`.*
 

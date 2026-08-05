@@ -6,9 +6,17 @@
     "fatigueWear": "Multiplier on the tiredness a day of marching adds — and the host arrives with that tiredness in its hands.",
     "forage": "What the countryside gives back to an army standing on it. Below 1.0 the granary drains faster than the arithmetic looks.",
     "willingnessPenalty": "Straight off every house's willingness, before anything else is counted.",
-    "reachesTheBattle": "What the season is still doing once the fighting starts."
+    "reachesTheBattle": "What the season is still doing once the fighting starts.",
+    "modern": "The ordinary word for this season, so a reader is never guessing which part of the year is meant.",
+    "days": "How long it lasts. Four of these make the year, and the year is the rate at which every machine in the court runs.",
+    "yieldPenaltyIfSummoned": "The share of the year's food lost if you call men up during it. Calling in seedtime costs the sowing, and the bill arrives at harvest.",
+    "provisionCostMultiplier": "How much more it costs to feed an army in this season. Winter and spring are dear because the barns are empty, not because anyone is gouging you.",
+    "idleStandingPenalty": "What doing nothing costs you in standing. Summer is the only season with one, because the host wanted to be led and you did not lead it.",
+    "rollPenaltyNextYear": "What campaigning now takes off next year's muster roll. Some seasons cost you men you have not raised yet.",
+    "grievance": "Grievance added to every house called in this season, on top of everything else. Farmers pulled off a harvest do not forget it.",
+    "attritionPerDayAfterFive": "Men lost per day once an army has stood in this season for five days. Winter kills armies that never meet anybody.",
+    "surpriseBonus": "What you gain by campaigning when nobody expects it. The reason a winter war is a real strategy and not merely a mistake."
   },
-
   "seasons": [
     {
       "id": "seedtime",
@@ -67,7 +75,6 @@
       "explains": "Men do not march in winter. Everyone knows it, which is precisely why marching in winter works: the enemy is not looking. You pay for it in every other column — twenty points off every house's willingness, marching at little over half speed, tiredness climbing half again as fast, almost nothing to forage, and one man in a hundred lost every day past the fifth. In exchange the battle starts with up to half a point of surprise, and surprise is worth more than numbers."
     }
   ],
-
   "theCalendarAsPressure": {
     "explains": "Put the four together and the calendar is a set of doors that open and shut. Summer is when you should fight and when everyone expects you to. Autumn is when it is cheapest to feed an army and dearest to raise one. Winter is the gamble. Spring is the season you fight in because somebody else started it. A war declared in Highsun with a muster day in Harvest is a completely different problem from the same war declared a season later, and a good player is always thinking one door ahead."
   }
