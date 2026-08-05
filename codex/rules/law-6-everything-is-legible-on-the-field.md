@@ -35,7 +35,10 @@ aliases:
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### flow
+
+- [[A Unit's Footing]] — *its `implementsLaw` names `6` by id*
+- [[A Unit's Nerve]] — *its `implementsLaw` names `6` by id*
 
 ---
 

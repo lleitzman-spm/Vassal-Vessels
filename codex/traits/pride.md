@@ -36,7 +36,10 @@ obedience (the court subtracts it), how badly he takes an order sent over his he
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["Some of us, then."]] — *its `consumes` names `pride` by id*
+- [[A gesture, and nothing more]] — *its `consumes` names `pride` by id*
 
 ---
 

@@ -46,7 +46,11 @@ He swore, and his word is iron. A man who only ever follows is worth an enormous
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["At once."]] — *its `consumes` names `iron-oath` by id*
+- [[They are destroyed where they stood]] — *its `consumes` names `iron-oath` by id*
+- [[They get a grip]] — *its `consumes` names `iron-oath` by id*
 
 ---
 

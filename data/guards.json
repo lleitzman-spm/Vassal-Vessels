@@ -214,7 +214,9 @@
       "sharp": false,
       "test": "heed >= battle.heed.obeyAt",
       "cites": [
-        "battle.heed.obeyAt"
+        "battle.heed.obeyAt",
+        "court.obedienceFormula.base",
+        "court.obedienceFormula.commanderAuthorityWeight"
       ],
       "sourcePath": "src/battle/phase-command.ts",
       "quote": "export function computeHeed(",
@@ -228,7 +230,8 @@
       "test": "heed >= battle.heed.obeyHisWayAt and below battle.heed.obeyAt",
       "cites": [
         "battle.heed.obeyHisWayAt",
-        "battle.heed.obeyAt"
+        "battle.heed.obeyAt",
+        "court.obedienceFormula.loyaltyWeight"
       ],
       "sourcePath": "src/battle/phase-command.ts",
       "quote": "export function applyInterpretation(",
@@ -243,7 +246,9 @@
       "cites": [
         "battle.heed.dragOrHedgeAt",
         "battle.heed.obeyHisWayAt",
-        "battle.heed.aggressionBranchAt"
+        "battle.heed.aggressionBranchAt",
+        "court.obedienceFormula.prideWeight",
+        "court.obedienceFormula.grievanceWeight"
       ],
       "sourcePath": "src/battle/phase-command.ts",
       "quote": "export function computeHeed(",
@@ -258,7 +263,9 @@
       "cites": [
         "battle.heed.overreachOrHardHedgeAt",
         "battle.heed.dragOrHedgeAt",
-        "battle.heed.aggressionBranchAt"
+        "battle.heed.aggressionBranchAt",
+        "court.obedienceFormula.prideWeight",
+        "court.obedienceFormula.rivalOfCommander"
       ],
       "sourcePath": "src/battle/phase-command.ts",
       "quote": "export function applyInterpretation(",
@@ -271,7 +278,10 @@
       "sharp": true,
       "test": "heed < battle.heed.overreachOrHardHedgeAt",
       "cites": [
-        "battle.heed.overreachOrHardHedgeAt"
+        "battle.heed.overreachOrHardHedgeAt",
+        "court.obedienceFormula.grievanceWeight",
+        "court.obedienceFormula.sameHouseAsCommander",
+        "court.obedienceFormula.swornOrderCap"
       ],
       "sourcePath": "src/battle/phase-command.ts",
       "quote": "export function computeHeed(",

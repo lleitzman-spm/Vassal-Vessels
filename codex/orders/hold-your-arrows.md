@@ -42,7 +42,9 @@ Do not shoot. You give this to save arrows for the moment the enemy is dense, cl
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Hold!]] — *its `consumes` names `HOLD_FIRE` by id*
 
 ---
 

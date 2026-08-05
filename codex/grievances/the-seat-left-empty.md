@@ -39,7 +39,10 @@ Leaving a chair empty is not a way of avoiding the argument. Every man who wante
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The chair stands empty]] — *its `consumes` names `unseated` by id*
+- [[The holder dies]] — *its `consumes` names `unseated` by id*
 
 ---
 

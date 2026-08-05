@@ -35,7 +35,10 @@ Money. It works, it is instant, it is capped at twelve points however much you s
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You make it right]] — *its `consumes` names `gift` by id*
+- [[You settle with them]] — *its `consumes` names `gift` by id*
 
 ---
 

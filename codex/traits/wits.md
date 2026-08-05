@@ -36,7 +36,9 @@ a second standing-plan slot per unit at 70 or better, reading ground, timing
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He reaches the banner]] — *its `consumes` names `wits` by id*
 
 ---
 

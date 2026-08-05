@@ -381,9 +381,28 @@ const REF_FIELDS = {
   // places by id, and if either id is not a real place the edge is never drawn and
   // `lint.mjs` fails the build. The machines are therefore found, never invented,
   // exactly like every other edge in the Codex.
-  flow: { entry: { type: 'place' }, terminals: { type: 'place' } },
+  flow: { entry: { type: 'place' }, terminals: { type: 'place' }, implementsLaw: { type: 'rule' } },
   place: { flow: { type: 'flow' } },
-  transition: { flow: { type: 'flow' }, from: { type: 'place' }, to: { type: 'place' }, guards: { type: 'guard' } },
+  // `consumes` is the writ's central claim made into an edge. "Flows do not CONTAIN
+  // knowledge, they CONSUME it" was true of guards from the start — they cite
+  // constants — and merely asserted of everything else. A transition naming the
+  // causes, seasons, orders and units it actually reads turns that sentence into a
+  // road a reader can walk in both directions: from the machine down into the
+  // vocabulary, and from a lone favour or terrain page back up to the step of the
+  // game where it finally matters.
+  transition: {
+    flow: { type: 'flow' },
+    from: { type: 'place' },
+    to: { type: 'place' },
+    guards: { type: 'guard' },
+    consumes: {
+      type: [
+        'cause', 'answer', 'favour', 'grievance', 'order', 'standing-plan', 'terrain',
+        'unit', 'keyword', 'formation', 'obligation', 'seat', 'quirk', 'season',
+        'holding', 'troop-source', 'equipment', 'trait',
+      ],
+    },
+  },
   // `cites` is the one reference field whose values are NOT bare ids: they are
   // dotted paths into `data/constants.json` (`battle.morale.breakThreshold`). The
   // `dotted` mode below drops the leaf and resolves the GROUP, because a constant
@@ -500,20 +519,29 @@ function wireReferenceFields(nodes, byId) {
   for (const n of nodes) {
     for (const ref of n.extra && Array.isArray(n.extra.refs) ? n.extra.refs : []) {
       const cats = ref.category ? (Array.isArray(ref.category) ? ref.category : [ref.category]) : [];
+      // A field may name ids on SEVERAL shelves. `consumes`, on a transition, is the
+      // clearest case: naming a cause, a season and an answer in one list is not
+      // vagueness, it is what that step of the machine genuinely reads. Types are
+      // tried in order, first hit wins, and a value resolving nowhere is dropped
+      // exactly as a single-type field's would be.
+      const types = Array.isArray(ref.type) ? ref.type : [ref.type];
       for (const rv of ref.values) {
         // A dotted path names a LEAF number; the page belongs to its group, so drop
         // the last segment. `battle.morale.breakThreshold` → `constant:battle-morale`.
         const raw = ref.dotted ? String(rv).split('.').slice(0, -1).join('.') : String(rv);
         const slug = slugify(raw);
         let target = null;
-        for (const c of cats) {
-          const cand = `${ref.type}:${slugify(c)}-${slug}`;
-          if (byId.has(cand)) {
-            target = cand;
-            break;
+        for (const t of types) {
+          for (const c of cats) {
+            const cand = `${t}:${slugify(c)}-${slug}`;
+            if (byId.has(cand)) {
+              target = cand;
+              break;
+            }
           }
+          if (!target && byId.has(`${t}:${slug}`)) target = `${t}:${slug}`;
+          if (target) break;
         }
-        if (!target && byId.has(`${ref.type}:${slug}`)) target = `${ref.type}:${slug}`;
         if (target) addEdge(n, target, `its \`${ref.field}\` names \`${rv}\` by id`);
       }
     }

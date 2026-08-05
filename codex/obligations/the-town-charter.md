@@ -32,7 +32,9 @@ A town will hand over its militia — a great many indifferent spearmen, and fas
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Lords collect their men]] — *its `consumes` names `charter-militia` by id*
 
 ---
 

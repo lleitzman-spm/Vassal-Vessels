@@ -38,7 +38,11 @@ The captain you want holding the centre at the crisis. He does not make anything
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They are themselves again]] — *its `consumes` names `steady-hand` by id*
+- [[They get a grip]] — *its `consumes` names `steady-hand` by id*
+- [[They turn and stand]] — *its `consumes` names `steady-hand` by id*
 
 ---
 

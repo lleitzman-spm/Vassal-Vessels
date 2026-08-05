@@ -50,7 +50,10 @@ Move the Crown Banner. Wherever it stands, units that can see it take your order
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He does not arrive]] — *its `consumes` names `RIDE_TO` by id*
+- [[The courier goes]] — *its `consumes` names `RIDE_TO` by id*
 
 ---
 

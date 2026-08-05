@@ -35,7 +35,10 @@ You let him draw the income and the soldiers of a child's estate until the child
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You make it right]] — *its `consumes` names `wardship-given` by id*
+- [[You settle with them]] — *its `consumes` names `wardship-given` by id*
 
 ---
 

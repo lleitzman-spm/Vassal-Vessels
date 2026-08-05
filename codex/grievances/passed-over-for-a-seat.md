@@ -39,7 +39,13 @@ You gave an office to somebody else. The stronger his claim, the worse it stings
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[A gesture, and nothing more]] — *its `consumes` names `passed-over` by id*
+- [[It takes hold]] — *its `consumes` names `passed-over` by id*
+- [[Something changes in them]] — *its `consumes` names `passed-over` by id*
+- [[The holder dies]] — *its `consumes` names `passed-over` by id*
+- [[You take it back]] — *its `consumes` names `passed-over` by id*
 
 ---
 

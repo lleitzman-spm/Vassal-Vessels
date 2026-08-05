@@ -33,7 +33,9 @@ The land is yours by descent and a court would probably agree. Respectable, defe
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `a-just-claim` by id*
 
 ---
 

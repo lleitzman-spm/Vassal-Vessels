@@ -41,7 +41,10 @@ Fast to march on and it saves your men's legs — but it is narrow, so units on 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Charge!]] — *its `consumes` names `road` by id*
+- [[The lines start forward]] — *its `consumes` names `road` by id*
 
 ---
 

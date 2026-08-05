@@ -39,7 +39,11 @@ You heard his complaint and ruled for him. Cheap in money, expensive in days, an
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It goes into the record]] — *its `consumes` names `justice-for` by id*
+- [[You make it right]] — *its `consumes` names `justice-for` by id*
+- [[You settle with them]] — *its `consumes` names `justice-for` by id*
 
 ---
 

@@ -42,7 +42,9 @@ The shape armies move in, never the shape they fight in. On a road it is half ag
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They step off]] — *its `consumes` names `MARCH` by id*
 
 ---
 

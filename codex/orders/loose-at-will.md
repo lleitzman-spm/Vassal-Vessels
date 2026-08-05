@@ -43,7 +43,9 @@ Shoot at whatever is in front of you as fast as you can. Simple and wasteful: at
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Loose!]] — *its `consumes` names `LOOSE_FIRE` by id*
 
 ---
 

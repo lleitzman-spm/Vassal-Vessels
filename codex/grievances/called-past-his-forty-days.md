@@ -39,7 +39,11 @@ He owes you forty days of war a year. Ask for a forty-first and he will probably
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They start working against you]] — *its `consumes` names `over-called` by id*
+- [[You call them anyway]] — *its `consumes` names `over-called` by id*
+- [[You send them home]] — *its `consumes` names `over-called` by id*
 
 ---
 

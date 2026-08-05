@@ -33,7 +33,9 @@ You swore to come if he called, in front of witnesses, and he has called. Nearly
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `sworn-oath` by id*
 
 ---
 

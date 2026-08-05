@@ -38,7 +38,9 @@ Worth more than a hundred extra men and costs a great deal less. This is what yo
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["At once."]] — *its `consumes` names `drillmaster` by id; this page names "Drillmaster" literally*
 
 ---
 

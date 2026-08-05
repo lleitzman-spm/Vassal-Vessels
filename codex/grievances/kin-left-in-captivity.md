@@ -34,7 +34,11 @@ His brother is in an enemy tower and you have not paid to get him out. It gets t
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It goes into the record]] — *its `consumes` names `unransomed` by id*
+- [[The date passes]] — *its `consumes` names `unransomed` by id*
+- [[You leave him]] — *its `consumes` names `unransomed` by id*
 
 ---
 

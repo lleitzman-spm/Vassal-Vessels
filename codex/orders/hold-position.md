@@ -42,7 +42,9 @@ Stand still, dress the ranks, get your breath. It is never wrong and it is never
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Halt]] — *its `consumes` names `HOLD_POSITION` by id*
 
 ---
 

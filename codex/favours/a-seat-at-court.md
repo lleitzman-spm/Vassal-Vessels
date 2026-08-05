@@ -35,7 +35,11 @@ Power, income and standing all at once — worth 25 the year you grant it. The c
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You invest someone]] — *its `consumes` names `seat` by id*
+- [[You make it right]] — *its `consumes` names `seat` by id*
+- [[You settle with them]] — *its `consumes` names `seat` by id*
 
 ---
 

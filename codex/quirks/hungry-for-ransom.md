@@ -42,7 +42,10 @@ War is a business and prisoners are the profit. Good gold, good politics if you 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[A price is named]] — *its `consumes` names `hungry-for-ransom` by id*
+- [[The chase burns out (transition)]] — *its `consumes` names `hungry-for-ransom` by id*
 
 ---
 

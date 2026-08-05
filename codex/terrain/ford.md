@@ -41,7 +41,9 @@ The one shallow place in the river. Slow, exhausting, in column, at four-tenths 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The lines start forward]] — *its `consumes` names `ford` by id*
 
 ---
 

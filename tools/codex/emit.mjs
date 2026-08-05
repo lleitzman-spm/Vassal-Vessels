@@ -699,13 +699,29 @@ function renderIndex(nodes, byId, link, graph, indexPage) {
   for (const [n, why] of entries) out.push(`- ${link(n.page, 'map:index')} — *${why}*`);
   out.push('');
 
-  out.push('## Every shelf\n');
+  // ── THE TABLE OF CONTENTS ─────────────────────────────────────────────────
+  // This was a list of shelf names with a page COUNT beside each and not one
+  // link — a count with no road, which is the exact fault the house A/E/P check
+  // is named after. It also left 70 pages orphaned: correct, finished, and
+  // reachable by nobody, because the only thing that knew they existed was a
+  // number. A manual without a contents page is a pile of articles, and a graph
+  // whose index does not link its own members is not an index.
+  //
+  // Shelves walk `TYPE_DIRS` order (the reading order) and pages within a shelf
+  // are sorted by title, so a reader can find a thing by name and a `git diff`
+  // of this file stays legible.
+  out.push('## Every shelf — the whole Codex, in reading order\n');
+  out.push(
+    '*Every page in the Codex is below. Shelves run in reading order — the vocabulary first, ' +
+      'then the machines that run on it, then the numbers, then the tree. Within a shelf, by name.*\n',
+  );
   for (const [type, dir] of Object.entries(TYPE_DIRS)) {
-    const count = nodes.filter((n) => n.type === type).length;
-    if (!count && type !== 'map') continue;
-    out.push(`- \`codex/${dir}/\` — ${count} ${type} page${count === 1 ? '' : 's'}`);
+    const mine = nodes.filter((n) => n.type === type && n.id !== 'map:index').sort((a, b) => a.page.localeCompare(b.page));
+    if (!mine.length) continue;
+    out.push(`### \`codex/${dir}/\` — ${mine.length} ${type} page${mine.length === 1 ? '' : 's'}\n`);
+    out.push(mine.map((n) => link(n.page, 'map:index')).join(' · '));
+    out.push('');
   }
-  out.push('');
 
   const gaps = [
     ...graph.missingData.map((m) => `- **not yet authored:** \`${m}\` — nothing mined from it, and nothing invented in its place.`),
@@ -850,9 +866,18 @@ function main() {
       inbound.get(page).add(rel);
     }
   }
+  // A ROAD FROM THE CONTENTS PAGE IS NOT A ROAD. `codex/maps/INDEX.md` lists every
+  // page in the Codex by design, so counting its links as inbound would drive this
+  // number to zero permanently and silence the one check that catches a page nobody
+  // can reach — the exact "silence the report" failure the coverage audit exists to
+  // prevent, arrived at from the other direction. `lint.mjs` has always excluded it;
+  // this count did not, and the two disagreed the moment the contents page grew real
+  // links (0 here against 70 there). Two numbers for one question is worse than
+  // either number. Same rule, both places.
+  const INDEX_FILES = new Set(['codex/maps/INDEX.md', 'codex/00 START HERE.md']);
   const orphans = nodes.filter((n) => {
     const froms = inbound.get(n.page);
-    return !froms || ![...froms].some((f) => f !== n.file);
+    return !froms || ![...froms].some((f) => f !== n.file && !INDEX_FILES.has(f));
   }).length;
 
   const pad = (s, w) => String(s).padEnd(w);

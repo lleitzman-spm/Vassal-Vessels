@@ -34,7 +34,10 @@ Ordinary taxes are ordinary. Ask for more than that twice and people start count
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It takes hold]] — *its `consumes` names `taxed-hard` by id*
+- [[Something changes in them]] — *its `consumes` names `taxed-hard` by id*
 
 ---
 

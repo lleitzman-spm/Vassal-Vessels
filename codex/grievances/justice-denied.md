@@ -34,7 +34,10 @@ He rode to your court with a complaint and you sent him home without hearing it.
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It takes hold]] — *its `consumes` names `justice-denied` by id*
+- [[They start working against you]] — *its `consumes` names `justice-denied` by id*
 
 ---
 

@@ -34,7 +34,11 @@ Taking a rebel's land is sometimes the only answer there is. Every single person
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He dies in captivity]] — *its `consumes` names `attainder-of-kin` by id*
+- [[The banner turns]] — *its `consumes` names `attainder-of-kin` by id*
+- [[The son takes it up]] — *its `consumes` names `attainder-of-kin` by id*
 
 ---
 

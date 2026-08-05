@@ -46,7 +46,9 @@ If the banner falls, every unit in the army loses a quarter of its will at once 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[An army comes apart]] — *its `consumes` names `BANNER_LOST` by id; this page names "BANNER_LOST" literally*
 
 ---
 

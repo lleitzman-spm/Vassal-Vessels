@@ -40,7 +40,9 @@ Waist-high thorn. It breaks up formations and hides men lying down in it, which 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The lines start forward]] — *its `consumes` names `scrub` by id*
 
 ---
 

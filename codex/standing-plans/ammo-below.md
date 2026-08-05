@@ -39,7 +39,10 @@ Archers with empty quivers standing in front of your line are not archers, they 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Hold!]] — *its `consumes` names `AMMO_BELOW` by id; this page names "AMMO_BELOW" literally*
+- [[Loose!]] — *its `consumes` names `AMMO_BELOW` by id; this page names "AMMO_BELOW" literally*
 
 ---
 

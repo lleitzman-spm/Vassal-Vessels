@@ -38,7 +38,9 @@ Companies of professional soldiers will fight for anybody who pays. They are goo
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The host stands]] — *its `consumes` names `contract` by id*
 
 ---
 

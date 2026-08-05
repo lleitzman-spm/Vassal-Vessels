@@ -33,7 +33,9 @@ He insulted you. That is the whole of it. Everybody can see that is the whole of
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `a-slight-avenged` by id*
 
 ---
 

@@ -39,7 +39,11 @@ Somebody here wronged him, and it may well have been you. Twenty points of heed 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["Presently."]] — *its `consumes` names `old-grudge` by id*
+- [[A gesture, and nothing more]] — *its `consumes` names `old-grudge` by id*
+- [[It is refused]] — *its `consumes` names `old-grudge` by id*
 
 ---
 

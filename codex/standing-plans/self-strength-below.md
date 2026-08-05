@@ -39,7 +39,9 @@ Half a unit is worth saving. A quarter of a unit is worth nothing to anybody, an
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They re-form]] — *its `consumes` names `SELF_STRENGTH_BELOW` by id; this page names "SELF_STRENGTH_BELOW" literally*
 
 ---
 

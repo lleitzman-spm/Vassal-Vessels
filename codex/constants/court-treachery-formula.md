@@ -40,6 +40,12 @@ Treachery is the chance he turns his coat. Holding his heir at your court takes 
 
 ## Backlinks
 
+### guard
+
+- [[Heed enough to comply, not to conform]] — *this page names `loyaltyWeight`*
+- [[Heed gone entirely]] — *this page names `grievanceWeight`*
+- [[Heed low enough to stall]] — *this page names `grievanceWeight`*
+
 ### token
 
 - [[Back Pay]] — *its `cites` names `court.treacheryFormula.perUnpaidSeason` by id; this page names `court.treacheryFormula` literally; +1 more*

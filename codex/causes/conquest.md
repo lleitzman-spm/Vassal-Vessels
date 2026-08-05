@@ -37,7 +37,9 @@ It is not yours and you would like it to be. Men know the difference. This is th
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `conquest` by id*
 
 ---
 

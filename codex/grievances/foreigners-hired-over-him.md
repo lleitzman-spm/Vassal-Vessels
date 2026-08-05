@@ -40,7 +40,9 @@ You paid strangers to fight while he sat at home. He hears that as: the crown do
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Something changes in them]] — *its `consumes` names `mercenaries-preferred` by id*
 
 ---
 

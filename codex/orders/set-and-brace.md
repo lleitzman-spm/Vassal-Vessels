@@ -51,7 +51,9 @@ Butt of the spear in the earth, point level, shields locked. THE defence against
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Set!]] — *its `consumes` names `BRACE` by id*
 
 ---
 

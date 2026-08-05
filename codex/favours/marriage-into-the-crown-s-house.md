@@ -35,7 +35,9 @@ Blood is the only bond in this game that does not wear off. It also creates inhe
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You make it right]] — *its `consumes` names `marriage-royal` by id*
 
 ---
 

@@ -35,7 +35,9 @@ Nothing makes people like you like winning. This is the free favour, and it is w
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It goes into the record]] — *its `consumes` names `victory-shared` by id*
 
 ---
 

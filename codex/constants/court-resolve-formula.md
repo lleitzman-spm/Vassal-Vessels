@@ -41,6 +41,12 @@ Resolve is how willing these men are to die for you — the most political numbe
 
 - [[WRIT — THE COURT]] — *this writ names `court.resolveFormula` literally; this writ names `K.court.resolveFormula` literally*
 
+### guard
+
+- [[Heed enough to comply, not to conform]] — *this page names `loyaltyWeight`*
+- [[Heed gone entirely]] — *this page names `grievanceWeight`*
+- [[Heed low enough to stall]] — *this page names `grievanceWeight`*
+
 ### token
 
 - [[Experience]] — *its `cites` names `court.resolveFormula.veterancyWeight` by id; this page names `court.resolveFormula` literally; +1 more*

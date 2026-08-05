@@ -43,7 +43,10 @@ The safest job and the right one nine times in ten for infantry. A line that kee
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Halt]] — *its `consumes` names `HOLD` by id*
+- [[It stops mattering]] — *its `consumes` names `HOLD` by id*
 
 ---
 

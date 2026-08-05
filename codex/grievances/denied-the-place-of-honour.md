@@ -34,7 +34,9 @@ You promised him the front of the line — the dangerous, glorious place — and
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It takes hold]] — *its `consumes` names `van-denied` by id*
 
 ---
 

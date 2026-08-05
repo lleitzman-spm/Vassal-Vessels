@@ -35,7 +35,10 @@ You bought his brother back out of an enemy tower. Expensive, slow to fade, and 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The ransom is paid]] — *its `consumes` names `ransom-paid` by id*
+- [[You pay late]] — *its `consumes` names `ransom-paid` by id*
 
 ---
 

@@ -35,7 +35,9 @@ A plain alarm clock — crude, and the only way to coordinate two wings that can
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The lines start forward]] — *its `consumes` names `TICK_REACHED` by id; this page names "TICK_REACHED" literally*
 
 ---
 

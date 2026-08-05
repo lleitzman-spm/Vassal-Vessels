@@ -29,7 +29,7 @@ The top band. Everything you did at court over the last several years is trying 
 | `flow` | Which machine this guard belongs to (data/flows.json). | `heed` |
 | `sharp` | True when the condition has NO hysteresis and no grace — it fires the instant it is met. Worth marking, because a sharp guard is a cliff and a soft one is a slope, and players need to know which they are standing on. | no |
 | `test` | The condition itself, written as close to arithmetic as plain words allow. This is the sentence a reader should be able to check against the numbers on the constant's own page. | `heed >= battle.heed.obeyAt` |
-| `cites` | The constant paths this guard actually reads, dotted, exactly as they appear in data/constants.json. THIS IS THE LOAD-BEARING FIELD — it is what makes a guard checkable rather than decorative, and the lint is fatal on a path that is not there. | `battle.heed.obeyAt` |
+| `cites` | The constant paths this guard actually reads, dotted, exactly as they appear in data/constants.json. THIS IS THE LOAD-BEARING FIELD — it is what makes a guard checkable rather than decorative, and the lint is fatal on a path that is not there. | `battle.heed.obeyAt`, `court.obedienceFormula.base`, `court.obedienceFormula.commanderAuthorityWeight` |
 | `sourcePath` | The file where this condition is really enforced. | `src/battle/phase-command.ts` |
 | `quote` | A verbatim line from sourcePath. No quote, no object. | `export function computeHeed(` |
 
@@ -38,6 +38,7 @@ The top band. Everything you did at court over the last several years is trying 
 ## Governing numbers
 
 - [[Battle: Heed]] — *its `cites` names `battle.heed.obeyAt` by id; this page names `battle.heed` literally; +1 more*
+- [[Court: Obedience Formula]] — *its `cites` names `court.obedienceFormula.base` by id; its `cites` names `court.obedienceFormula.commanderAuthorityWeight` by id; +2 more*
 
 ## Modules
 

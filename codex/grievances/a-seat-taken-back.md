@@ -39,7 +39,12 @@ The longer a family has held an office, the more they think of it as theirs. Aft
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["No."]] — *its `consumes` names `seat-taken-back` by id*
+- [[His son expects it (transition)]] — *its `consumes` names `seat-taken-back` by id*
+- [[It becomes customary]] — *its `consumes` names `seat-taken-back` by id*
+- [[You take it back]] — *its `consumes` names `seat-taken-back` by id*
 
 ---
 

@@ -35,7 +35,10 @@ Giving the men who fought a fair cut of what was taken. Cheap, obvious, and forg
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It goes into the record]] — *its `consumes` names `spoils-shared` by id*
+- [[You settle with them]] — *its `consumes` names `spoils-shared` by id*
 
 ---
 

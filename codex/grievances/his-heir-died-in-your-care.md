@@ -34,7 +34,9 @@ You took his son into your household as a guarantee of his loyalty, and his son 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The son takes it up]] — *its `consumes` names `ward-died` by id*
 
 ---
 

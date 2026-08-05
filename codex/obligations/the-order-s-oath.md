@@ -36,7 +36,9 @@ The Sworn Brothers are the best foot soldiers in the game and they cost nothing 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The call goes out]] — *its `consumes` names `sworn-service` by id*
 
 ---
 

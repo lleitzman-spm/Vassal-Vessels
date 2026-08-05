@@ -33,7 +33,9 @@ Somebody has crossed the border. Nobody argues with this one. Houses that would 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `defence-of-the-realm` by id*
 
 ---
 

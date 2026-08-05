@@ -46,7 +46,10 @@ Change what a contingent does when nobody is telling it anything. This is the or
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It becomes their job]] — *its `consumes` names `SET_CHARGE` by id*
+- [[It stops mattering]] — *its `consumes` names `SET_CHARGE` by id*
 
 ---
 

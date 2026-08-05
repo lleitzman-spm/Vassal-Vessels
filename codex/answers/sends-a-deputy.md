@@ -35,7 +35,9 @@ He does not come himself. He sends a cousin with half the men and none of the go
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The answers come back]] — *its `consumes` names `deputy` by id*
 
 ---
 

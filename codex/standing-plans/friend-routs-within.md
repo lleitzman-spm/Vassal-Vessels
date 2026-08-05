@@ -47,7 +47,9 @@ Panic reaches ninety metres and courage only forty-five, so the moment a neighbo
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They break]] — *its `consumes` names `FRIEND_ROUTS_WITHIN` by id; this page names "FRIEND_ROUTS_WITHIN" literally*
 
 ---
 

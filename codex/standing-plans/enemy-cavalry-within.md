@@ -43,7 +43,9 @@ The classic pairing, and the first plan most players learn. Bracing takes a seco
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Set!]] — *its `consumes` names `ENEMY_CAVALRY_WITHIN` by id; this page names "ENEMY_CAVALRY_WITHIN" literally*
 
 ---
 

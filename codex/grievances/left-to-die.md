@@ -38,7 +38,11 @@ His men were breaking and the contingent ordered to save them stood and watched.
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [["No."]] — *its `consumes` names `abandoned-on-the-field` by id*
+- [[The banner turns]] — *its `consumes` names `abandoned-on-the-field` by id*
+- [[You leave him]] — *its `consumes` names `abandoned-on-the-field` by id*
 
 ---
 

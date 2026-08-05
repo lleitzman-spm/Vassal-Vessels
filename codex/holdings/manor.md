@@ -39,7 +39,9 @@ Farmland with a lord's house on it. It feeds your realm and it raises the ordina
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Lords collect their men]] — *its `consumes` names `manor` by id*
 
 ---
 

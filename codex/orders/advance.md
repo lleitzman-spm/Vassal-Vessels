@@ -86,7 +86,7 @@ The bread-and-butter attacking job. Measured pace, ranks kept, everyone together
 
 ### transition
 
-- [[They pick it up]] — *this page names "Advance" literally*
+- [[They pick it up]] — *its `consumes` names `ADVANCE` by id; this page names "Advance" literally*
 
 ---
 

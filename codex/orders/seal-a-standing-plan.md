@@ -42,7 +42,9 @@ A sealed order with a condition written on the outside: 'if horsemen come within
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He reaches the banner]] — *its `consumes` names `BIND_PLAN` by id*
 
 ---
 

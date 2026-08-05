@@ -81,6 +81,7 @@ heed (plus a quarter of it), relay speed to his own units, how tight his formati
 
 ### transition
 
+- [["At once."]] — *its `consumes` names `command` by id; this page names "Command" literally*
 - [[An army comes apart]] — *this page names "Command" literally*
 
 ---

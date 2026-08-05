@@ -43,7 +43,10 @@ Fires when a unit's will drops past a line you drew. A unit that withdraws at th
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[The back ranks start to drift]] — *its `consumes` names `MORALE_BELOW` by id; this page names "MORALE_BELOW" literally*
+- [[They begin to feel it]] — *its `consumes` names `MORALE_BELOW` by id; this page names "MORALE_BELOW" literally*
 
 ---
 

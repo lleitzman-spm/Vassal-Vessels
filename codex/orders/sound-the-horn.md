@@ -42,7 +42,9 @@ Three horn channels exist, and a horn is not an order: it is a TRIGGER you pull 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He reaches the banner]] — *its `consumes` names `HORN` by id*
 
 ---
 

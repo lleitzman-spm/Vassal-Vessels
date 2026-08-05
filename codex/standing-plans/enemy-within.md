@@ -35,7 +35,10 @@ Pair it with LOOSE_FIRE to make archers hold their arrows until the target is cl
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[He reaches the banner]] — *its `consumes` names `ENEMY_WITHIN` by id; this page names "ENEMY_WITHIN" literally*
+- [[Set!]] — *its `consumes` names `ENEMY_WITHIN` by id; this page names "ENEMY_WITHIN" literally*
 
 ---
 

@@ -42,7 +42,9 @@ The best use of the whole mechanism. A standing plan takes no heed check — whi
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[An army comes apart]] — *its `consumes` names `ENEMY_BROKE` by id; this page names "ENEMY_BROKE" literally*
 
 ---
 

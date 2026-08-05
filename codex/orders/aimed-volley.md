@@ -52,7 +52,9 @@ Every archer draws together and looses at one named target on a count. Sixty per
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[Loose!]] — *its `consumes` names `AIMED_VOLLEY` by id*
 
 ---
 

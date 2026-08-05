@@ -261,6 +261,22 @@ function checkQuotes(graph) {
 const DONE_WORDS =
   /\b(is (?:now )?(?:built|shipped|live|done|deployed|implemented|complete)|was (?:built|shipped|deployed|implemented)|has shipped|already (?:built|shipped|live)|verified end-to-end|BUILT ✅|DONE ✅)\b/i;
 
+/** Which `data/*.json` files the tree actually pulls in, read back off the module
+ *  pages' own recorded imports. Memoised: it is asked once per `built` page. */
+let _importedData = null;
+function importedDataFiles(graph) {
+  if (_importedData) return _importedData;
+  _importedData = new Set();
+  for (const n of graph.nodes) {
+    if (n.type !== 'module') continue;
+    for (const a of (n.extra && n.extra.assets) || []) {
+      const m = String(a).match(/data\/[\w-]+\.json$/);
+      if (m) _importedData.add(path.basename(m[0]));
+    }
+  }
+  return _importedData;
+}
+
 function checkStanding(graph) {
   const out = { claimsDone: 0, unbacked: 0, noSuccessor: 0 };
   for (const n of graph.nodes) {
@@ -270,15 +286,41 @@ function checkStanding(graph) {
       warn('standing', `${n.id} is PROPOSED but its own text claims it is done — "${(text.match(DONE_WORDS) || [''])[0]}" (${n.source_path})`);
     }
     // A module or an invariant IS the thing — its existence in the tree is the whole
-    // proof, and it needs nothing under it. Every other kind that claims `built` was
-    // only promoted there by `upgradeBuiltStanding` BECAUSE a module or invariant
-    // already backed it, so this check is a consistency guard, not a discovery: it
-    // should never fire today, and stays here for when a future hand adds another way
-    // to declare `built`.
+    // proof, and it needs nothing under it.
+    //
+    // THE SECOND WAY TO BE BUILT. `upgradeBuiltStanding` also promotes a shelf the
+    // engine resolves BY ID, because no module ever names the string `spearmen` — the
+    // id travels in the data. Such a page records WHY on the node, and the branch
+    // below re-derives that reason from the module pages' own recorded imports rather
+    // than trusting the flag.
+    //
+    // BE HONEST ABOUT WHAT THIS CATCHES: today, nothing. The promotion is itself
+    // guarded by the same import check, so a shelf wrongly listed as id-resolved never
+    // reaches `built` at all — it stays `proposed`, and this branch is unreachable.
+    // It was written expecting to catch a bad `ID_LOOKUP_SHELVES` entry and it cannot;
+    // that entry is a claim about HOW the engine consumes a shelf (resolved by id, or
+    // matched case by case like `orders.json`), and no scan can settle that. A human
+    // adding a shelf there is making a judgement no tool will check for them.
+    //
+    // It stays as a structural guard, for the same reason the branch below it does: if
+    // a future hand adds a third route to `built` that sets `standing_why` without
+    // proving the import, this catches it on the first run.
     const isThingItself = n.type === 'module' || n.type === 'invariant';
     if (n.standing === 'built' && !isThingItself) {
       const near = [...n.edges.map((e) => e.to), ...n.backlinks.map((b) => b.from)];
-      const backed = near.some((id) => id.startsWith('module:') || id.startsWith('invariant:'));
+      let backed = near.some((id) => id.startsWith('module:') || id.startsWith('invariant:'));
+      if (!backed && n.standing_why) {
+        const from = n.extra && n.extra.mined_from ? path.basename(n.extra.mined_from) : '';
+        backed = from ? [...importedDataFiles(graph)].includes(from) : false;
+        if (!backed) {
+          out.unbacked++;
+          warn(
+            'standing',
+            `${n.id} claims BUILT because "${n.standing_why}", but nothing in \`src/\` imports \`${from || '(no source file)'}\` — the reason is not evidence`,
+          );
+        }
+        continue;
+      }
       if (!backed) {
         out.unbacked++;
         warn('standing', `${n.id} is BUILT but no module or invariant stands under it — what is the claim checkable against?`);

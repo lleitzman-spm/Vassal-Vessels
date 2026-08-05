@@ -33,7 +33,9 @@ Two villages and a ford. Half the realm thinks it is beneath you, and they are l
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You name your cause]] — *its `consumes` names `a-border-quarrel` by id*
 
 ---
 

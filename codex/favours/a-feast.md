@@ -35,7 +35,10 @@ Twelve days and some money for three points of goodwill with everyone invited. N
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[It cools]] — *its `consumes` names `feast` by id*
+- [[You settle with them]] — *its `consumes` names `feast` by id*
 
 ---
 

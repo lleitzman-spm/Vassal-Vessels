@@ -144,7 +144,7 @@ The most important order in the game and the easiest to get wrong, because a cha
 
 ### transition
 
-- [[Charge!]] — *this page names "Charge" literally*
+- [[Charge!]] — *its `consumes` names `CHARGE` by id; this page names "Charge" literally*
 - [[It is carried out]] — *this page names "Charge" literally*
 - [[It is refused]] — *this page names "Charge" literally*
 - [[They break]] — *this page names "Charge" literally*

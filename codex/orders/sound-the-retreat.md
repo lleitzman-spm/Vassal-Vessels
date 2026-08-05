@@ -42,7 +42,9 @@ End the battle now, as a withdrawal rather than a rout. Units disengage in good 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[An army comes apart]] — *its `consumes` names `SOUND_RETREAT` by id*
 
 ---
 

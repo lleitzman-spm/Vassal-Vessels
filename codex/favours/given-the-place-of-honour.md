@@ -35,7 +35,10 @@ The front of the line is where reputations are made. Promising it costs nothing;
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[You make it right]] — *its `consumes` names `van-given` by id*
+- [[You settle with them]] — *its `consumes` names `van-given` by id*
 
 ---
 

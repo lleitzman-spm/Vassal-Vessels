@@ -37,7 +37,13 @@ Obedience is whether they will actually do what you tell them mid-battle — it 
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### guard
+
+- [[Heed enough to comply, not to conform]] — *its `cites` names `court.obedienceFormula.loyaltyWeight` by id; this page names `court.obedienceFormula` literally; +1 more*
+- [[Heed gone entirely]] — *its `cites` names `court.obedienceFormula.grievanceWeight` by id; its `cites` names `court.obedienceFormula.sameHouseAsCommander` by id; +5 more*
+- [[Heed high enough to simply obey]] — *its `cites` names `court.obedienceFormula.base` by id; its `cites` names `court.obedienceFormula.commanderAuthorityWeight` by id; +2 more*
+- [[Heed low enough to be a problem]] — *its `cites` names `court.obedienceFormula.prideWeight` by id; its `cites` names `court.obedienceFormula.rivalOfCommander` by id; +3 more*
+- [[Heed low enough to stall]] — *its `cites` names `court.obedienceFormula.grievanceWeight` by id; its `cites` names `court.obedienceFormula.prideWeight` by id; +3 more*
 
 ---
 

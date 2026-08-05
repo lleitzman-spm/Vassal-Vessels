@@ -34,7 +34,9 @@ They arrived in time, which is the good news. They arrived exhausted, which is t
 
 ## Backlinks
 
-*Nothing in the Codex points here. An orphan page is worse than a missing one — it exists, it is correct, and no reader will ever reach it. `npm run codex:lint` counts these.*
+### transition
+
+- [[They take the road]] — *its `consumes` names `marched-through-the-night` by id*
 
 ---
 
